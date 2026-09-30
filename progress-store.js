@@ -2,7 +2,7 @@
 (function (root) {
   'use strict';
   root.createProgressStore = function ({ key, normalize, onStatus, onExternal }) {
-    let db = null, revision = 0, queue = Promise.resolve(), latest = null, persistRequested = false;
+    let db = null, revision = 0, queue = Promise.resolve(), persistRequested = false;
     const emit = (state, text) => onStatus?.({ state, text });
     const parse = value => {
       try {
@@ -54,18 +54,20 @@
       try { root.navigator?.storage?.persist?.().catch(() => {}); } catch {}
     }
     async function load() {
-      const local = readLocal();
+      const initialLocal = readLocal();
       db = await openDatabase();
       if (db) db.onversionchange = () => { db.close(); db = null; };
       let backup = null;
       try { backup = parse(await databaseRequest('readonly')); } catch {}
+      // Another tab may save while IndexedDB opens; reread before restoring.
+      const local = readLocal() || initialLocal;
       const selected = backup && (!local || backup.revision > local.revision) ? backup : local;
       if (selected) {
         revision = selected.revision;
-        latest = { ...selected.data, _savedAt: revision };
-        const localOK = writeLocal(latest);
+        const restored = { ...selected.data, _savedAt: revision };
+        const localOK = writeLocal(restored);
         let backupOK = false;
-        try { await databaseRequest('readwrite', latest); backupOK = true; } catch {}
+        try { await databaseRequest('readwrite', restored); backupOK = true; } catch {}
         emit(localOK || backupOK ? 'saved' : 'error', localOK || backupOK ? 'Jornada restaurada · salvamento automático' : 'Não foi possível salvar neste navegador. Seus próximos registros podem se perder ao fechar.');
         return selected.data;
       }
@@ -83,7 +85,6 @@
     function save(data) {
       revision = Math.max(Date.now(), revision + 1);
       const record = { ...normalize(data), _savedAt: revision };
-      latest = record;
       const localOK = writeLocal(record);
       emit('saving', 'Salvando sua jornada…');
       protectStorage();
@@ -98,19 +99,21 @@
       queue = pending.catch(() => false);
       return pending;
     }
-    root.addEventListener?.('storage', event => {
-      if (event.key !== key || !event.newValue) return;
-      const record = parse(event.newValue);
+    function receive(record) {
       if (!record || record.revision <= revision) return;
       revision = record.revision;
-      latest = { ...record.data, _savedAt: revision };
       onExternal?.(record.data);
       emit('saved', 'Jornada atualizada por outra aba');
+    }
+    root.addEventListener?.('storage', event => {
+      if (event.key === key && event.newValue) receive(parse(event.newValue));
     });
-    // Flush the synchronous copy again when the app goes into the background.
+    // A suspended mobile tab can miss storage events. Refresh it on return.
+    // Saving already writes synchronously; never flush an old snapshot on hide.
     root.document?.addEventListener('visibilitychange', () => {
-      if (root.document.visibilityState === 'hidden' && latest) writeLocal(latest);
+      if (root.document.visibilityState === 'visible') receive(readLocal());
     });
+    root.addEventListener?.('pageshow', () => receive(readLocal()));
     return { load, save };
   };
 })(typeof window === 'undefined' ? globalThis : window);
