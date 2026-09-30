@@ -1,4 +1,4 @@
-(() => {
+(async () => {
   const areas = rawAreas.filter((area, i) => rawAreas.findIndex(other => other[0] === area[0]) === i);
   areas.push(['black','Black City','city',1268,570,'post','Pós-Liga','Cidade exclusiva de Pokémon Black; não há Pokémon selvagens comuns. Treinadores e lojas mudam conforme sua atividade.','Vença a Liga e siga pela Rota 15 ou pela Rota 16.','']);
   areas.push(['anv','Anville Town','city',40,156,'story','Nimbasa','Cidade ligada ao Battle Subway; sem encontros selvagens comuns.','Use o trem de Nimbasa City.','']);
@@ -99,9 +99,25 @@
   };
   const storageKey='unova-black-field-guide-v2';
   const defaults={badges:0,league:false,surf:false,strength:false,cobalion:false,rod:false,season:'all',trades:false,events:false,starter:'',fossil:'',caught:[]};
-  let progress={...defaults};
-  try { const saved=JSON.parse(localStorage.getItem(storageKey)); if(saved&&typeof saved==='object') progress={...defaults,...saved,caught:Array.isArray(saved.caught)?[...new Set(saved.caught.filter(name=>regionalSet.has(name)||extraSpecies.includes(name)))]:[]}; } catch {}
-  const save=()=>{try{localStorage.setItem(storageKey,JSON.stringify(progress))}catch{}};
+  function normalizeProgress(value) {
+    const clean={...defaults,caught:[]};
+    if(!value||typeof value!=='object')return clean;
+    clean.caught=Array.isArray(value.caught)?[...new Set(value.caught.filter(name=>allSpecies.includes(name)))]:[];
+    if(Number.isInteger(value.badges)&&value.badges>=0&&value.badges<=8)clean.badges=value.badges;
+    for(const key of ['league','surf','strength','cobalion','rod','trades','events'])clean[key]=value[key]===true;
+    if(['all','Spring','Summer','Autumn','Winter'].includes(value.season))clean.season=value.season;
+    if(['Snivy','Tepig','Oshawott'].includes(value.starter))clean.starter=value.starter;
+    if(['Tirtouga','Archen'].includes(value.fossil))clean.fossil=value.fossil;
+    return clean;
+  }
+  let progress=normalizeProgress(null), progressReady=false;
+  const progressStore=createProgressStore({
+    key:storageKey,normalize:normalizeProgress,
+    onStatus:({state,text})=>{const status=document.getElementById('save-status');status.dataset.state=state;status.textContent=text;},
+    onExternal:value=>{progress=value;if(progressReady){renderProgress();renderDexList();applyFilters();renderDetail();}}
+  });
+  progress=(await progressStore.load())||progress;
+  const save=()=>progressStore.save(progress);
   const caught=()=>new Set(progress.caught);
   const stage={nu:0,r1:0,acc:0,r2:0,str:0,dream:0,r3:1,well:1,nac:1,pin:1,sky:2,cas:2,r4:3,des:3,rel:3,nim:3,r5:4,draw:4,dri:4,cold:4,r6:5,charge:5,mis:5,mc:5,r7:6,ct:6,tw:6,ici:6,dt:7,moor:6,r8:7,tube:7,r9:7,ope:7,r10:8,vr:8,league:8,castle:8,r16:3,lost:3,r17:0,r18:0,p2:0,torn:7,swords:5,lib:0,events:0};
   const firstRank=new Map();
@@ -368,7 +384,7 @@
     save();renderProgress();applyFilters();renderDetail();
   });
   $('export-progress').onclick=()=>{const blob=new Blob([JSON.stringify(progress,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='unova-black-progresso.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
-  $('import-progress').onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{const incoming=JSON.parse(await file.text());if(!Array.isArray(incoming.caught)||!Number.isInteger(incoming.badges)||incoming.badges<0||incoming.badges>8)throw Error('Formato inválido');progress={...defaults,...incoming,caught:[...new Set(incoming.caught.filter(name=>allSpecies.includes(name)))]};save();renderProgress();renderDexList();applyFilters();renderDetail();}catch{alert('Arquivo de progresso inválido.')}e.target.value='';};
+  $('import-progress').onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{const incoming=JSON.parse(await file.text());if(!Array.isArray(incoming.caught)||!Number.isInteger(incoming.badges)||incoming.badges<0||incoming.badges>8)throw Error('Formato inválido');progress=normalizeProgress(incoming);save();renderProgress();renderDexList();applyFilters();renderDetail();}catch{alert('Arquivo de progresso inválido.')}e.target.value='';};
   document.querySelectorAll('.filter').forEach(button => button.onclick = () => { phase=button.dataset.phase; document.querySelectorAll('.filter').forEach(other => {const on=other===button; other.classList.toggle('active',on); other.setAttribute('aria-pressed',String(on));}); applyFilters(); });
   search.addEventListener('input',applyFilters);
   search.addEventListener('keydown',e=>{if(e.key==='Enter'&&visible.length){e.preventDefault();select(visible[0][0]);search.blur();}});
@@ -384,5 +400,6 @@
   viewport.addEventListener('scroll',updateMinimap,{passive:true});
   $('recenter').onclick=()=>centerOn('nu');
   window.addEventListener('resize',()=>{if(!mobile())closeSheet()});
+  progressReady=true;
   renderProgress();applyFilters(); renderDetail(); renderDexList(); requestAnimationFrame(()=>centerOn('r1',false));
 })();
