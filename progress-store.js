@@ -68,7 +68,7 @@
         const localOK = writeLocal(restored);
         let backupOK = false;
         try { await databaseRequest('readwrite', restored); backupOK = true; } catch {}
-        emit(localOK || backupOK ? 'saved' : 'error', localOK || backupOK ? 'Jornada restaurada · salvamento automático' : 'Não foi possível salvar neste navegador. Seus próximos registros podem se perder ao fechar.');
+        emit(localOK || backupOK ? 'saved' : 'error', localOK || backupOK ? 'Seu progresso foi carregado · salvamento automático' : 'Não foi possível salvar neste navegador. Seus próximos registros podem se perder ao fechar.');
         return selected.data;
       }
       // Check write access without creating or overwriting a journey.
@@ -92,7 +92,7 @@
         let backupOK = false;
         try { await databaseRequest('readwrite', record); backupOK = true; } catch {}
         if (revision === record._savedAt) {
-          emit(localOK || backupOK ? 'saved' : 'error', localOK || backupOK ? 'Salvo neste aparelho · automaticamente' : 'Não foi possível salvar. Seus registros estão só nesta aba e podem se perder ao fechar.');
+          emit(localOK || backupOK ? 'saved' : 'error', localOK || backupOK ? 'Progresso salvo neste aparelho' : 'Não foi possível salvar. Seus registros estão só nesta aba e podem se perder ao fechar.');
         }
         return localOK || backupOK;
       });
@@ -103,7 +103,7 @@
       if (!record || record.revision <= revision) return;
       revision = record.revision;
       onExternal?.(record.data);
-      emit('saved', 'Jornada atualizada por outra aba');
+      emit('saved', 'Progresso atualizado com as alterações de outra aba');
     }
     root.addEventListener?.('storage', event => {
       if (event.key === key && event.newValue) receive(parse(event.newValue));
