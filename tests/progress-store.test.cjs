@@ -57,3 +57,22 @@ test('corrupt local record is recovered from the second store',async()=>{
   const b=browser();await b.store.load();await b.store.save({caught:['Patrat']});b.local.set(key,'invalid json');
   assert.deepEqual((await browser(b).store.load()).caught,['Patrat']);
 });
+test('backgrounding an old tab does not overwrite newer captures',async()=>{
+  const b=browser();await b.store.load();await b.store.save({caught:['Patrat']});
+  const newer={caught:['Patrat','Audino'],badges:2,_savedAt:Date.now()+1000};
+  b.local.set(key,JSON.stringify(newer));
+  b.window.document.visibilityState='hidden';b.events.visibilitychange();
+  assert.deepEqual(JSON.parse(b.local.get(key)).caught,['Patrat','Audino']);
+});
+test('startup reads changes made while opening the recovery database',async()=>{
+  const local=new Map([[key,JSON.stringify({caught:['Patrat'],_savedAt:1})]]);
+  const b=browser({local});const pending=b.store.load();
+  local.set(key,JSON.stringify({caught:['Patrat','Audino'],badges:2,_savedAt:2}));
+  assert.deepEqual((await pending).caught,['Patrat','Audino']);
+});
+test('resuming a suspended tab refreshes its journey before the next edit',async()=>{
+  const b=browser();await b.store.load();await b.store.save({caught:['Patrat']});
+  b.local.set(key,JSON.stringify({caught:['Patrat','Audino'],badges:2,_savedAt:Date.now()+1000}));
+  b.window.document.visibilityState='visible';b.events.visibilitychange();
+  assert.deepEqual(b.events.external.caught,['Patrat','Audino']);
+});
