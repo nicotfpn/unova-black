@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="460" viewBox="0 0 1400 460" role="img" aria-label="Unova Black — Guia de campo">
+<rect width="1400" height="460" rx="18" fill="#182b31"/>
+<svg x="780" y="0" width="620" height="460" viewBox="0 0 1712 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <pattern id="paper" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity=".18" stroke-width="1"/></pattern>
+    <pattern id="sea-lines" width="70" height="50" patternUnits="userSpaceOnUse"><path d="M8 24h27m15 0h10" fill="none" stroke="#dff4ed" stroke-opacity=".36" stroke-width="2"/></pattern>
+    <pattern id="forest-pattern" width="42" height="42" patternUnits="userSpaceOnUse"><rect width="42" height="42" fill="#9ebc8d"/><path d="M12 8l-8 14h16zM30 19l-7 12h14z" fill="none" stroke="#789a75" stroke-width="2"/><path d="M12 22v7m18 2v5" stroke="#789a75" stroke-width="2"/></pattern>
+    <pattern id="sand-pattern" width="44" height="38" patternUnits="userSpaceOnUse"><rect width="44" height="38" fill="#e7c585"/><path d="M6 19q7-5 14 0m8-10q5-4 11 0" fill="none" stroke="#c4a56d" stroke-width="2"/></pattern>
+    <path id="road-south" d="M1550 1018 L1550 883 L1521 750 L1436 750 L1352 750 Q1322 782 1294 812 L1135 767 L878 832 L878 685 L878 570"/>
+    <path id="road-west" d="M878 570 L689 568 L489 568 Q424 529 367 489 L275 492 L259 410 Q308 371 365 328 L488 246 L593 246 L702 246 L787 246 L878 246"/>
+    <path id="road-league" d="M878 246 L980 166 L1085 116 L1134 57"/>
+    <path id="road-east" d="M878 246 L1027 246 L1112 246 L1188 246 L1268 246 L1386 327 L1498 410 L1377 489 L1268 570 L1207 570 L1115 570 L1016 570 L878 570"/>
+    <path id="sea-road" d="M1549 948 Q1460 926 1380 949 Q1304 963 1240 1007"/>
+  </defs>
+  <rect width="1712" height="1080" fill="#b9dadd"/>
+  <rect width="1712" height="1080" fill="url(#sea-lines)"/>
+  <!-- The large land mass and two central waterways follow the BW town-map topology. -->
+  <path d="M0 0H1712V906Q1585 870 1500 897Q1380 875 1260 920Q1125 908 1032 971Q950 1030 854 1010Q690 920 548 929Q356 887 215 949L0 948Z" fill="#e7dfbb" stroke="#849c86" stroke-width="5"/>
+  <path d="M610-5Q645 76 636 148Q632 209 663 262Q700 326 675 384Q652 445 672 513Q691 582 638 649Q589 706 593 770Q594 839 554 911Q516 1007 461 1080H754Q762 1023 748 961Q729 894 753 835Q786 759 760 694Q737 632 759 560Q778 487 749 421Q720 355 729 294Q731 221 694 162Q667 92 684-5Z" fill="#b9dadd" stroke="#839f99" stroke-width="5"/>
+  <path d="M944-5Q948 80 958 145Q974 215 958 275Q947 345 981 423Q1008 491 997 568Q987 632 1045 695Q1081 741 1067 819Q1059 902 1083 1080H1283Q1279 1008 1215 935Q1181 892 1185 815Q1192 752 1158 695Q1114 628 1119 558Q1126 491 1091 429Q1054 357 1073 294Q1083 212 1035 138Q1003 71 1022-5Z" fill="#b9dadd" stroke="#839f99" stroke-width="5"/>
+  <path d="M1712 276Q1609 319 1572 388Q1544 450 1586 525Q1624 598 1594 664Q1570 729 1615 795Q1674 859 1712 870V276Z" fill="#b9dadd" stroke="#839f99" stroke-width="5"/>
+  <path d="M1430 828Q1510 794 1605 829Q1668 881 1652 987Q1627 1058 1540 1080H1379Q1371 1020 1402 965Q1418 914 1430 828Z" fill="#e7dfbb" stroke="#849c86" stroke-width="5"/>
+  <path d="M420 872Q464 855 511 883Q534 932 502 975Q452 984 420 949Z" fill="#e7dfbb" stroke="#849c86" stroke-width="5"/>
+  <path d="M1175 951Q1224 925 1282 954Q1310 1020 1282 1080H1148Q1139 1016 1175 951Z" fill="#e7dfbb" stroke="#849c86" stroke-width="5"/>
+  <path d="M0 0H1712V1080H0Z" fill="url(#paper)"/>
+  <!-- Forests, desert, high ground and the central lake are restrained map cues. -->
+  <g fill="url(#forest-pattern)" stroke="#759b7c" stroke-width="3">
+    <path d="M64 225Q157 176 244 233Q301 283 257 360Q159 386 71 339Z"/>
+    <path d="M277 690Q388 646 469 690Q495 783 413 835Q321 846 268 775Z"/>
+    <path d="M1165 64Q1274 34 1396 102Q1409 189 1343 216Q1239 207 1159 164Z"/>
+    <path d="M1429 545Q1528 521 1587 587Q1576 685 1497 723Q1431 681 1429 545Z"/>
+  </g>
+  <path d="M702 590Q769 558 828 596L836 747Q752 786 693 736Z" fill="url(#sand-pattern)" stroke="#b8a371" stroke-width="4"/>
+  <g fill="#aeb1a2" stroke="#808f86" stroke-width="3"><path d="M270 154l75-94 75 94z"/><path d="M324 176l60-70 66 70z"/><path d="M422 384l85-96 72 96z"/></g>
+  <g fill="none" stroke="#d0c8a6" stroke-width="2" opacity=".7"><path d="M40 485Q160 420 240 448M64 515Q160 466 244 485M1169 743Q1262 718 1360 760M1196 782Q1281 763 1353 796M60 677Q149 640 228 663"/></g>
+  <ellipse cx="875" cy="420" rx="115" ry="74" fill="#b9dadd" stroke="#839f99" stroke-width="5"/>
+  <ellipse cx="875" cy="420" rx="51" ry="28" fill="#e7dfbb" stroke="#849c86" stroke-width="4"/>
+  <!-- Small town-map landmarks keep the playable routes clear. -->
+  <g fill="#bcab80" stroke="#807f6b" stroke-width="2" opacity=".92">
+    <path d="M790 858h24v45h-24zM820 845h26v58h-26zM851 868h23v35h-23zM883 855h30v48h-30zM920 871h20v32h-20z"/>
+    <path d="M819 538h19v25h-19zM843 526h19v37h-19zM893 529h25v34h-25zM923 540h18v23h-18z"/>
+    <path d="M1291 521h21v46h-21zM1318 509h28v58h-28zM1353 530h20v37h-20z" fill="#8e9290"/>
+  </g>
+  <g fill="#e4d6a7" stroke="#7e806e" stroke-width="3"><path d="M1097 53l37-23 38 23v27h-75z"/><path d="M1108 54h54v10h-54z" fill="#a48869"/></g>
+  <g fill="none" stroke="#ffffff" stroke-opacity=".42" stroke-width="2"><path d="M782 924h171M1280 584h111M800 506h145"/></g>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#566c61" stroke-width="28"><use href="#road-south"/><use href="#road-west"/><use href="#road-league"/><use href="#road-east"/></g>
+    <g stroke="#e7bb69" stroke-width="19"><use href="#road-south"/><use href="#road-west"/><use href="#road-league"/><use href="#road-east"/></g>
+    <g stroke="#f7e6b5" stroke-width="7"><use href="#road-south"/><use href="#road-west"/><use href="#road-league"/><use href="#road-east"/></g>
+    <use href="#sea-road" stroke="#3e7583" stroke-width="17"/>
+    <use href="#sea-road" stroke="#f7e6b5" stroke-width="9" stroke-dasharray="21 13"/>
+    <g stroke="#735f4d" stroke-width="6"><path d="M1135 742v50m24-44v45M687 545v46m26-47v48M682 220v52m25-52v52M1097 545v50m30-49v50"/></g>
+    <g stroke="#789d78" stroke-width="8" stroke-dasharray="12 9">
+      <path d="M878 685L766 651L776 613"/><path d="M365 328L352 292"/><path d="M1268 246L1323 157"/>
+    </g>
+  </g>
+  <g fill="#173e43" font-family="system-ui, sans-serif" font-weight="900" letter-spacing="5" opacity=".72">
+    <text x="785" y="327" font-size="30">UNOVA</text><text x="235" y="1024" font-size="24">MAR DE UNOVA</text>
+  </g>
+  <g transform="translate(85 75)" fill="#1b4b50" stroke="#1b4b50"><path d="M0-33L12 8 0 1-12 8Z"/><path d="M0 33L12-8 0-1-12-8Z" fill="none" stroke-width="3"/><circle r="3" fill="#e7dfbb"/><text x="-6" y="-43" font-family="system-ui,sans-serif" font-size="18" font-weight="800" stroke="none">N</text></g>
+</svg>
+<rect x="0" y="0" width="780" height="460" fill="#182b31"/>
+<path d="M54 60h42" stroke="#dfb877" stroke-width="4"/>
+<text x="54" y="101" fill="#dfb877" font-family="Arial, sans-serif" font-size="17" letter-spacing="5">GUIA DE CAMPO / POKÉMON BLACK</text>
+<text x="50" y="223" fill="#f5eee0" font-family="Arial, sans-serif" font-weight="700" font-size="110" letter-spacing="-5">UNOVA</text>
+<text x="55" y="279" fill="#f5eee0" font-family="Arial, sans-serif" font-size="30">Cada rota. Cada encontro. Sua jornada.</text>
+<path d="M54 321h668" stroke="#496066"/>
+<text x="54" y="369" fill="#b9c7c4" font-family="Arial, sans-serif" font-size="17" letter-spacing="2">MAPA INTERATIVO  ·  CAPTURAS  ·  POKÉDEX</text>
+<rect x="54" y="406" width="10" height="10" fill="#cf5c4b"/>
+<text x="78" y="416" fill="#b9c7c4" font-family="Arial, sans-serif" font-size="13">UM GUIA PARA EXPLORAR NO SEU RITMO</text>
+</svg>
