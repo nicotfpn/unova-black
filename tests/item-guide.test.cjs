@@ -19,7 +19,7 @@ test('each item has a physical guide location, method, instruction and source',(
  const map=require('../map-data.js');
  for(const [area,list] of Object.entries(tables)){
   assert.ok(map.coordinates[area],area);
-  for(const row of list){assert.ok(row.id&&row.name&&row.where.length>15,area);assert.ok(['ground','hidden','gift','shop','bp','event','phenomenon'].includes(row.method),row.name);assert.match(row.source,/^https:\/\/(www\.)?(serebii\.net|smogon\.com)\//);assert.ok(!/Black 2|White 2|Dark Stone|Reveal Glass/.test(row.name));}
+  for(const row of list){assert.ok(row.id&&row.name&&row.where.length>15,area);assert.ok(['ground','hidden','gift','shop','bp','event','phenomenon'].includes(row.method),row.name);assert.match(row.source,/^https:\/\/(www\.)?(serebii\.net|smogon\.com|bulbapedia\.bulbagarden\.net)\//);assert.ok(!/Black 2|White 2|Dark Stone|Reveal Glass/.test(row.name));}
  }
 });
 test('Celestial Tower items are correctly attributed to their floors',()=>{
@@ -48,4 +48,15 @@ test('inventory starts collapsed, filters machines, and only expands eight initi
 test('collected machine status updates independently from other items',()=>{
  const count=guide.counts('ct',['TM61']);assert.equal(count.obtained,1);
  assert.match(guide.render('ct',['TM61']),/data-item-id="TM61" aria-pressed="true"/);
+});
+
+test('NPC machines are gifts and updated feather names preserve collection ids',()=>{
+ for(const code of ['TM31','TM43','TM44','TM45','TM57'])assert.equal(rows.find(r=>r.code===code).method,'gift');
+ assert.equal(rows.find(r=>r.code==='TM09').method,'ground');
+ assert.match(rows.find(r=>r.code==='TM10').where,/115/);
+ assert.equal(tables.draw.length,7);
+ const wing=tables.draw.find(r=>r.name==='Health Wing');
+ assert.deepEqual(guide.normalizeCollected(wing.legacyIds),[wing.id]);
+ assert.ok(guide.matches(wing,'Health Feather'));
+ assert.ok(guide.matches(rows.find(r=>r.name==='Fire Stone'),'pedra de fogo'));
 });

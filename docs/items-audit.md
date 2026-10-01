@@ -1,6 +1,6 @@
 # Itens por local — Pokémon Black
 
-A primeira versão reúne 706 ocorrências de itens em 53 locais físicos do mapa. Isso inclui itens fixos, escondidos, presentes, TMs/HMs, compras importantes e prêmios por BP. Ocorrências não são espécies de itens distintas: um mesmo item pode aparecer em várias áreas, andares ou métodos.
+A primeira versão reúne 699 ocorrências de itens em 53 locais físicos do mapa. Isso inclui itens fixos, escondidos, presentes, TMs/HMs, compras importantes e prêmios por BP. Ocorrências não são espécies de itens distintas: um mesmo item pode aparecer em várias áreas, andares ou métodos.
 
 ## Máquinas
 
@@ -23,3 +23,5 @@ As marcações de itens usam o mesmo registro local da jornada, sem mudar a chav
 - [Serebii Pokéarth — Unova](https://www.serebii.net/pokearth/unova/): itens de campo por área e andar; cada ocorrência conserva seu endereço de origem.
 - [Smogon — BW TM/HM Location Guide](https://www.smogon.com/ingame/guides/bw-tms): obtenção das máquinas, presentes e indisponibilidade da TM95.
 - [Smogon — Black/White Items Locations](https://www.smogon.com/ingame/guides/bw_items): itens de evolução, presentes, lojas, BP e itens de exploração.
+
+A revisão final unificou Feather/Wing (o mesmo item com nomes de gerações diferentes), corrigiu as TMs dadas por personagens e conferiu TM10 em Nuvema com 115 espécies vistas. IDs antigos das penas são migrados para preservar marcações feitas antes dessa correção.
