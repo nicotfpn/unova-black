@@ -1,6 +1,6 @@
 # Itens por local — Pokémon Black
 
-A primeira versão reúne 699 ocorrências de itens em 53 locais físicos do mapa. Isso inclui itens fixos, escondidos, presentes, TMs/HMs, compras importantes e prêmios por BP. Ocorrências não são espécies de itens distintas: um mesmo item pode aparecer em várias áreas, andares ou métodos.
+A primeira versão reúne 703 ocorrências de itens em 53 locais físicos do mapa. Isso inclui itens fixos, escondidos, presentes, TMs/HMs, compras importantes e prêmios por BP. Ocorrências não são espécies de itens distintas: um mesmo item pode aparecer em várias áreas, andares ou métodos.
 
 ## Máquinas
 

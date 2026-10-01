@@ -75,3 +75,11 @@ Este é um projeto de fã. Pokémon e os nomes relacionados pertencem aos seus r
 ### Um roteiro para acompanhar a viagem
 
 A história tem um roteiro dividido em etapas, com os lugares na ordem da jornada e visitas extras separadas. Cada parada abre sua ficha no mapa. As fichas situam o local na aventura e explicam como procurar Pokémon, pegar itens e reconhecer o que ainda depende de progresso.
+
+### Ferramentas para continuar a aventura
+
+Além de consultar o mapa, você pode acompanhar o próximo objetivo, marcar tarefas e descobrir onde vale voltar com Surf, Strength ou a vara de pesca. Uma equipe de até seis Pokémon reúne as rotas de obtenção e as evoluções; buscas de itens e golpes ajudam a preparar cada visita.
+
+As ferramentas também explicam por que um encontro pode não acontecer, mostram serviços úteis, organizam a agenda do jogo e separam as pendências da Pokédex por método de obtenção. Um modo opcional esconde etapas futuras. Cada local tem espaço para seu próprio lembrete.
+
+Depois da primeira abertura com conexão, os arquivos do guia ficam disponíveis para consulta sem internet. Capturas, itens, equipe, tarefas e notas pertencem ao aparelho de cada jogador. A sincronização por conta foi preparada e ainda aguarda ativação; o salvamento local continua independente dela.
