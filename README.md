@@ -4,12 +4,13 @@
 
 <p align="center">
   <strong>Um companheiro de viagem para Pokémon Black.</strong><br>
-  Explore Unova, descubra onde encontrar cada espécie e acompanhe as suas capturas.
+  Explore Unova, encontre Pokémon e itens e acompanhe a sua jornada.
 </p>
 
 <p align="center">
   <a href="#explore-unova">Mapa</a> &nbsp; / &nbsp;
   <a href="#saiba-como-capturar">Encontros</a> &nbsp; / &nbsp;
+  <a href="#leve-o-que-precisa">Itens</a> &nbsp; / &nbsp;
   <a href="#uma-lista-para-a-sua-jornada">Pokédex</a> &nbsp; / &nbsp;
   <a href="#o-progresso-é-seu">Sua jornada</a>
 </p>
@@ -20,7 +21,7 @@
 
 De Nuvema aos caminhos que se abrem depois da Liga, o mapa reúne cidades, rotas e locais especiais em uma visão navegável. Toque em um ponto para abrir a ficha da área; arraste, aproxime ou volte à visão completa para se localizar.
 
-A busca aceita **nomes de Pokémon, lugares e números da Pokédex**. Os filtros ajudam a encontrar áreas da história, do pós-Liga, lendários e capturas compatíveis com o avanço informado na sua jornada.
+A busca aceita **nomes de Pokémon, itens, lugares, números da Pokédex e códigos de TMs/HMs**. Os filtros ajudam a encontrar áreas da história, do pós-Liga, lendários e capturas compatíveis com o avanço informado na sua jornada.
 
 ## Saiba como capturar
 
@@ -37,6 +38,14 @@ Encontrar a rota é só o começo. Cada ficha apresenta os encontros por método
 
 As fichas diferenciam encontros selvagens das outras formas de obter uma espécie. Exclusivos de White e eventos antigos também recebem contexto: aparecer na Pokédex não significa estar disponível para capturar em uma partida comum de Black.
 
+## Leve o que precisa
+
+Cada local também tem uma seção de **itens, TMs e HMs**. Ela fica recolhida enquanto você consulta os encontros: abra quando quiser conferir o que levar da área, filtre pelas máquinas ou pelos outros itens e marque o que já conseguiu.
+
+As fichas distinguem **itens no chão, escondidos, presentes, compras, trocas por BP e itens que podem sair de poeira ou sombras**. Quando a obtenção depende da estação, de um personagem ou de um trecho da história, a orientação aparece junto do item.
+
+Procure `TM61`, `Fly` ou `Fire Stone` na busca para encontrar os locais correspondentes. As seis HMs e as 94 TMs disponíveis em uma partida normal estão no guia; a TM95 recebe a indicação de indisponível, porque a Lock Capsule nunca foi distribuída oficialmente em Black/White.
+
 ## Uma lista para a sua jornada
 
 A **Pokédex original de Unova, de #000 a #155**, pode ser consultada pela numeração do jogo ou pela ordem da jornada. Há também uma lista das espécies antigas presentes no guia, com sua numeração Nacional.
@@ -45,7 +54,7 @@ Marque as espécies registradas, acompanhe a contagem e procure o próximo objet
 
 ## O progresso é seu
 
-Sua jornada guarda Pokémon marcados, insígnias, inicial, fóssil, estação e condições como acesso a Surf ou conclusão da Liga. Essas escolhas ajudam o guia a mostrar as capturas disponíveis no seu momento do jogo.
+Sua jornada guarda Pokémon e itens marcados, insígnias, inicial, fóssil, estação e condições como acesso a Surf ou conclusão da Liga. Essas escolhas ajudam o guia a mostrar as capturas disponíveis no seu momento do jogo.
 
 **Cada pessoa salva o próprio progresso no seu celular ou navegador.** Os registros ficam no aparelho, sem conta ou cadastro. Você pode fechar a página e voltar depois; para levar a jornada a outro dispositivo ou guardar uma cópia, use **Exportar progresso** e **Importar arquivo**.
 
@@ -56,6 +65,8 @@ O site se adapta ao computador e ao celular. Adicionar um atalho à tela inicial
 ### Fontes e créditos
 
 Os encontros usam como referência o [Pokéarth, da Serebii](https://www.serebii.net/pokearth/unova/), com links nas fichas para consultar as tabelas de Black. As porcentagens se referem ao método de encontro indicado.
+
+Os itens usam as tabelas de Black do Pokéarth e os guias de [TMs/HMs](https://www.smogon.com/ingame/guides/bw-tms) e [itens de Black/White](https://www.smogon.com/ingame/guides/bw_items) da Smogon. Cada ficha de item tem seu próprio link de referência.
 
 O mapa vetorial e a arte deste README utilizam um traçado inspirado no [mapa de Unova de PatoAnidae02](https://commons.wikimedia.org/wiki/File:UnovaMap.png), sob [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
