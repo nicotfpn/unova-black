@@ -52,7 +52,7 @@
       <path d="M878 685L766 651L776 613"/><path d="M367 489L417 442"/><path d="M1386 327L1323 157"/>
       <path d="M1521 750H1598M1436 750L1439 699M489 568L492 649M365 328V256M365 328L433 287L488 246M488 246L435 157M593 246V183M1016 570L973 516M1377 489L1360 410M787 246L755 274M1134 57L1192 86"/>
     </g>
-    <path d="M1498 410H1618V484M1240 1007L1130 1010M878 832Q658 842 488 930" stroke="#3e7583" stroke-width="5" stroke-dasharray="10 9"/>
+    <path d="M1498 410H1618V484M1240 1007L1380 864L1380 949M878 832Q658 842 488 930" stroke="#3e7583" stroke-width="5" stroke-dasharray="10 9"/>
     <path d="M878 570Q188 535 100 156" stroke="#789d78" stroke-width="4" stroke-dasharray="5 12"/>
   </g>
   <g fill="#173e43" font-family="system-ui, sans-serif" font-weight="900" letter-spacing="5" opacity=".72">
