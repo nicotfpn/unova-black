@@ -3,10 +3,7 @@
   areas.push(['black','Black City','city',1268,570,'post','Pós-Liga','Cidade exclusiva de Pokémon Black; não há Pokémon selvagens comuns. Treinadores e lojas mudam conforme sua atividade.','Vença a Liga e siga pela Rota 15 ou pela Rota 16.','']);
   areas.push(['anv','Anville Town','city',40,156,'story','Nimbasa','Cidade ligada ao Battle Subway; sem encontros selvagens comuns.','Use o trem de Nimbasa City.','']);
   areas.push(['challenger',"Challenger’s Cave",'special',755,274,'post','Pós-Liga','Caverna de treino com encontros em pisos diferentes.','Entrada na Rota 9 após vencer a Liga. Flash ajuda a explorar.','',"challenger'scave"]);
-  // Coordinates measured against the Black/White region map (1712 × 1080).
-  const coords = {
-    nu:[1550,1018],r1:[1549,948],acc:[1550,883],r2:[1533,819],str:[1521,750],dream:[1598,749],r3:[1436,750],well:[1439,699],nac:[1352,750],pin:[1294,812],sky:[1135,767],cas:[878,832],r4:[877,685],des:[766,651],rel:[776,613],nim:[878,570],r5:[689,568],draw:[625,568],dri:[489,568],cold:[492,649],r6:[367,489],charge:[275,492],mis:[259,410],mc:[352,292],r7:[365,328],ct:[475,327],tw:[456,450],ici:[488,246],moor:[582,207],tube:[702,246],dt:[435,157],r8:[593,246],r9:[787,246],ope:[878,246],r10:[980,166],vr:[1085,116],league:[1134,57],castle:[1192,86],r11:[1027,246],vb:[1112,246],r12:[1188,246],lac:[1268,246],und:[1498,410],r13:[1386,327],chasm:[1323,157],r14:[1377,489],ab:[1439,696],r15:[1207,570],r16:[1016,570],lost:[973,516],marv:[1115,570],r17:[1380,949],r18:[1240,1007],p2:[1130,1010],lib:[488,930],black:[1268,570],anv:[40,156]
-  };
+  const coords = UnovaMap.coordinates;
   areas.forEach(area => { if (coords[area[0]]) [area[3],area[4]]=coords[area[0]]; });
   const byId = new Map(areas.map(area => [area[0], area]));
   for (const id of ['r17','r18']) { byId.get(id)[5]='story'; byId.get(id)[6]='Opcional com Surf'; }
@@ -66,19 +63,18 @@
     return {number:'Nat. #'+String(nat).padStart(3,'0'),scope:'Pokédex Nacional'};
   };
   const speciesHTML = name => { const n=dex(name); return `<span class="pokemon-chip"><b class="dex-no${n.scope==='Pokédex Nacional'?' national':''}" title="${n.scope}">${esc(n.number)}</b>${esc(name)}</span>`; };
-  const shownSpecials = new Set(['pin','sky','des','rel','draw','charge','mc','tube','vr','vb','chasm','marv','challenger']);
-  const onMap = area => area[2] === 'route' || area[2] === 'city' && area[0] !== 'anv' || shownSpecials.has(area[0]);
+  const onMap = UnovaMap.onMap;
   const mappedAreas = areas.filter(onMap);
-  const mapAnchor = {anv:'nim',dream:'str',well:'r3',cold:'dri',ct:'r7',tw:'r7',moor:'ici',dt:'ici',lost:'r16',p2:'r18',lib:'cas',castle:'league',torn:'r7',swords:'mc',events:'lib',ab:'r14',challenger:'r9'};
+  const mapAnchor = UnovaMap.anchors;
   const paths = [
     ['nu','r1','acc','r2','str','r3','nac','pin','sky','cas','r4','nim','r5','draw','dri','r6','charge','mis','r7','ici','r8','tube','r9','ope','r10','vr','league'],
     ['ope','r11','vb','r12','lac','r13','und','r14','black','r15','marv','r16','nim'],
-    ['r1','r17','r18','p2'],['r4','des','rel'],['str','dream'],['r3','well'],['r7','mc'],['r7','ct','tw'],
-    ['ici','dt','moor'],['dri','cold'],['lac','chasm'],['r14','ab'],['r16','lost'],['nim','anv'],['cas','lib'],['league','castle'],['r7','torn'],['r9','challenger']
+    ['r1','r17','r18','p2'],['r4','des','rel'],['str','dream'],['r3','well'],['r6','mc'],['r7','ct'],['r7','tw','ici'],
+    ['ici','dt'],['r8','moor'],['dri','cold'],['r13','chasm'],['r14','ab'],['r16','lost'],['nim','anv'],['cas','lib'],['league','castle'],['und','bay','ruins'],['r7','torn'],['r9','challenger']
   ];
-  const labelOffsets = {nu:[-40,-39],acc:[-40,-39],str:[-40,-41],nac:[-37,-40],cas:[18,53],nim:[-20,-43],dri:[-25,-43],mis:[-25,-43],ici:[-25,-43],ope:[-25,-43],league:[30,-17],lac:[-25,-43],und:[26,-25],black:[-18,-43]};
+  const labelOffsets = {nu:[-40,-39],acc:[-40,-39],str:[-40,-41],nac:[-37,-40],cas:[18,53],nim:[-20,-43],dri:[-25,-43],mis:[-25,-43],ici:[-25,-43],ope:[-25,-43],league:[30,-17],lac:[-25,-43],und:[26,-25],black:[-18,-43],anv:[0,-38]};
   let current = 'r1', phase = 'all', zoom = 1, visible = areas;
-  const journeyOrder = ['nu','r1','acc','r2','str','dream','r3','well','nac','pin','sky','cas','r4','des','rel','nim','r16','lost','r5','draw','dri','cold','r6','charge','mis','mc','r7','ct','tw','ici','dt','moor','r8','tube','r9','ope','r10','vr','league','castle','r17','r18','r11','vb','r12','lac','chasm','und','r13','r14','ab','black','r15','marv','p2','challenger','lib','anv','torn','swords','events'];
+  const journeyOrder = ['nu','r1','acc','r2','str','dream','r3','well','nac','pin','sky','cas','r4','des','rel','nim','r16','lost','r5','draw','dri','cold','r6','charge','mis','mc','r7','ct','tw','ici','dt','moor','r8','tube','r9','ope','r10','vr','league','castle','r17','r18','r11','vb','r12','lac','chasm','und','bay','ruins','r13','r14','ab','black','r15','marv','p2','challenger','lib','anv','torn','swords','events'];
   const orderedAreas = [...journeyOrder.map(id => byId.get(id)).filter(Boolean), ...areas.filter(area => !journeyOrder.includes(area[0]))];
   const firstPlace = new Map();
   for (const area of orderedAreas) for (const name of (area[9] || '').split(',').filter(Boolean)) if (!firstPlace.has(name)) firstPlace.set(name, area);
@@ -214,13 +210,17 @@
       const isRoute = kind === 'route';
       const [dx,dy] = labelOffsets[id] || [0,0];
       const label = id === 'black' ? 'Black City' : id === 'und' ? 'Undella' : name.replace(/ (Town|City)$/,'').replace('Pokémon League','Liga Pokémon');
-      const labelMarkup = kind === 'city' ? `<text class="label" x="${x+dx}" y="${y+dy}" text-anchor="middle">${esc(label)}</text>` : '';
+      const labelMarkup = kind === 'city' ? `<text class="label" x="${x+dx}" y="${y+dy}" text-anchor="middle">${esc(label)}</text>` : kind === 'special' ? `<text class="label site-label" x="${Math.max(160,Math.min(1550,x))}" y="${y-31}" text-anchor="middle">${esc(name)}</text>` : '';
       const marker = isRoute ? `<circle class="ring" cx="${x}" cy="${y}" r="22"/><text class="route-label" x="${x}" y="${y+7}">${esc(id.slice(1))}</text>` : kind === 'city' ? `<circle class="ring" cx="${x}" cy="${y}" r="17"/>` : `<rect class="site-marker" x="${x-11}" y="${y-11}" width="22" height="22" rx="4"/>`;
       s += `<g class="node ${cls}${active}${dim}${locked}" data-id="${esc(id)}" tabindex="0" role="button" aria-label="Abrir ${esc(name)}"><title>${esc(name)}</title>${marker}${labelMarkup}<circle class="touch" cx="${x}" cy="${y}" r="37"/></g>`;
     }
     map.innerHTML = s;
     map.querySelectorAll('.node').forEach(node => {
-      node.addEventListener('click', () => select(node.dataset.id));
+      node.addEventListener('click', event => {
+        const point = map.createSVGPoint(); point.x=event.clientX; point.y=event.clientY;
+        const position = point.matrixTransform(map.getScreenCTM().inverse());
+        select(UnovaMap.nearest(mappedAreas,position.x,position.y)[0]);
+      });
       node.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(node.dataset.id); } });
     });
     $('map-count').textContent = `${mappedAreas.length} pontos no mapa`;

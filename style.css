@@ -35,3 +35,9 @@ main{max-width:1450px;margin:auto;padding:0 20px 38px}
 .journey-species span button{border:1px solid #a5c2bc;background:#fff;color:#2a5c65;min-width:28px;min-height:28px;margin-left:2px;padding:1px 5px;font-size:17px;line-height:1}.journey-species span button[aria-pressed=true]{background:#d7ead9;border-color:#80b18c;color:#215a3a}
 
 .save-status{font-size:12px;line-height:1.5;color:#36594e;margin:-6px 0 14px;padding:0 2px}.save-status[data-state="error"]{color:#8c3028;background:#fff0e7;border:1px solid #be7563;padding:10px 12px;font-weight:700}
+
+/* Landmark names appear on selection, keyboard focus or hover without crowding the map. */
+.map-viewport .node .site-label{opacity:0;transition:opacity .12s;font-size:20px}
+.map-viewport .node.active .site-label,.map-viewport .node:hover .site-label,.map-viewport .node:focus-visible .site-label{opacity:1}
+.map-viewport .node:focus-visible{outline:none}
+.map-viewport .node:focus-visible .ring,.map-viewport .node:focus-visible .site-marker{stroke:#183e43;stroke-width:7}
