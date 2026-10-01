@@ -21,7 +21,7 @@ function browser({local=new Map(),records=new Map(),blockLocal=false,blockDB=fal
     addEventListener(name,fn){events[name]=fn;}
   };
   vm.runInNewContext(source,{window,setTimeout,clearTimeout,Date});
-  const normalize=v=>({caught:[...(v.caught||[])],badges:v.badges||0});
+  const normalize=v=>({caught:[...(v.caught||[])],badges:v.badges||0,...(Array.isArray(v.collectedItems)?{collectedItems:[...v.collectedItems]}:{})});
   const store=window.createProgressStore({key,normalize,onStatus:v=>statuses.push(v),onExternal:v=>events.external=v});
   return {store,local,records,statuses,events,window};
 }
@@ -75,4 +75,14 @@ test('resuming a suspended tab refreshes its journey before the next edit',async
   b.local.set(key,JSON.stringify({caught:['Patrat','Audino'],badges:2,_savedAt:Date.now()+1000}));
   b.window.document.visibilityState='visible';b.events.visibilitychange();
   assert.deepEqual(b.events.external.caught,['Patrat','Audino']);
+});
+
+test('item checkmarks and Pokemon captures survive reopening together',async()=>{
+  const first=browser();
+  await first.store.load();
+  await first.store.save({caught:['Litwick'],badges:5,collectedItems:['TM61','HM01']});
+  const next=browser({local:first.local,records:first.records});
+  const restored=await next.store.load();
+  assert.deepEqual([...restored.caught],['Litwick']);
+  assert.deepEqual([...restored.collectedItems],['TM61','HM01']);
 });
