@@ -71,3 +71,7 @@ Os itens usam as tabelas de Black do Pokéarth e os guias de [TMs/HMs](https://w
 O mapa vetorial e a arte deste README utilizam um traçado inspirado no [mapa de Unova de PatoAnidae02](https://commons.wikimedia.org/wiki/File:UnovaMap.png), sob [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
 Este é um projeto de fã. Pokémon e os nomes relacionados pertencem aos seus respectivos titulares.
+
+### Um roteiro para acompanhar a viagem
+
+A história tem um roteiro dividido em etapas, com os lugares na ordem da jornada e visitas extras separadas. Cada parada abre sua ficha no mapa. As fichas situam o local na aventura e explicam como procurar Pokémon, pegar itens e reconhecer o que ainda depende de progresso.
