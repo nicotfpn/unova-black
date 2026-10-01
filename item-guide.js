@@ -6,9 +6,10 @@
   const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function create(tables){
     const validIds=new Set(Object.values(tables).flat().filter(row=>!row.unavailable).map(row=>row.id));
+    const legacyIds=new Map(Object.values(tables).flatMap(rows=>rows.flatMap(row=>(row.legacyIds||[]).map(id=>[id,row.id]))));
     const forArea=id=>tables[id]||[];
     const matches=(row,query)=>norm([row.name,row.code,row.move,...(row.aliases||[])].join(' ')).includes(norm(query).trim());
-    const normalizeCollected=value=>Array.isArray(value)?[...new Set(value.filter(id=>validIds.has(id)))]:[];
+    const normalizeCollected=value=>Array.isArray(value)?[...new Set(value.map(id=>legacyIds.get(id)||id).filter(id=>validIds.has(id)))]:[];
     function counts(area,collected=[]){const rows=forArea(area).filter(r=>!r.unavailable);return {total:rows.length,obtained:rows.filter(r=>collected.includes(r.id)).length,machines:rows.filter(r=>r.kind!=='item').length};}
     function render(area,collected=[],query='',filter='all',open=false){
       const rows=forArea(area),count=counts(area,collected),found=rows.filter(r=>matches(r,query));
