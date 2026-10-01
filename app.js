@@ -95,10 +95,11 @@
   };
   const itemGuide=createItemGuide(itemTables);
   let itemFilter='all';
+  let adventure=null, cloudSync=null;
   const storageKey='unova-black-field-guide-v2';
-  const defaults={badges:0,league:false,surf:false,strength:false,cobalion:false,rod:false,season:'all',trades:false,events:false,starter:'',fossil:'',caught:[],collectedItems:[]};
+  const defaults={badges:0,league:false,surf:false,strength:false,cobalion:false,rod:false,season:'all',trades:false,events:false,starter:'',fossil:'',caught:[],collectedItems:[],tasks:[],team:[],notes:{},spoilerFree:false};
   function normalizeProgress(value) {
-    const clean={...defaults,caught:[],collectedItems:[]};
+    const clean={...defaults,caught:[],collectedItems:[],tasks:[],team:[],notes:{}};
     if(!value||typeof value!=='object')return clean;
     clean.caught=Array.isArray(value.caught)?[...new Set(value.caught.filter(name=>allSpecies.includes(name)))]:[];
     clean.collectedItems=itemGuide.normalizeCollected(value.collectedItems);
@@ -107,18 +108,37 @@
     if(['all','Spring','Summer','Autumn','Winter'].includes(value.season))clean.season=value.season;
     if(['Snivy','Tepig','Oshawott'].includes(value.starter))clean.starter=value.starter;
     if(['Tirtouga','Archen'].includes(value.fossil))clean.fossil=value.fossil;
+    clean.spoilerFree=value.spoilerFree===true;
+    clean.team=Array.isArray(value.team)?[...new Set(value.team.filter(n=>allSpecies.includes(n)))].slice(0,6):[];
+    clean.tasks=Array.isArray(value.tasks)?[...new Set(value.tasks.filter(id=>typeof id==='string'&&/^chapter-(?:[0-9]|10)-[0-2]$/.test(id)))]:[];
+    if(value.notes&&typeof value.notes==='object'&&!Array.isArray(value.notes))for(const [id,note] of Object.entries(value.notes))if(byId.has(id)&&typeof note==='string')clean.notes[id]=note.slice(0,1000);
     return clean;
   }
   let progress=normalizeProgress(null), progressReady=false;
   const progressStore=createProgressStore({
     key:storageKey,normalize:normalizeProgress,
     onStatus:({state,text})=>{const status=document.getElementById('save-status');status.dataset.state=state;status.textContent=text;},
-    onExternal:value=>{progress=value;if(progressReady){renderProgress();renderDexList();applyFilters();renderDetail();}}
+    onExternal:value=>{progress=value;if(progressReady){renderProgress();renderDexList();applyFilters();renderDetail();renderStoryOutline();adventure?.refresh();}}
   });
   progress=(await progressStore.load())||progress;
-  const save=()=>progressStore.save(progress);
+  const save=()=>{const saved=progressStore.save(progress);adventure?.refresh();cloudSync?.schedule();return saved;};
   const caught=()=>new Set(progress.caught);
   const stage={nu:0,r1:0,acc:0,r2:0,str:0,dream:0,r3:1,well:1,nac:1,pin:1,sky:2,cas:2,r4:3,des:3,rel:3,nim:3,r5:4,draw:4,dri:4,cold:4,r6:5,charge:5,mis:5,mc:5,r7:5,ct:5,tw:6,ici:6,dt:7,moor:6,r8:7,tube:7,r9:7,ope:7,r10:8,vr:8,league:8,castle:8,r16:3,lost:3,r17:0,r18:0,p2:0,torn:7,swords:5,lib:0,events:0};
+  function spoilerLocked(area){
+    if(!progress.spoilerFree)return false;
+    if(!area)return true;
+    if(['castle','torn','swords','events','lib'].includes(area[0])&&!progress.league)return true;
+    if(area[5]==='post'&&!progress.league)return true;
+    return (stage[area[0]]??0)>progress.badges;
+  }
+  function isSpeciesVisible(name){
+    if(!progress.spoilerFree)return true;
+    if((regionalLookup.get(name)??0)>=144&&!progress.league)return false;
+    const rank=firstRank.get(name);
+    if(rank!==undefined)return rank>=100?progress.league:rank<=progress.badges;
+    const parent=pokemonGuideData.pokemon[name]?.parent;
+    return parent?isSpeciesVisible(parent):progress.league;
+  }
   const firstRank=new Map();
   function recordFirst(name,area,rank) {
     if(!firstRank.has(name)||rank<firstRank.get(name)){firstRank.set(name,rank);firstPlace.set(name,area);}
@@ -194,6 +214,7 @@
     $('season-select').value=progress.season;$('trade-toggle').checked=!!progress.trades;$('event-toggle').checked=!!progress.events;
     $('starter-select').value=progress.starter;$('fossil-select').value=progress.fossil;
     const registered=progress.caught.filter(name=>regionalSet.has(name)).length;
+    adventure?.refresh();
     $('progress-summary').textContent=`${registered}/156 Unova · ${progress.caught.length}/${unovaDex.length+extraSpecies.length} no guia`;
   }
   let listOrder = 'dex', listScope = 'unova';
@@ -203,11 +224,11 @@
     const p = phase === 'all' || (phase === 'available' ? exact ? availableNames(area).includes(exact) : isAvailable(area) : phase === 'legend' ? area[11] === 'legend' || area[5] === 'legend' : area[5] === phase);
     const nums = (area[9] || '').split(',').filter(Boolean).map(name => dex(name).number).join(' ');
     const hay = norm([area[1],area[6],area[9],nums].join(' '));
-    return p && (!q || hay.includes(q) || itemGuide.forArea(area[0]).some(row=>itemGuide.matches(row,q)));
+    return !spoilerLocked(area) && p && (!q || hay.includes(q) || itemGuide.forArea(area[0]).some(row=>itemGuide.matches(row,q)));
   }
   function drawMap() {
     let s = `<image href="unova-base.svg" x="0" y="0" width="1712" height="1080"/>`;
-    for (const d of mappedAreas) {
+    for (const d of mappedAreas.filter(a=>!spoilerLocked(a))) {
       const [id,name,kind,x,y] = d;
       const cls = category(d), active = id === current ? ' active' : '', dim = visible.includes(d) ? '' : ' dimmed', locked = (d[9] ? !isAvailable(d) : !!lockReason(d)) ? ' locked' : '';
       const isRoute = kind === 'route';
@@ -278,32 +299,34 @@
     return `<details class="encounter-group" ${index<2?'open':''}><summary><span><b>${esc(title)}</b>${where?`<small>${esc(where)}</small>`:''}<small class="${lock?'availability-locked':'availability-ready'}">${lock?'Falta: '+esc(lock):'Disponível conforme seu progresso'}</small></span><span class="encounter-toggle" aria-hidden="true">+</span></summary><div class="encounter-content"><p>${esc(help)}</p>${disputed?'<p class="data-caution">A fonte tem porcentagens que somam mais de 100%. Os Pokémon e níveis estão listados; a chance exata permanece sem confirmação.</p>':total!==100&&table.method!=='Swarms'?`<p class="data-caution">A fonte soma ${total}%. Porcentagens desta tabela precisam de confirmação independente.</p>`:''}<div class="encounter-list">${table.pokemon.map(([name,rate,level])=>`<div class="encounter-row"><span class="encounter-mon"><b class="dex-no${dex(name).scope==='Pokédex Nacional'?' national':''}">${esc(dex(name).number)}</b><strong>${esc(name)}</strong></span><span class="encounter-stats"><b>${disputed?'?':rate+'%'}</b><small>Nv. ${esc(levelText(level))}</small></span></div>`).join('')}</div></div></details>`;
   }
   function storyLinks(ids,label) {
-    return `<div class="story-links" aria-label="${esc(label)}">${ids.filter(id=>byId.has(id)).map(id=>`<button type="button" data-story-place="${esc(id)}">${esc(byId.get(id)[1])}<span aria-hidden="true"> ↗</span></button>`).join('')}</div>`;
+    return `<div class="story-links" aria-label="${esc(label)}">${ids.filter(id=>byId.has(id)&&!spoilerLocked(byId.get(id))).map(id=>`<button type="button" data-story-place="${esc(id)}">${esc(byId.get(id)[1])}<span aria-hidden="true"> ↗</span></button>`).join('')}</div>`;
   }
   function renderStoryOutline() {
-    $('story-chapters').innerHTML=walkthroughChapters.map((chapter,index)=>`<details class="story-chapter"><summary><span class="story-number">${String(index+1).padStart(2,'0')}</span><span><small>${esc(chapter.when)}</small><b>${esc(chapter.title)}</b></span></summary><div class="story-chapter-body"><p>${esc(chapter.text)}</p><h3>Caminho sugerido</h3>${storyLinks(chapter.path,'Caminho sugerido')}${chapter.optional.length?`<h3>Para explorar também</h3>${storyLinks(chapter.optional,'Desvios e visitas extras')}`:''}</div></details>`).join('');
+    $('story-chapters').innerHTML=walkthroughChapters.map((chapter,index)=>progress.spoilerFree&&((index<9&&index>progress.badges)||(index===9&&!progress.league)||(index===10&&!progress.surf))?'':`<details class="story-chapter"><summary><span class="story-number">${String(index+1).padStart(2,'0')}</span><span><small>${esc(chapter.when)}</small><b>${esc(chapter.title)}</b></span></summary><div class="story-chapter-body"><p>${esc(progress.spoilerFree?'Abra os locais desta etapa para consultar encontros, itens e requisitos.':chapter.text)}</p><h3>Caminho sugerido</h3>${storyLinks(chapter.path,'Caminho sugerido')}${chapter.optional.length?`<h3>Para explorar também</h3>${storyLinks(chapter.optional,'Desvios e visitas extras')}`:''}</div></details>`).join('');
     $('story-chapters').querySelectorAll('[data-story-place]').forEach(button=>button.onclick=()=>{search.value='';phase='all';document.querySelectorAll('.filter').forEach(b=>{b.classList.toggle('active',b.dataset.phase==='all');b.setAttribute('aria-pressed',b.dataset.phase==='all');});applyFilters();select(button.dataset.storyPlace);});
   }
   function storyForArea(id) {
     const chapter=walkthroughChapters.find(c=>c.path.includes(id));
     if(!chapter&&!walkthroughSteps[id])return '';
     const index=chapter?.path.indexOf(id)??-1,next=chapter?.path[index+1];
-    return `<section class="story-context"><span class="story-eyebrow">NA JORNADA · ${esc(chapter?.when||'Visita opcional')}</span><h3>O que fazer aqui</h3><p>${esc(walkthroughSteps[id]||chapter.text)}</p>${next?`<span class="story-next">Próxima parada neste roteiro</span>${storyLinks([next],'Próxima parada')}`:''}<small class="story-footnote">O roteiro orienta a viagem. A ficha abaixo explica os encontros e requisitos deste local.</small></section>`;
+    return `<section class="story-context"><span class="story-eyebrow">NA JORNADA · ${esc(chapter?.when||'Visita opcional')}</span><h3>O que fazer aqui</h3><p>${esc(progress.spoilerFree&&['castle','dt'].includes(id)?'Acompanhe os acontecimentos neste local. Os detalhes da história ficam escondidos enquanto este modo estiver ativo.':walkthroughSteps[id]||chapter.text)}</p>${next?`<span class="story-next">Próxima parada neste roteiro</span>${storyLinks([next],'Próxima parada')}`:''}<small class="story-footnote">O roteiro orienta a viagem. A ficha abaixo explica os encontros e requisitos deste local.</small></section>`;
   }
   function renderDetail() {
     const itemsWereOpen=detail.querySelector('.area-items')?.open||false;
     const moreItemsWereOpen=detail.querySelector('.item-more')?.open||false;
     const d = byId.get(current); if (!d) return;
-    const tables=encounterTables[current]||[], specials=specialEncounters[current]||[];
+    const tables=encounterTables[current]||[], specials=(specialEncounters[current]||[]).filter(e=>e[0].split(' / ').some(isSpeciesVisible));
     const wildCount=new Set(tables.flatMap(t=>t.pokemon.map(mon=>mon[0]))).size;
     const checklist=availableNames(d);
     const place = d[5] === 'post' ? 'Pós-Liga' : d[5] === 'legend' ? 'Evento / lendário' : d[6];
-    const near = nearby(current);
+    const near = nearby(current).filter(id=>!spoilerLocked(byId.get(id)));
     const source=d[10]&&tables.length ? `<a class="source-link" href="https://www.serebii.net/pokearth/unova/${encodeURIComponent(d[10])}.shtml" target="_blank" rel="noopener noreferrer">Conferir tabelas de Black no Pokéarth ↗</a>` : '';
     const fish=tables.some(t=>t.method.includes('Fishing')) ? '<p class="method-note">A Super Rod é recebida de Looker em Nuvema após vencer Ghetsis. As porcentagens comparam as espécies que podem aparecer pelo mesmo método, no mesmo setor e estação.</p>' : '<p class="method-note">A porcentagem mostra qual espécie pode aparecer quando um encontro acontece pelo método indicado. Ela não mede a chance de surgir uma batalha a cada passo.</p>';
     detail.innerHTML = `<div class="detail-top"><span class="detail-overline">FICHA DE CAMPO / ${esc(place)}</span><button class="detail-close" type="button" aria-label="Fechar detalhes">×</button><h2>${esc(d[1])}</h2><div class="detail-meta"><span class="pill">${esc(typeLabel(d))}</span>${d[5] === 'post' ? '<span class="pill gold">Após a Liga</span>' : ''}${d[11] === 'legend' ? '<span class="pill gold">Lendário / evento</span>' : ''}</div></div><div class="detail-body">${tables.length?`<section class="detail-section"><h3>Onde procurar Pokémon</h3><p class="encounter-intro">${wildCount} espécies · ${tables.length} grupos de encontros: confira o terreno, o setor e a estação</p><div class="encounter-groups">${tables.map((t,i)=>encounterHTML(t,current,i)).join('')}</div>${fish}</section>`:''}${specials.length?`<section class="detail-section"><h3>Presentes e encontros especiais</h3><div class="special-list">${specials.map(entry=>`<div class="special-entry"><b>${esc(entry[0])}</b><small>${esc(entry[1])} · ${specialLock(d,entry)?'Falta: '+esc(specialLock(d,entry)):'Disponível conforme seu progresso'}</small><p>${esc(entry[2])}</p></div>`).join('')}</div></section>`:''}${!tables.length&&!specials.length?`<section class="detail-section"><h3>Neste local</h3><p>${esc(areaNotes[current]||d[7]||'Sem encontro selvagem comum neste local.')}</p></section>`:''}${areaNotes[current]&&(tables.length||specials.length)?`<section class="detail-section"><h3>Atenção</h3><p>${esc(areaNotes[current])}</p></section>`:''}<section class="detail-section"><h3>Antes de explorar</h3><p>${esc(d[8])}</p></section>${near.length?`<section class="detail-section"><h3>Perto daqui</h3><div class="nearby">${near.map(id=>`<button type="button" data-near="${esc(id)}">${esc(byId.get(id)[1])}</button>`).join('')}</div></section>`:''}${source}</div>`;
     detail.querySelector('.detail-body').insertAdjacentHTML('afterbegin',itemGuide.render(current,progress.collectedItems,search.value,itemFilter,itemsWereOpen));
     if(moreItemsWereOpen&&detail.querySelector('.item-more'))detail.querySelector('.item-more').open=true;
+    if(adventure)detail.querySelector('.detail-body').insertAdjacentHTML('beforeend',adventure.renderArea(current));
+    const note=detail.querySelector('[data-area-note]');if(note)note.addEventListener('input',()=>{progress.notes[current]=note.value.slice(0,1000);const status=note.parentElement.querySelector('[data-note-status]');status.textContent='Salvando lembrete…';progressStore.save(progress).then(ok=>{if(note.isConnected)status.textContent=ok?'Lembrete salvo neste aparelho.':'Não foi possível salvar. Mantenha esta aba aberta e confira o aviso de progresso.';});cloudSync?.schedule();});
     bindItemControls();
     if(checklist.length) detail.querySelector('.detail-body').insertAdjacentHTML('afterbegin',`<section class="detail-section area-checklist"><h3>Pokémon que você já pode obter</h3><p>${checklist.filter(name=>caught().has(name)).length}/${checklist.length} já obtidos entre os Pokémon disponíveis neste local</p><div class="checklist-items">${checklist.map(name=>`<button type="button" data-caught="${esc(name)}" aria-pressed="${caught().has(name)}"><b>${esc(dex(name).number)}</b> ${esc(name)} <span>${caught().has(name)?'✓':'+'}</span></button>`).join('')}</div></section>`);
     detail.querySelector('.detail-close').onclick = closeSheet;
@@ -345,7 +368,7 @@
     focus.style.width=`${Math.min(100,100*viewport.clientWidth/w)}%`;focus.style.height=`${Math.min(100,100*viewport.clientHeight/h)}%`;
   }
   function select(id, open = true) {
-    if (!byId.has(id)) return;
+    if (!byId.has(id)||spoilerLocked(byId.get(id))) return;
     if(current!==id){itemFilter='all';detail.querySelector('.area-items')?.remove();}
     current=id; drawMap(); renderDetail(); renderResults(); centerOn(id);
     if (mobile() && open) { detail.classList.add('open'); scrim.hidden=false; document.body.style.overflow='hidden'; detail.scrollTop=0; detail.querySelector('.detail-close').focus(); }
@@ -354,7 +377,7 @@
   function renderResults() {
     const q=search.value.trim(); $('results-title').textContent = q ? 'Resultados da busca' : phase === 'all' ? 'Todas as áreas' : phase === 'available' ? 'Pokémon que posso capturar' : phase === 'story' ? 'Durante a história' : phase === 'post' ? 'Após a Liga' : 'Lendários e eventos';
     $('result-count').textContent = `${visible.length} ${visible.length === 1 ? 'local' : 'locais'}`;
-    list.innerHTML=visible.length ? visible.map(d => {const names=phase==='available'?availableNames(d):(d[9]||'').split(',').filter(Boolean);return `<button class="result-item${d[0]===current?' active':''}" type="button" data-id="${esc(d[0])}"><span class="result-dot ${category(d)}"></span><span class="result-copy"><strong>${esc(d[1])}</strong><small>${esc(names.length ? names.slice(0,4).map(name => `${dex(name).number} ${name}`).join(' · ') : d[7])}</small>${itemGuide.forArea(d[0]).length?`<small class="result-items">${esc(q&&itemGuide.forArea(d[0]).some(row=>itemGuide.matches(row,q))?itemGuide.forArea(d[0]).filter(row=>itemGuide.matches(row,q)).slice(0,3).map(row=>row.name).join(' · '):itemGuide.counts(d[0],progress.collectedItems).obtained+'/'+itemGuide.counts(d[0]).total+' itens obtidos')}</small>`:''}</span></button>`;}).join('') : '<div class="no-results">Nenhum local encontrado. Tente outro nome ou filtro.</div>';
+    list.innerHTML=visible.length ? visible.map(d => {const names=(phase==='available'?availableNames(d):(d[9]||'').split(',').filter(Boolean)).filter(isSpeciesVisible);return `<button class="result-item${d[0]===current?' active':''}" type="button" data-id="${esc(d[0])}"><span class="result-dot ${category(d)}"></span><span class="result-copy"><strong>${esc(d[1])}</strong><small>${esc(names.length ? names.slice(0,4).map(name => `${dex(name).number} ${name}`).join(' · ') : (progress.spoilerFree?'Consulte a ficha deste local.':d[7]))}</small>${itemGuide.forArea(d[0]).length?`<small class="result-items">${esc(q&&itemGuide.forArea(d[0]).some(row=>itemGuide.matches(row,q))?itemGuide.forArea(d[0]).filter(row=>itemGuide.matches(row,q)).slice(0,3).map(row=>row.name).join(' · '):itemGuide.counts(d[0],progress.collectedItems).obtained+'/'+itemGuide.counts(d[0]).total+' itens obtidos')}</small>`:''}</span></button>`;}).join('') : '<div class="no-results">Nenhum local encontrado. Tente outro nome ou filtro.</div>';
     list.querySelectorAll('[data-id]').forEach(button => button.onclick = () => select(button.dataset.id));
     const species=allSpecies.find(name=>norm(name)===norm(q)||norm(dex(name).number)===norm(q));
     const finder=$('pokemon-finder');finder.hidden=!species;
@@ -377,7 +400,7 @@
     const container = $('dex-list');
     const entries=listScope==='unova'?unovaDex:[...unovaDex,...extraSpecies.map(name=>[nationalNumbers[name]||dexNumbers[name],name])];
     if (listOrder === 'dex') {
-      const found = entries.filter(([n,name]) => !q || norm(`${dex(name).number} ${n} ${name} ${firstPlace.get(name)?.[1] || ''} ${acquisition[name]||''}`).includes(q));
+      const found = entries.filter(([n,name]) => isSpeciesVisible(name)&&(!q || norm(`${dex(name).number} ${n} ${name} ${firstPlace.get(name)?.[1] || ''} ${acquisition[name]||''}`).includes(q)));
       $('dex-count').textContent = `${found.length} / ${entries.length} espécies · ${entries.filter(([,name])=>caught().has(name)).length} já obtidas`;
       container.innerHTML = found.length ? `<div class="dex-grid">${found.map(([n,name]) => {
         const place = firstPlace.get(name);
@@ -388,7 +411,7 @@
       let count = 0, index = 0;
       const buckets=new Map();
       for(const [name,area] of firstPlace){
-        if(listScope==='unova'&&!regionalSet.has(name))continue;
+        if(!isSpeciesVisible(name)||(listScope==='unova'&&!regionalSet.has(name)))continue;
         const rank=firstRank.get(name)??100,key=`${rank}:${area[0]}`;
         if(!buckets.has(key))buckets.set(key,{rank,area,names:[]});
         buckets.get(key).names.push(name);
@@ -399,7 +422,7 @@
         count += names.length; index++;
         return `<section class="journey-group"><div class="journey-place"><span class="step">ETAPA ${String(index).padStart(2,'0')} · ${rank>=200?'EVENTO / TROCA':rank>=100?'PÓS-LIGA':rank===0?'INÍCIO':`A PARTIR DE ${rank} INSÍGNIAS`}</span><h3>${esc(area[1])}</h3><small>Primeira oportunidade indicada no guia</small><button type="button" data-place="${esc(area[0])}">Abrir no mapa ↗</button></div><div class="journey-species">${names.map(name => `<span><b>${esc(dex(name).number)}</b>${esc(name)}<button type="button" data-caught="${esc(name)}" aria-label="${caught().has(name)?'Desmarcar':'Marcar como obtido'} ${esc(name)}" aria-pressed="${caught().has(name)}">${caught().has(name)?'✓':'+'}</button></span>`).join('')}</div></section>`;
       }).filter(Boolean);
-      const withoutPlace=entries.map(([,name])=>name).filter(name=>!firstPlace.has(name)&&(!q||norm(`${name} ${dex(name).number} ${acquisition[name]||''}`).includes(q)));
+      const withoutPlace=entries.map(([,name])=>name).filter(name=>isSpeciesVisible(name)&&!firstPlace.has(name)&&(!q||norm(`${name} ${dex(name).number} ${acquisition[name]||''}`).includes(q)));
       if(withoutPlace.length){count+=withoutPlace.length;groups.push(`<section class="journey-group"><div class="journey-place"><span class="step">OBTENÇÃO</span><h3>Evolução ou troca</h3><small>Obtido por evolução, troca ou outra condição</small></div><div class="journey-species">${withoutPlace.map(name=>`<span title="${esc(acquisition[name]||'')}"><b>${esc(dex(name).number)}</b>${esc(name)}<button type="button" data-caught="${esc(name)}" aria-label="${caught().has(name)?'Desmarcar':'Marcar como obtido'} ${esc(name)}" aria-pressed="${caught().has(name)}">${caught().has(name)?'✓':'+'}</button></span>`).join('')}</div></section>`);}
       $('dex-count').textContent = `${count} Pokémon · ${groups.length} locais`;
       container.innerHTML = groups.length ? groups.join('') : '<p class="dex-empty">Nenhum Pokémon encontrado nessa ordem de obtenção. Tente outro nome, número ou local.</p>';
@@ -409,7 +432,7 @@
   }
   function switchView(view) {
     const showMap = view === 'map';
-    $('map-view').hidden = !showMap; $('dex-view').hidden = showMap;
+    $('map-view').hidden = !showMap; $('dex-view').hidden = view!=='dex'; $('tools-view').hidden=view!=='tools';if(view==='tools')adventure?.refresh();
     document.querySelectorAll('.view-tab').forEach(button => { const active = button.dataset.view === view; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
     closeSheet(); window.scrollTo({top:0,behavior:'instant'});
     if (showMap) requestAnimationFrame(() => centerOn(current,false));
@@ -451,5 +474,14 @@
   $('recenter').onclick=()=>centerOn('nu');
   window.addEventListener('resize',()=>{if(!mobile())closeSheet()});
   progressReady=true;
+  adventure=createAdventureGuide({areas,encounters:encounterTables,specials:specialEncounters,stage,editorial:adventureData,data:pokemonGuideData,chapters:walkthroughChapters,allSpecies,items:itemTables,acquisition,
+    getProgress:()=>progress,availableNames,lockReason,specialLock,methodInfo,sectionLabel,seasonLabel:s=>seasonsPT[s]||s,itemMatches:itemGuide.matches,spoilerLocked,isSpeciesVisible,
+    openArea:id=>{search.value='';phase='all';switchView('map');applyFilters();select(id);},
+    update:patch=>{progress=normalizeProgress({...progress,...patch});save();renderProgress();renderDexList();renderStoryOutline();},
+    refresh:()=>{if(spoilerLocked(byId.get(current)))current='r1';renderStoryOutline();applyFilters();renderDetail();renderDexList();}
+  });
+  adventure.mount($('tools-view'));
+  cloudSync=createCloudSync({getProgress:()=>progress,setProgress:value=>{progress=normalizeProgress(value);progressStore.save(progress);renderProgress();applyFilters();renderDetail();renderDexList();renderStoryOutline();adventure.refresh();},element:$('cloud-tools')});
+  initOffline($('offline-state'));
   renderStoryOutline();renderProgress();applyFilters(); renderDetail(); renderDexList(); requestAnimationFrame(()=>centerOn('r1',false));
 })();
