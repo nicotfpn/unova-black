@@ -34,3 +34,10 @@ test('Undella town and bay have separate BW encounter tables',()=>{
  assert.ok(!town.some(t=>t.pokemon.some(p=>p[0]==='Spheal')));
  assert.ok(bay.some(t=>t.pokemon.some(p=>p[0]==='Spheal')&&t.seasons.includes('Winter')));
 });
+
+test('P2 lies north of Route 17 and east of Route 18, and map controls are exposed',()=>{
+ assert.ok(map.coordinates.p2[1]<map.coordinates.r17[1]);
+ assert.ok(map.coordinates.p2[0]>map.coordinates.r18[0]);
+ assert.match(read('index.html'),/id="map"[^>]+role="group"/);
+ assert.match(read('app.js'),/r7:5,ct:5/);
+});

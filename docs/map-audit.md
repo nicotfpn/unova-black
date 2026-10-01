@@ -10,7 +10,7 @@ Undella Bay e Abyssal Ruins foram adicionadas como pontos separados. Undella Tow
 
 ## Posição e acesso
 
-O desenho é uma adaptação do mapa regional, não uma planta em escala. Celestial Tower está ligada à Rota 7; Mistralton Cave à Rota 6; Twist Mountain liga Rota 7 e Icirrus; Moor of Icirrus sai da Rota 8; Abundant Shrine fica ao norte da Rota 14. Os ramais desenhados indicam os acessos a essas áreas. O acesso marítimo a Liberty Garden continua condicionado ao Liberty Pass.
+O desenho é uma adaptação do mapa regional, não uma planta em escala. Celestial Tower está ligada à Rota 7; Mistralton Cave à Rota 6; Twist Mountain liga Rota 7 e Icirrus; Moor of Icirrus sai da Rota 8; Abundant Shrine fica ao norte da Rota 14. Os ramais desenhados indicam os acessos a essas áreas. P2 Laboratory fica ao norte da Rota 17 e a leste da Rota 18. Celestial Tower e Rota 7 podem ser visitadas com 5 insígnias, antes do ginásio de Skyla. O acesso marítimo a Liberty Garden continua condicionado ao Liberty Pass.
 
 Os nomes das áreas especiais aparecem ao selecionar, passar o cursor ou focar pelo teclado. Em pontos com áreas de toque sobrepostas, o clique escolhe o marcador mais próximo, evitando abrir o vizinho.
 
@@ -30,3 +30,4 @@ Instalações sem capturas próprias (Battle Subway, Battle Institute, Royal Uno
 - [Undella Town](https://www.serebii.net/pokearth/unova/undellatown.shtml)
 - [Undella Bay](https://www.serebii.net/pokearth/unova/undellabay.shtml)
 - [Abyssal Ruins](https://www.serebii.net/pokearth/unova/abyssalruins.shtml)
+- [P2 Laboratory](https://www.serebii.net/pokearth/unova/p2laboratory.shtml)

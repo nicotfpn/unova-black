@@ -69,7 +69,7 @@
   const paths = [
     ['nu','r1','acc','r2','str','r3','nac','pin','sky','cas','r4','nim','r5','draw','dri','r6','charge','mis','r7','ici','r8','tube','r9','ope','r10','vr','league'],
     ['ope','r11','vb','r12','lac','r13','und','r14','black','r15','marv','r16','nim'],
-    ['r1','r17','r18','p2'],['r4','des','rel'],['str','dream'],['r3','well'],['r6','mc'],['r7','ct'],['r7','tw','ici'],
+    ['r1','r17','r18'],['r17','p2'],['r18','p2'],['r4','des','rel'],['str','dream'],['r3','well'],['r6','mc'],['r7','ct'],['r7','tw','ici'],
     ['ici','dt'],['r8','moor'],['dri','cold'],['r13','chasm'],['r14','ab'],['r16','lost'],['nim','anv'],['cas','lib'],['league','castle'],['und','bay','ruins'],['r7','torn'],['r9','challenger']
   ];
   const labelOffsets = {nu:[-40,-39],acc:[-40,-39],str:[-40,-41],nac:[-37,-40],cas:[18,53],nim:[-20,-43],dri:[-25,-43],mis:[-25,-43],ici:[-25,-43],ope:[-25,-43],league:[30,-17],lac:[-25,-43],und:[26,-25],black:[-18,-43],anv:[0,-38]};
@@ -115,7 +115,7 @@
   progress=(await progressStore.load())||progress;
   const save=()=>progressStore.save(progress);
   const caught=()=>new Set(progress.caught);
-  const stage={nu:0,r1:0,acc:0,r2:0,str:0,dream:0,r3:1,well:1,nac:1,pin:1,sky:2,cas:2,r4:3,des:3,rel:3,nim:3,r5:4,draw:4,dri:4,cold:4,r6:5,charge:5,mis:5,mc:5,r7:6,ct:6,tw:6,ici:6,dt:7,moor:6,r8:7,tube:7,r9:7,ope:7,r10:8,vr:8,league:8,castle:8,r16:3,lost:3,r17:0,r18:0,p2:0,torn:7,swords:5,lib:0,events:0};
+  const stage={nu:0,r1:0,acc:0,r2:0,str:0,dream:0,r3:1,well:1,nac:1,pin:1,sky:2,cas:2,r4:3,des:3,rel:3,nim:3,r5:4,draw:4,dri:4,cold:4,r6:5,charge:5,mis:5,mc:5,r7:5,ct:5,tw:6,ici:6,dt:7,moor:6,r8:7,tube:7,r9:7,ope:7,r10:8,vr:8,league:8,castle:8,r16:3,lost:3,r17:0,r18:0,p2:0,torn:7,swords:5,lib:0,events:0};
   const firstRank=new Map();
   function recordFirst(name,area,rank) {
     if(!firstRank.has(name)||rank<firstRank.get(name)){firstRank.set(name,rank);firstPlace.set(name,area);}
