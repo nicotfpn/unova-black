@@ -12,6 +12,10 @@ Guia de preparação para a Liga, batalhas finais e outros confrontos importante
 
 Dar atenção especial aos lendários: como liberar e localizar cada encontro, requisitos, versão do jogo, encontros fixos ou itinerantes, preparação, preservação de HP, efeitos de status, Poké Balls adequadas, riscos de fuga ou nocaute e possibilidades de reencontro. Verificar todos os dados especificamente para Black antes de publicar.
 
+## Prioridade 3 — Favoritos da jornada e equipe planejada
+
+Escolhida pelo usuário: planejar uma equipe antes de capturar os integrantes. Relacionar os Pokémon desejados ao planejador de seis membros já existente, distinguindo equipe planejada de capturas marcadas. Mostrar onde obter a espécie inicial da linha evolutiva, a primeira etapa em que é acessível, requisitos, evolução até a forma desejada e pendências para completar a equipe. Integrar esses objetivos ao modo Estou jogando agora. Favoritar não marca captura automaticamente.
+
 ## Escopo atual
 
 Uso pessoal, Pokémon Black. Sincronização Supabase pausada por escolha do usuário; salvamento local continua. Expansão para outros jogos fica para depois de acertar este guia.
@@ -25,6 +29,6 @@ Uso pessoal, Pokémon Black. Sincronização Supabase pausada por escolha do usu
 - Registro de obstáculos encontrados para lembrar o que exige voltar com novos HMs.
 - Evoluções possíveis agora a partir da equipe e dos itens marcados.
 - Lembretes de troca de estação e eventos do calendário do jogo.
-- Lista pessoal de desejos: Pokémon, itens e objetivos fixados.
+- Favoritos para itens e outros objetivos além da equipe planejada (ainda sem escolha).
 
 Sugestões não são compromissos de implementação até serem escolhidas pelo usuário.
