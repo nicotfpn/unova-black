@@ -1,7 +1,7 @@
 from pathlib import Path
 import hashlib,json
 root=Path(__file__).resolve().parent.parent
-assets=['/','/index.html','/style.css','/unova-base.svg','/manifest.webmanifest','/apple-touch-icon.png']+['/'+p.name for p in sorted(root.glob('*.js')) if p.name!='sw.js']+['/'+str(p.relative_to(root)) for p in sorted((root/'icons').glob('*'))]
+assets=['/','/index.html','/style.css','/planner.css','/unova-base.svg','/manifest.webmanifest','/apple-touch-icon.png']+['/'+p.name for p in sorted(root.glob('*.js')) if p.name!='sw.js']+['/'+str(p.relative_to(root)) for p in sorted((root/'icons').glob('*'))]
 h=hashlib.sha256()
 for url in assets:
  if url!='/':h.update((root/url.lstrip('/')).read_bytes())
