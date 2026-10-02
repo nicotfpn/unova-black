@@ -31,6 +31,14 @@ Escolhida pelo usuário: planejar uma equipe antes de capturar os integrantes. R
 
 Estas funções foram escolhidas para implementação futura. Ainda não estão disponíveis no site.
 
+### Complementos escolhidos para a equipe ideal
+
+1. Equipe atual e equipe ideal: manter visíveis os integrantes usados agora e os desejados para o futuro, permitindo acompanhar substituições temporárias sem apagar o plano final.
+2. Aviso Não evolua ainda: verificar os golpes desejados e avisar quando evoluir antes de aprendê-los pode dificultar ou impedir sua obtenção em Black. Explicar alternativas, como relembrar golpes, quando realmente disponíveis; não bloquear evolução nem emitir avisos genéricos.
+3. Função de cada integrante: permitir escolher capturador, atacante ou suporte, além de escrever uma função própria. Campo opcional dentro da ficha do integrante.
+
+Escolhas confirmadas pelo usuário; implementação futura.
+
 ## Escopo atual
 
 Uso pessoal, Pokémon Black. Sincronização Supabase pausada por escolha do usuário; salvamento local continua. Expansão para outros jogos fica para depois de acertar este guia.
