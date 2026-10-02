@@ -16,6 +16,21 @@ Dar atenção especial aos lendários: como liberar e localizar cada encontro, r
 
 Escolhida pelo usuário: planejar uma equipe antes de capturar os integrantes. Relacionar os Pokémon desejados ao planejador de seis membros já existente, distinguindo equipe planejada de capturas marcadas. Mostrar onde obter a espécie inicial da linha evolutiva, a primeira etapa em que é acessível, requisitos, evolução até a forma desejada e pendências para completar a equipe. Integrar esses objetivos ao modo Estou jogando agora. Favoritar não marca captura automaticamente.
 
+### Regras escolhidas para a equipe ideal
+
+- Planejar até seis integrantes desde o início do jogo. Usar os favoritos como objetivos da equipe, mantendo progresso de captura separado.
+- Cada integrante pode ter de zero a quatro golpes desejados. Não exigir quatro golpes nem item para salvar. Permitir adicionar, trocar e remover escolhas individualmente.
+- Validar se o Pokémon pode aprender o golpe em Black, incluindo golpes obtidos antes de evoluir, por nível, TM/HM, criação e outros métodos legítimos. Explicar requisitos sem sugerir métodos de versões posteriores.
+- Item equipado desejado opcional dentro da mesma ficha. Mostrar localização, disponibilidade, preço quando aplicável e requisitos.
+- Linha do tempo integrada: primeira oportunidade de obter a linha evolutiva, forma final, golpes e item desejados. Diferenciar etapa estimada de acesso de nível necessário para evolução.
+- Verificar se o plano completo é realizável em Black e antes da Liga; sinalizar trocas, exclusividades de White, eventos antigos e pós-jogo.
+- Sugerir substitutos temporários disponíveis durante a história para integrantes tardios.
+- Planejar treinamento, comparar quem aproveita uma TM, verificar cobertura contra o próximo chefe e reunir recursos em uma lista de compras/obtenção.
+- Reunir as pendências por integrante e no resumo da equipe. Evitar ferramentas separadas para partes do mesmo plano; detalhes sob demanda.
+- Manter tudo salvo automaticamente no aparelho e integrar ao modo Estou jogando agora.
+
+Estas funções foram escolhidas para implementação futura. Ainda não estão disponíveis no site.
+
 ## Escopo atual
 
 Uso pessoal, Pokémon Black. Sincronização Supabase pausada por escolha do usuário; salvamento local continua. Expansão para outros jogos fica para depois de acertar este guia.
