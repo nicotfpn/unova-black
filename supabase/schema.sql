@@ -5,12 +5,12 @@ create table if not exists public.journeys (
  revision bigint not null default 1,
  updated_at timestamptz not null default now(),
  constraint journey_size check (octet_length(data::text) <= 100000),
- constraint journey_format check (jsonb_typeof(data->'caught') = 'array')
+ constraint journey_format check (coalesce(jsonb_typeof(data->'caught') = 'array', false))
 );
 alter table public.journeys enable row level security;
-create policy "Read own journey" on public.journeys for select to authenticated using (user_id=auth.uid());
-create policy "Insert own journey" on public.journeys for insert to authenticated with check (user_id=auth.uid());
-create policy "Update own journey" on public.journeys for update to authenticated using (user_id=auth.uid()) with check (user_id=auth.uid());
+create policy "Read own journey" on public.journeys for select to authenticated using (user_id=(select auth.uid()));
+create policy "Insert own journey" on public.journeys for insert to authenticated with check (user_id=(select auth.uid()));
+create policy "Update own journey" on public.journeys for update to authenticated using (user_id=(select auth.uid())) with check (user_id=(select auth.uid()));
 revoke all on public.journeys from anon;
 grant select,insert,update on public.journeys to authenticated;
 create or replace function public.save_journey(p_data jsonb,p_expected bigint)
