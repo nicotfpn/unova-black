@@ -83,3 +83,11 @@ Além de consultar o mapa, você pode acompanhar o próximo objetivo, marcar tar
 As ferramentas também explicam por que um encontro pode não acontecer, mostram serviços úteis, organizam a agenda do jogo e separam as pendências da Pokédex por método de obtenção. Um modo opcional esconde etapas futuras. Cada local tem espaço para seu próprio lembrete.
 
 Depois da primeira abertura com conexão, os arquivos do guia ficam disponíveis para consulta sem internet. Capturas, itens, equipe, tarefas e notas pertencem ao aparelho de cada jogador. A sincronização por conta foi preparada e ainda aguarda ativação; o salvamento local continua independente dela.
+
+## Um time pensado desde o início
+
+A aba **Equipe** reúne seu time ideal e os integrantes que você está usando agora. Planeje apenas os golpes que quiser, escolha um item e descreva a função de cada Pokémon. A linha do tempo mostra onde começar, o caminho de evolução e os recursos que faltam, com atenção às condições de Pokémon Black.
+
+Em **Jogar**, o guia fica à mão: tarefas da etapa, local onde você parou e seu lembrete pessoal. A seção **Batalhas** traz a primeira Liga, confrontos importantes com N e Ghetsis e cuidados próprios para capturar lendários. Os detalhes ficam recolhidos até você abrir.
+
+No celular, a navegação inferior mantém mapa, Pokédex, equipe, modo de jogo e ferramentas separados. Seu progresso continua salvo automaticamente no próprio aparelho, sem exigir conta.

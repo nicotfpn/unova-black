@@ -24,7 +24,7 @@
     nac:[['Tirtouga / Archen','Fóssil','Escolha Cover Fossil ou Plume Fossil no Relic Castle e reviva no museu. Um fóssil por partida.'],['Petilil','Troca interna de Black','Entregue Cottonee ao NPC em Nacrene para receber Petilil.']],
     marv:[['Magikarp','Compra','Compre Magikarp do vendedor na Marvelous Bridge; não é obtido pescando na ponte.']],
     lib:[['Victini','Evento antigo','Liberty Pass abre a ilha; desça ao porão do farol para a batalha.']],
-    torn:[['Tornadus','Errante de Black','Após o evento da tempestade na Rota 7, vagueia por Unova; consulte a localização na Pokédex.']],
+    torn:[['Tornadus','Errante de Black','Após a 8ª insígnia e o evento da tempestade na Rota 7, vagueia por Unova; consulte a localização na Pokédex.']],
     swords:[['Cobalion','Mistralton Cave','Guidance Chamber, com Surf e Strength.'],['Terrakion','Victory Road','Trial Chamber, após Cobalion.'],['Virizion','Pinwheel Forest','Rumination Field, após Cobalion.']],
     events:[['Keldeo / Meloetta / Genesect','Distribuição','Não aparecem na natureza em Pokémon Black; dependiam de distribuições de evento.']]
   };
@@ -95,11 +95,11 @@
   };
   const itemGuide=createItemGuide(itemTables);
   let itemFilter='all';
-  let adventure=null, cloudSync=null;
+  let adventure=null, cloudSync=null, teamPlanner=null, playingGuide=null;
   const storageKey='unova-black-field-guide-v2';
-  const defaults={badges:0,league:false,surf:false,strength:false,cobalion:false,rod:false,season:'all',trades:false,events:false,starter:'',fossil:'',caught:[],collectedItems:[],tasks:[],team:[],notes:{},spoilerFree:false};
+  const defaults={badges:0,league:false,surf:false,strength:false,cobalion:false,rod:false,season:'all',trades:false,events:false,starter:'',fossil:'',caught:[],collectedItems:[],tasks:[],team:[],notes:{},teamPlan:{},playArea:'',playNote:'',spoilerFree:false};
   function normalizeProgress(value) {
-    const clean={...defaults,caught:[],collectedItems:[],tasks:[],team:[],notes:{}};
+    const clean={...defaults,caught:[],collectedItems:[],tasks:[],team:[],notes:{},teamPlan:{}};
     if(!value||typeof value!=='object')return clean;
     clean.caught=Array.isArray(value.caught)?[...new Set(value.caught.filter(name=>allSpecies.includes(name)))]:[];
     clean.collectedItems=itemGuide.normalizeCollected(value.collectedItems);
@@ -110,6 +110,9 @@
     if(['Tirtouga','Archen'].includes(value.fossil))clean.fossil=value.fossil;
     clean.spoilerFree=value.spoilerFree===true;
     clean.team=Array.isArray(value.team)?[...new Set(value.team.filter(n=>allSpecies.includes(n)))].slice(0,6):[];
+    clean.teamPlan=normalizeTeamPlan(value.teamPlan,allSpecies,pokemonGuideData,[...new Set(Object.values(itemTables).flat().filter(r=>r.kind==='item'&&!r.unavailable).map(r=>r.name))]);
+    clean.playArea=byId.has(value.playArea)?value.playArea:'';
+    clean.playNote=typeof value.playNote==='string'?value.playNote.slice(0,1000):'';
     clean.tasks=Array.isArray(value.tasks)?[...new Set(value.tasks.filter(id=>typeof id==='string'&&/^chapter-(?:[0-9]|10)-[0-2]$/.test(id)))]:[];
     if(value.notes&&typeof value.notes==='object'&&!Array.isArray(value.notes))for(const [id,note] of Object.entries(value.notes))if(byId.has(id)&&typeof note==='string')clean.notes[id]=note.slice(0,1000);
     return clean;
@@ -118,12 +121,12 @@
   const progressStore=createProgressStore({
     key:storageKey,normalize:normalizeProgress,
     onStatus:({state,text})=>{const status=document.getElementById('save-status');status.dataset.state=state;status.textContent=text;},
-    onExternal:value=>{progress=value;if(progressReady){renderProgress();renderDexList();applyFilters();renderDetail();renderStoryOutline();adventure?.refresh();}}
+    onExternal:value=>{progress=value;if(progressReady){renderProgress();renderDexList();applyFilters();renderDetail();renderStoryOutline();adventure?.refresh();teamPlanner?.refresh();playingGuide?.refresh();}}
   });
   progress=(await progressStore.load())||progress;
   const save=()=>{const saved=progressStore.save(progress);adventure?.refresh();cloudSync?.schedule();return saved;};
   const caught=()=>new Set(progress.caught);
-  const stage={nu:0,r1:0,acc:0,r2:0,str:0,dream:0,r3:1,well:1,nac:1,pin:1,sky:2,cas:2,r4:3,des:3,rel:3,nim:3,r5:4,draw:4,dri:4,cold:4,r6:5,charge:5,mis:5,mc:5,r7:5,ct:5,tw:6,ici:6,dt:7,moor:6,r8:7,tube:7,r9:7,ope:7,r10:8,vr:8,league:8,castle:8,r16:3,lost:3,r17:0,r18:0,p2:0,torn:7,swords:5,lib:0,events:0};
+  const stage={nu:0,r1:0,acc:0,r2:0,str:0,dream:0,r3:1,well:1,nac:1,pin:1,sky:2,cas:2,r4:3,des:3,rel:3,nim:3,r5:4,draw:4,dri:4,cold:4,r6:5,charge:5,mis:5,mc:5,r7:5,ct:5,tw:6,ici:6,dt:7,moor:6,r8:7,tube:7,r9:7,ope:7,r10:8,vr:8,league:8,castle:8,r16:3,lost:3,r17:0,r18:0,p2:0,torn:8,swords:5,lib:0,events:0};
   function spoilerLocked(area){
     if(!progress.spoilerFree)return false;
     if(!area)return true;
@@ -432,7 +435,7 @@
   }
   function switchView(view) {
     const showMap = view === 'map';
-    $('map-view').hidden = !showMap; $('dex-view').hidden = view!=='dex'; $('tools-view').hidden=view!=='tools';if(view==='tools')adventure?.refresh();
+    $('map-view').hidden = !showMap; $('dex-view').hidden = view!=='dex'; $('tools-view').hidden=view!=='tools';$('team-view').hidden=view!=='team';$('play-view').hidden=view!=='play';if(view==='tools')adventure?.refresh();if(view==='team')teamPlanner?.refresh();if(view==='play')playingGuide?.refresh();
     document.querySelectorAll('.view-tab').forEach(button => { const active = button.dataset.view === view; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
     closeSheet(); window.scrollTo({top:0,behavior:'instant'});
     if (showMap) requestAnimationFrame(() => centerOn(current,false));
@@ -481,6 +484,16 @@
     refresh:()=>{if(spoilerLocked(byId.get(current)))current='r1';renderStoryOutline();applyFilters();renderDetail();renderDexList();}
   });
   adventure.mount($('tools-view'));
+  const updatePlan=(patch,refresh=true)=>{progress=normalizeProgress({...progress,...patch});const saved=save();if(refresh){renderProgress();teamPlanner?.refresh();playingGuide?.refresh();}return saved;};
+  const openPlanArea=id=>{search.value='';phase='all';switchView('map');applyFilters();select(id);};
+  const saveStatus=()=> $('save-status').textContent;
+  teamPlanner=createTeamPlanner({data:pokemonGuideData,combat:combatData,editorial:adventureData,species:allSpecies,areas,items:itemTables,stage,guide:adventure,acquisition,methodInfo,spoilerLocked,isSpeciesVisible,getProgress:()=>progress,update:updatePlan,openArea:openPlanArea,available:n=>areas.some(a=>availableNames(a).includes(n)),saveStatus});
+  teamPlanner.mount($('team-view'));
+  playingGuide=createPlayingGuide({areas,chapters:walkthroughChapters,editorial:adventureData,spoilerLocked,getProgress:()=>progress,update:updatePlan,openArea:openPlanArea,openTeam:()=>switchView('team'),saveStatus});
+  playingGuide.mount($('play-view'));
+  document.querySelector('#team-choice').closest('.guide-tool').hidden=true;
+  document.querySelector('#cloud-tools').closest('.guide-tool').hidden=true;
+
   cloudSync=createCloudSync({getProgress:()=>progress,setProgress:value=>{progress=normalizeProgress(value);progressStore.save(progress);renderProgress();applyFilters();renderDetail();renderDexList();renderStoryOutline();adventure.refresh();},element:$('cloud-tools')});
   initOffline($('offline-state'));
   renderStoryOutline();renderProgress();applyFilters(); renderDetail(); renderDexList(); requestAnimationFrame(()=>centerOn('r1',false));
