@@ -13,7 +13,7 @@ const black2Chapters=[
       {
         "id": "c01-s1",
         "title": "Encontre Bianca no mirante",
-        "text": "Saia de casa e encontre Hugh. Vá para o norte de Aspertia e suba as escadas até o mirante. Fale com Bianca, aceite ajudá-la e escolha Snivy, Tepig ou Oshawott. Essa escolha define qual inicial Hugh usará. Você pode registrar seu parceiro na aba Equipe."
+        "text": "Saia de casa e encontre Hugh. Vá para o norte de Aspertia e suba as escadas até o mirante. Fale com Bianca, aceite ajudá-la e escolha Snivy, Tepig ou Oshawott. Essa escolha define qual inicial Hugh usará. "
       },
       {
         "id": "c01-s2",
@@ -32,7 +32,7 @@ const black2Chapters=[
       }
     ],
     "optional": "Antes de comprar muitas Potions, confira os presentes recebidos. Na Route 19, teste capturas e familiarize-se com a troca do primeiro Pokémon da equipe.",
-    "prep": "Escolha um inicial de que goste. O planejador permite compensar tipos depois; você não precisa decidir os seis integrantes agora.",
+    "prep": "Escolha um inicial de que goste. Você pode equilibrar os tipos da equipe conforme encontra novos parceiros.",
     "lost": "O ginásio está fechado? Continue até o rancho e resolva a busca por Herdier. Voltar antes disso não libera Cheren.",
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Black_2_and_White_2/Part_1",
     "post": false

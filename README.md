@@ -27,11 +27,9 @@ De Aspertia ao pós-jogo, 22 capítulos organizam o caminho em passos que você 
 | :--- | :--- |
 | **“Onde eu parei?”** | Etapa atual, passos concluídos e lembrete pessoal |
 | **“Onde encontro esse Pokémon?”** | Área, subárea, método, estação e condições documentadas |
-| **“Quero usar essa equipe”** | Seis integrantes, função, item desejado e de zero a quatro golpes planejados |
-| **“Quando consigo montar?”** | Primeiro capítulo registrado e métodos de aprendizado, incluindo pré-evoluções |
 | **“E a Liga?”** | Dicas de preparo, encontros especiais e consulta das mudanças da hack |
 
-Cinco abas, controles grandes e uma leitura confortável no celular. O progresso de cada jogo fica separado e é salvo automaticamente no aparelho, sem conta. Uma cópia manual fica disponível para quem quiser transferir seus registros.
+Quatro abas, controles grandes e uma leitura confortável no celular. O progresso de cada jogo fica separado e é salvo automaticamente no aparelho, sem conta. Uma cópia manual fica disponível para quem quiser transferir seus registros.
 
 **Dados sem confirmação aparecem como tal.** A documentação detalhada disponível é v1.11, complementada pelas regras v1.12. Times exatos alterados pela hack e todos os itens comuns ainda não estão integralmente documentados. [Veja a cobertura e as fontes](docs/black2-audit.md).
 
