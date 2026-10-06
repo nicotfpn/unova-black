@@ -18,7 +18,7 @@ const Black2Bridge=(()=>{
  for(const [child,parent]of Object.entries(aliases))if(nameToId[child]&&nameToId[parent]){anchors[nameToId[child]]=nameToId[parent];coordinates[nameToId[child]]=coordinates[nameToId[parent]];}
  // Shared places retain the exact anchors of the first guide and its terrain.
  for(const [id,xy] of Object.entries(UnovaMap.coordinates))if(coordinates[id])coordinates[id]=[...xy];
- const newAnchors={'Aspertia City':[130,880],'Route 19':[205,880],'Floccesy Town':[280,880],'Route 20':[360,880],'Virbank City':[480,880],'Virbank Complex':[480,945],'Route 23':[1200,116],'N’s Castle':[1192,86]};
+ const newAnchors={'Aspertia City':[130,880],'Route 19':[205,880],'Floccesy Town':[280,880],'Route 20':[360,880],'Virbank City':[480,880],'Virbank Complex':[480,945],'Route 23':[1200,116],'N’s Castle':[1192,86],'Marine Tube':[1535,300]};
  for(const [name,xy]of Object.entries(newAnchors))coordinates[nameToId[name]]=xy;
  for(const [child,parent]of Object.entries(aliases))coordinates[nameToId[child]]=coordinates[nameToId[parent]];
  const chapterFor=n=>black2Chapters.findIndex(c=>c.areas.includes(n));

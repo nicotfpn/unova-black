@@ -62,8 +62,8 @@
     <g stroke="#566c61" stroke-width="28"><use href="#b2-road-start"/><use href="#b2-road-east"/></g>
     <g stroke="#e7bb69" stroke-width="19"><use href="#b2-road-start"/><use href="#b2-road-east"/></g>
     <g stroke="#f7e6b5" stroke-width="7"><use href="#b2-road-start"/><use href="#b2-road-east"/></g>
-    <path d="M480 880Q682 963 878 832M259 410Q650 285 1100 410" stroke="#3e7583" stroke-width="5" stroke-dasharray="10 9"/>
-    <g stroke="#789d78" stroke-width="8" stroke-dasharray="12 9"><path d="M490 568V680L620 730L878 832M1100 410L1150 475M878 685V620M490 568V475L545 425M360 880L395 815M280 880L315 815M1600 185L1500 90"/></g>
+    <path d="M480 880Q682 963 878 832M259 410Q650 285 1100 410M1498 410Q1535 360 1535 300L1600 185" stroke="#3e7583" stroke-width="5" stroke-dasharray="10 9"/>
+    <g stroke="#789d78" stroke-width="8" stroke-dasharray="12 9"><path d="M490 568V680L620 730L878 832M1100 410L1150 475M878 685V620M490 568V475L545 425M360 880L395 835M280 880L315 835M1600 185L1500 90M878 832L925 877M1323 157L1273 227"/></g>
   </g>
   <g fill="#173e43" font-family="system-ui, sans-serif" font-weight="900" letter-spacing="5" opacity=".72">
     <text x="785" y="327" font-size="30">UNOVA</text><text x="235" y="1024" font-size="24">MAR DE UNOVA</text>
