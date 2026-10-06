@@ -3,8 +3,8 @@
 </p>
 
 <p align="center">
-  <strong>Um companheiro de viagem para Pokémon Black.</strong><br>
-  Explore Unova, encontre Pokémon e itens e acompanhe a sua jornada.
+  <strong>Seu caderno de viagem por Unova.</strong><br>
+  Pokémon Black e Black 2 · Complete Unova Pokédex Edition v1.12.
 </p>
 
 <p align="center">
@@ -16,6 +16,30 @@
 </p>
 
 ---
+
+## Uma nova jornada em Black 2
+
+**[Abrir o caderno de Black 2 →](https://unova-black.vercel.app/black2.html)**
+
+De Aspertia ao pós-jogo, 22 capítulos organizam o caminho em passos que você pode marcar. O guia acompanha a **Complete Unova Pokédex Edition v1.12**, com alternativas às evoluções por troca, encontros adicionados e os itens especiais dessa edição.
+
+| Durante a aventura | No caderno |
+| :--- | :--- |
+| **“Onde eu parei?”** | Etapa atual, passos concluídos e lembrete pessoal |
+| **“Onde encontro esse Pokémon?”** | Área, subárea, método, estação e condições documentadas |
+| **“Quero usar essa equipe”** | Seis integrantes, função, item desejado e de zero a quatro golpes planejados |
+| **“Quando consigo montar?”** | Primeiro capítulo registrado e métodos de aprendizado, incluindo pré-evoluções |
+| **“E a Liga?”** | Dicas de preparo, encontros especiais e consulta das mudanças da hack |
+
+Cinco abas, controles grandes e uma leitura confortável no celular. O progresso de cada jogo fica separado e é salvo automaticamente no aparelho, sem conta. Uma cópia manual fica disponível para quem quiser transferir seus registros.
+
+**Dados sem confirmação aparecem como tal.** A documentação detalhada disponível é v1.11, complementada pelas regras v1.12. Times exatos alterados pela hack e todos os itens comuns ainda não estão integralmente documentados. [Veja a cobertura e as fontes](docs/black2-audit.md).
+
+---
+
+## Pokémon Black · o primeiro caderno
+
+[Continuar a jornada original →](https://unova-black.vercel.app/index.html?game=black)
 
 ## Explore Unova
 
