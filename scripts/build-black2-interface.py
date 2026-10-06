@@ -12,6 +12,7 @@ s=s.replace('UnovaMap','Black2Bridge.map')
 block('  const specialEncounters =','  for (const area of areas)', '  const specialEncounters=Black2Bridge.specials;\n  const areaNotes={};')
 block('  const paths =','  const labelOffsets', '  const paths=Black2Bridge.paths;')
 s=s.replace("let current = 'r1'", "let current = 'asp'")
+s=s.replace('const labelOffsets = {','const labelOffsets = {asp:[0,-39],"b2-floccesy-town":[0,-39],"b2-virbank-city":[0,-39],"b2-humilau-city":[-15,-39],"b2-lentimas-town":[0,-39],')
 block('  const journeyOrder =','  const orderedAreas', '  const journeyOrder=[...new Set(walkthroughChapters.flatMap(c=>c.path))];')
 block('  const acquisition =','  const itemGuide', '  const acquisition=Black2Bridge.acquisition;')
 s=s.replace("const storageKey='unova-black-field-guide-v2'", "const storageKey='unova-black2-complete-1.12-v1'")
@@ -19,7 +20,7 @@ s=s.replace('allSpecies.includes(name)','!!pokemonGuideData.pokemon[name]')
 s=re.sub(r'    clean.teamPlan=normalizeTeamPlan\([^\n]+\n','',s)
 s=s.replace('clean.collectedItems=itemGuide.normalizeCollected(value.collectedItems);','clean.collectedItems=itemGuide.normalizeCollected([...(Array.isArray(value.collectedItems)?value.collectedItems:[]),...(Array.isArray(value.items)?value.items:[])]);\n    clean.steps=Array.isArray(value.steps)?value.steps.filter(id=>black2Chapters.some(c=>c.steps.some(step=>step.id===id))):[];\n    clean.chapter=Number.isInteger(value.chapter)?Math.max(0,Math.min(21,value.chapter)):0;')
 s=s.replace("clean.playNote=typeof value.playNote==='string'?value.playNote.slice(0,1000):'';", "clean.playNote=String(value.playNote||value.note||'').slice(0,1000);")
-s=s.replace('renderStoryOutline();adventure?.refresh();teamPlanner?.refresh();playingGuide?.refresh();','renderStoryOutline();renderWalkthrough();renderTools();')
+s=s.replace('renderStoryOutline();adventure?.refresh();teamPlanner?.refresh();playingGuide?.refresh();','renderStoryOutline();renderWalkthrough();adventure?.refresh();')
 block('  const stage=','  function spoilerLocked', '  const stage=Black2Bridge.stage;')
 s=s.replace("if((regionalLookup.get(name)??0)>=144&&!progress.league)return false;",'')
 s=s.replace("if(['castle','torn','swords','events','lib'].includes(area[0])&&!progress.league)return true;",'')
@@ -47,9 +48,7 @@ block('  function lockReason(', '  const isAvailable=', '''  function lockReason
   }''')
 s=s.replace("if(entry[0].includes('Tirtouga'))rank=3;",'').replace("if(entry[0]==='Petilil')rank=2;",'').replace("if(['Volcarona','Musharna'].includes(entry[0]))rank=100;",'').replace("if(['Cobalion','Virizion','Terrakion','Larvesta'].includes(entry[0]))rank=Math.max(rank,5);",'')
 s=s.replace('`${registered}/156 Unova', '`${registered}/301 Unova')
-s=s.replace('let s = `<image href="unova-base.svg" x="0" y="0" width="1712" height="1080"/>`;', '''let s = `<image href="black2-base.svg" x="0" y="0" width="1712" height="1080"/>`;
-    for(const path of paths){const points=path.map(id=>byId.get(id)).filter(Boolean).map(a=>a[3]+','+a[4]).join(' ');s+=`<polyline points="${points}" fill="none" stroke="#566c61" stroke-width="28" stroke-linejoin="round"/><polyline points="${points}" fill="none" stroke="#e7bb69" stroke-width="19" stroke-linejoin="round"/><polyline points="${points}" fill="none" stroke="#f7e6b5" stroke-width="7" stroke-linejoin="round"/>`;}
-''')
+s=s.replace('href="unova-base.svg"','href="black2-base.svg"')
 s=s.replace('Black2Bridge.map.nearest(mappedAreas,position.x,position.y)', 'Black2Bridge.map.nearest(mappedAreas.filter(a=>!spoilerLocked(a)),position.x,position.y)')
 s=s.replace("if (['well','charge','mc','tw','vr','chasm'].includes(id))", "if (['well','charge','mc','tw','vr','chasm'].includes(id)||/Cave|Passage|Tunnel|Mountain/.test(byId.get(id)?.[1]||''))")
 s=s.replace("    return [method,'Encontro especial desta área.'];", "    if(method==='Dust Clouds')return ['Nuvem de poeira','Entre na nuvem de poeira que aparece no chão. Ela também pode dar um item.'];\n    if(method==='Bridge Shadows')return ['Sombra na ponte','Passe sobre a sombra no chão da ponte.'];\n    if(method==='Hidden Grotto')return ['Hidden Grotto','Entre na abertura escondida entre as árvores. O conteúdo do esconderijo pode precisar se renovar.'];\n    return [method,'Encontro especial desta área.'];")
@@ -73,8 +72,9 @@ s=s.replace('A Super Rod é recebida de Looker em Nuvema após vencer Ghetsis.',
 s=s.replace('Ela não mede a chance de surgir uma batalha a cada passo.', 'Ela não mede a chance de surgir uma batalha a cada passo. Um traço indica taxa ou nível não documentado na hack.')
 s=s.replace("    detail.querySelectorAll('[data-story-place]').forEach", "    detail.querySelectorAll('[data-chapter]').forEach(b=>b.onclick=()=>openChapter(+b.dataset.chapter));\n    detail.querySelectorAll('[data-story-place]').forEach")
 s=s.replace("item.rate+'%'", "item.rate==null?'taxa não documentada':item.rate+'%'")
-s=s.replace("if(view==='play')playingGuide?.refresh();", "if(view==='play')renderWalkthrough();if(view==='tools')renderTools();")
+s=s.replace("if(view==='play')playingGuide?.refresh();", "if(view==='play')renderWalkthrough();$('now-view').hidden=view!=='now';if(view==='now')playingGuide?.refresh();if(view==='tools')renderTools();")
 s=s.replace("view==='team';", "view==='team';")
+s=s.replace("clean.tasks=Array.isArray(value.tasks)?[...new Set(value.tasks.filter(id=>typeof id==='string'&&/^chapter-(?:[0-9]|10)-[0-2]$/.test(id)))]:[];", "clean.tasks=Array.isArray(value.tasks)?[...new Set(value.tasks.filter(id=>black2Chapters.some(c=>c.steps.some(s=>s.id===id))))]:[];")
 s=s.replace("$('recenter').onclick=()=>centerOn('nu');", "$('recenter').onclick=()=>centerOn('asp');")
 s=s.replace("a.download='unova-black-progresso.json'", "a.download='unova-black2-progresso.json'")
 block('  adventure=createAdventureGuide(', '  renderStoryOutline();renderProgress();applyFilters();', '''  let readingChapter=progress.chapter||0;
@@ -89,12 +89,22 @@ block('  adventure=createAdventureGuide(', '  renderStoryOutline();renderProgres
     $('play-view').querySelectorAll('[data-next-chapter]').forEach(b=>b.onclick=()=>openChapter(+b.dataset.nextChapter));
     $('play-view').querySelectorAll('[data-story-place]').forEach(b=>b.onclick=()=>{switchView('map');select(b.dataset.storyPlace);});
   }
-  function renderTools(){
-    $('tools-view').innerHTML=`<div class="plan-intro"><span class="section-index">CONSULTA / COMPLETE UNOVA v1.12</span><h1>Ferramentas da jornada</h1><p>Evoluções, batalhas e encontros especiais desta edição.</p></div><details class="story-chapter"><summary><b>Consultar uma evolução</b></summary><div class="story-chapter-body"><label>Pokémon<select id="b2-evolution">${Object.keys(pokemonGuideData.pokemon).map(n=>`<option>${esc(n)}</option>`).join('')}</select></label><div id="b2-evolution-result"></div></div></details><details class="story-chapter"><summary><b>Batalhas importantes</b></summary><div class="story-chapter-body"><p>A hack amplia os times de Marlon e da Elite Four. Os times completos alterados ainda precisam de confirmação; estas dicas ajudam no preparo.</p>${Object.entries(black2Extra.battleTips).map(([n,t])=>`<details><summary>${esc(n)}</summary><p>${esc(t)}</p></details>`).join('')}</div></details><details class="story-chapter"><summary><b>Lendários e encontros especiais</b></summary><div class="story-chapter-body">${black2Extra.legends.map(([name,area,,note])=>`<details><summary>${esc(name)} · ${esc(area)}</summary><p>${esc(note)}</p>${storyLinks([Black2Bridge.nameToId[area]],'Área do encontro')}</details>`).join('')}</div></details><details class="story-chapter"><summary><b>Diferenças da hack e fontes</b></summary><div class="story-chapter-body"><p>Complete Unova Pokédex Edition v1.12: exclusivos das duas versões, novas alternativas às evoluções por troca e Keys liberadas desde o começo.</p><p>Leafeon usa Leaf Stone; Glaceon usa Dawn Stone, adicionada na Route 16. Elekid pode carregar Electirizer e Magby pode carregar Magmarizer (5% cada). Os fósseis Cover e Plume são vendidos em Nacrene por 7.000.</p><p>Documentação detalhada v1.11 complementada pelas regras v1.12. Taxas e níveis desconhecidos aparecem com um traço; o catálogo de itens comuns ainda é parcial.</p><a href="docs/black2-audit.md">Cobertura e fontes →</a></div></details><details class="story-chapter"><summary><b>Consulta offline</b></summary><div class="story-chapter-body"><p id="offline-state">Preparando a consulta offline…</p></div></details>`;
-    const evo=()=>{const name=$('b2-evolution').value,rows=pokemonGuideData.evolutions.filter(e=>e.fromSpecies===name||e.toSpecies===name);$('b2-evolution-result').innerHTML=rows.length?rows.map(e=>`<p><b>${esc(e.fromSpecies)} → ${esc(e.toSpecies)}</b><br>${esc(e.condition)}${e.hack?' · Alternativa da hack':''}</p>`).join(''):'<p>Sem evolução cadastrada.</p>';};$('b2-evolution').onchange=evo;evo();
-    $('tools-view').querySelectorAll('[data-story-place]').forEach(b=>b.onclick=()=>{switchView('map');select(b.dataset.storyPlace);});
-    initOffline($('offline-state'));
-  }
+  function renderTools(){adventure?.refresh();}
+  adventure=createAdventureGuide({areas,encounters:encounterTables,specials:specialEncounters,stage,editorial:black2AdventureData,data:pokemonGuideData,chapters:walkthroughChapters,allSpecies,items:itemTables,acquisition,
+    getProgress:()=>({...progress,tasks:progress.steps||[]}),chapterIndex:()=>progress.chapter||0,availableNames,lockReason,specialLock,methodInfo,sectionLabel,seasonLabel:s=>seasonsPT[s]||s,itemMatches:itemGuide.matches,spoilerLocked,isSpeciesVisible,
+    openArea:id=>{search.value='';phase='all';switchView('map');applyFilters();select(id);},
+    update:patch=>{if(patch.tasks)patch.steps=patch.tasks;progress=normalizeProgress({...progress,...patch});save();renderProgress();renderDexList();renderStoryOutline();renderWalkthrough();},
+    refresh:()=>{if(spoilerLocked(byId.get(current)))current='asp';renderStoryOutline();applyFilters();renderDetail();renderDexList();}
+  });
+  adventure.mount($('tools-view'));
+  $('team-choice').closest('.guide-tool').hidden=true;
+  $('cloud-tools').closest('.guide-tool').hidden=true;
+  $('agenda-output').closest('.guide-tool').hidden=true;
+  playingGuide=createPlayingGuide({areas,chapters:walkthroughChapters,editorial:black2AdventureData,spoilerLocked,getProgress:()=>({...progress,tasks:progress.steps||[]}),
+    update:(patch,refresh=true)=>{if(patch.tasks)patch.steps=patch.tasks;progress=normalizeProgress({...progress,...patch});save();if(refresh){renderProgress();playingGuide?.refresh();renderWalkthrough();}return true;},
+    openArea:id=>{search.value='';phase='all';switchView('map');applyFilters();select(id);},saveStatus:()=>$('save-status').textContent
+  });playingGuide.mount($('now-view'));
+  initOffline($('offline-state'));
   renderTools();renderWalkthrough();''')
 s=s.replace("requestAnimationFrame(()=>centerOn('r1',false));", "requestAnimationFrame(()=>centerOn('asp',false));\n  const [initialView,initialArea]=location.hash.slice(1).split('/');\n  if(initialView==='play'){const i=black2Chapters.findIndex(c=>c.id===initialArea);if(i>=0)readingChapter=i;switchView('play');renderWalkthrough();}\n  if(initialView==='map'&&initialArea){let n='';try{n=decodeURIComponent(initialArea);}catch{}const id=Black2Bridge.nameToId[n]||n;if(byId.has(id))select(id,false);}\n  try{localStorage.setItem('unova-last-game','black2');}catch{}")
 # Preserve first game's interface, including its sheet, filters, map and list controls.
@@ -105,6 +115,9 @@ h=h.replace('  <a href="black2.html" style="display:block;text-align:center;padd
 h=h.replace(' / BLACK</span>',' / BLACK 2</span>').replace('BLACK · 2010','BLACK 2 · v1.12')
 h=re.sub(r'<button type="button" class="view-tab" data-view="team".*?</button>','',h)
 h=h.replace('>Jogar</button>','>Detonado</button>')
+h=h.replace('<button type="button" class="view-tab" data-view="play"', '<button type="button" class="view-tab" data-view="now" aria-pressed="false"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg>Jogar</button><button type="button" class="view-tab" data-view="play"')
+h=h.replace('<section id="play-view"', '<section id="now-view" class="play-view" hidden aria-label="Estou jogando agora"></section><section id="play-view"')
+h=h.replace('id="play-view" class="play-view" hidden aria-label="Estou jogando agora"','id="play-view" class="play-view" hidden aria-label="Detonado"')
 h=h.replace('0/156 Unova','0/301 Unova').replace('Pokédex de Unova · 156','Pokédex de Unova · 301')
 h=h.replace('Concluí a história (N e Ghetsis)','Venci a Liga (Iris)').replace('Mostrar Pokémon obtidos por troca','Incluir trocas com personagens').replace('Mostrar Pokémon de eventos antigos','Conferir encontros especiais')
 h=h.replace('Voltar a Nuvema','Voltar a Aspertia').replace('>Nuvema</button>','>Aspertia</button>').replace('src="unova-base.svg"','src="black2-base.svg"')
@@ -116,5 +129,5 @@ h=h.replace('Você recebe apenas um dos três iniciais. Para encontrar Landorus,
 h=h.replace('  <link rel="stylesheet" href="planner.css">','  <link rel="stylesheet" href="planner.css">\n  <link rel="stylesheet" href="black2-walkthrough.css">')
 h=h.replace('<span class="edition">BLACK 2 · v1.12</span>','<span class="edition">BLACK 2 · v1.12 <a href="index.html?game=black" class="game-return">Black 1 ↗</a></span>')
 start=h.index('  <script src="data.js">');end=h.index('\n</body>',start)
-h=h[:start]+'''  <script src="black2-data.js"></script><script src="black2-chapters.js"></script><script src="black2-extra.js"></script><script src="black2-hack-data.js"></script><script src="black2-hack.js"></script><script src="black2-bridge.js"></script><script src="item-guide.js"></script><script src="progress-store.js"></script><script src="offline.js"></script><script src="black2-app.js"></script>'''+h[end:]
+h=h[:start]+'''  <script src="black2-data.js"></script><script src="black2-chapters.js"></script><script src="black2-extra.js"></script><script src="black2-hack-data.js"></script><script src="black2-hack.js"></script><script src="map-data.js"></script><script src="black2-bridge.js"></script><script src="black2-adventure.js"></script><script src="black2-playing.js"></script><script src="item-guide.js"></script><script src="progress-store.js"></script><script src="offline.js"></script><script src="black2-app.js"></script>'''+h[end:]
 (root/'black2.html').write_text(h)

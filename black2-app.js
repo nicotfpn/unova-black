@@ -33,7 +33,7 @@
   const mappedAreas = areas.filter(onMap);
   const mapAnchor = Black2Bridge.map.anchors;
   const paths=Black2Bridge.paths;
-  const labelOffsets = {nu:[-40,-39],acc:[-40,-39],str:[-40,-41],nac:[-37,-40],cas:[18,53],nim:[-20,-43],dri:[-25,-43],mis:[-25,-43],ici:[-25,-43],ope:[-25,-43],league:[30,-17],lac:[-25,-43],und:[26,-25],black:[-18,-43],anv:[0,-38]};
+  const labelOffsets = {asp:[0,-39],"b2-floccesy-town":[0,-39],"b2-virbank-city":[0,-39],"b2-humilau-city":[-15,-39],"b2-lentimas-town":[0,-39],nu:[-40,-39],acc:[-40,-39],str:[-40,-41],nac:[-37,-40],cas:[18,53],nim:[-20,-43],dri:[-25,-43],mis:[-25,-43],ici:[-25,-43],ope:[-25,-43],league:[30,-17],lac:[-25,-43],und:[26,-25],black:[-18,-43],anv:[0,-38]};
   let current = 'asp', phase = 'all', zoom = 1, visible = areas;
   const journeyOrder=[...new Set(walkthroughChapters.flatMap(c=>c.path))];
   const orderedAreas = [...journeyOrder.map(id => byId.get(id)).filter(Boolean), ...areas.filter(area => !journeyOrder.includes(area[0]))];
@@ -64,7 +64,7 @@
     clean.team=Array.isArray(value.team)?[...new Set(value.team.filter(n=>allSpecies.includes(n)))].slice(0,6):[];
     clean.playArea=byId.has(value.playArea)?value.playArea:'';
     clean.playNote=String(value.playNote||value.note||'').slice(0,1000);
-    clean.tasks=Array.isArray(value.tasks)?[...new Set(value.tasks.filter(id=>typeof id==='string'&&/^chapter-(?:[0-9]|10)-[0-2]$/.test(id)))]:[];
+    clean.tasks=Array.isArray(value.tasks)?[...new Set(value.tasks.filter(id=>black2Chapters.some(c=>c.steps.some(s=>s.id===id))))]:[];
     if(value.notes&&typeof value.notes==='object'&&!Array.isArray(value.notes))for(const [id,note] of Object.entries(value.notes))if(byId.has(id)&&typeof note==='string')clean.notes[id]=note.slice(0,1000);
     return clean;
   }
@@ -72,7 +72,7 @@
   const progressStore=createProgressStore({
     key:storageKey,normalize:normalizeProgress,
     onStatus:({state,text})=>{const status=document.getElementById('save-status');status.dataset.state=state;status.textContent=text;},
-    onExternal:value=>{progress=value;if(progressReady){renderProgress();renderDexList();applyFilters();renderDetail();renderStoryOutline();renderWalkthrough();renderTools();}}
+    onExternal:value=>{progress=value;if(progressReady){renderProgress();renderDexList();applyFilters();renderDetail();renderStoryOutline();renderWalkthrough();adventure?.refresh();}}
   });
   progress=(await progressStore.load())||progress;
   const save=()=>{const saved=progressStore.save(progress);adventure?.refresh();cloudSync?.schedule();return saved;};
@@ -169,8 +169,6 @@
   }
   function drawMap() {
     let s = `<image href="black2-base.svg" x="0" y="0" width="1712" height="1080"/>`;
-    for(const path of paths){const points=path.map(id=>byId.get(id)).filter(Boolean).map(a=>a[3]+','+a[4]).join(' ');s+=`<polyline points="${points}" fill="none" stroke="#566c61" stroke-width="28" stroke-linejoin="round"/><polyline points="${points}" fill="none" stroke="#e7bb69" stroke-width="19" stroke-linejoin="round"/><polyline points="${points}" fill="none" stroke="#f7e6b5" stroke-width="7" stroke-linejoin="round"/>`;}
-
     for (const d of mappedAreas.filter(a=>!spoilerLocked(a))) {
       const [id,name,kind,x,y] = d;
       const cls = category(d), active = id === current ? ' active' : '', dim = visible.includes(d) ? '' : ' dimmed', locked = (d[9] ? !isAvailable(d) : !!lockReason(d)) ? ' locked' : '';
@@ -375,7 +373,7 @@
   }
   function switchView(view) {
     const showMap = view === 'map';
-    $('map-view').hidden = !showMap; $('dex-view').hidden = view!=='dex'; $('tools-view').hidden=view!=='tools';$('team-view').hidden=view!=='team';$('play-view').hidden=view!=='play';if(view==='tools')adventure?.refresh();if(view==='team')teamPlanner?.refresh();if(view==='play')renderWalkthrough();if(view==='tools')renderTools();
+    $('map-view').hidden = !showMap; $('dex-view').hidden = view!=='dex'; $('tools-view').hidden=view!=='tools';$('team-view').hidden=view!=='team';$('play-view').hidden=view!=='play';if(view==='tools')adventure?.refresh();if(view==='team')teamPlanner?.refresh();if(view==='play')renderWalkthrough();$('now-view').hidden=view!=='now';if(view==='now')playingGuide?.refresh();if(view==='tools')renderTools();
     document.querySelectorAll('.view-tab').forEach(button => { const active = button.dataset.view === view; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
     closeSheet(); window.scrollTo({top:0,behavior:'instant'});
     if (showMap) requestAnimationFrame(() => centerOn(current,false));
@@ -429,12 +427,22 @@
     $('play-view').querySelectorAll('[data-next-chapter]').forEach(b=>b.onclick=()=>openChapter(+b.dataset.nextChapter));
     $('play-view').querySelectorAll('[data-story-place]').forEach(b=>b.onclick=()=>{switchView('map');select(b.dataset.storyPlace);});
   }
-  function renderTools(){
-    $('tools-view').innerHTML=`<div class="plan-intro"><span class="section-index">CONSULTA / COMPLETE UNOVA v1.12</span><h1>Ferramentas da jornada</h1><p>Evoluções, batalhas e encontros especiais desta edição.</p></div><details class="story-chapter"><summary><b>Consultar uma evolução</b></summary><div class="story-chapter-body"><label>Pokémon<select id="b2-evolution">${Object.keys(pokemonGuideData.pokemon).map(n=>`<option>${esc(n)}</option>`).join('')}</select></label><div id="b2-evolution-result"></div></div></details><details class="story-chapter"><summary><b>Batalhas importantes</b></summary><div class="story-chapter-body"><p>A hack amplia os times de Marlon e da Elite Four. Os times completos alterados ainda precisam de confirmação; estas dicas ajudam no preparo.</p>${Object.entries(black2Extra.battleTips).map(([n,t])=>`<details><summary>${esc(n)}</summary><p>${esc(t)}</p></details>`).join('')}</div></details><details class="story-chapter"><summary><b>Lendários e encontros especiais</b></summary><div class="story-chapter-body">${black2Extra.legends.map(([name,area,,note])=>`<details><summary>${esc(name)} · ${esc(area)}</summary><p>${esc(note)}</p>${storyLinks([Black2Bridge.nameToId[area]],'Área do encontro')}</details>`).join('')}</div></details><details class="story-chapter"><summary><b>Diferenças da hack e fontes</b></summary><div class="story-chapter-body"><p>Complete Unova Pokédex Edition v1.12: exclusivos das duas versões, novas alternativas às evoluções por troca e Keys liberadas desde o começo.</p><p>Leafeon usa Leaf Stone; Glaceon usa Dawn Stone, adicionada na Route 16. Elekid pode carregar Electirizer e Magby pode carregar Magmarizer (5% cada). Os fósseis Cover e Plume são vendidos em Nacrene por 7.000.</p><p>Documentação detalhada v1.11 complementada pelas regras v1.12. Taxas e níveis desconhecidos aparecem com um traço; o catálogo de itens comuns ainda é parcial.</p><a href="docs/black2-audit.md">Cobertura e fontes →</a></div></details><details class="story-chapter"><summary><b>Consulta offline</b></summary><div class="story-chapter-body"><p id="offline-state">Preparando a consulta offline…</p></div></details>`;
-    const evo=()=>{const name=$('b2-evolution').value,rows=pokemonGuideData.evolutions.filter(e=>e.fromSpecies===name||e.toSpecies===name);$('b2-evolution-result').innerHTML=rows.length?rows.map(e=>`<p><b>${esc(e.fromSpecies)} → ${esc(e.toSpecies)}</b><br>${esc(e.condition)}${e.hack?' · Alternativa da hack':''}</p>`).join(''):'<p>Sem evolução cadastrada.</p>';};$('b2-evolution').onchange=evo;evo();
-    $('tools-view').querySelectorAll('[data-story-place]').forEach(b=>b.onclick=()=>{switchView('map');select(b.dataset.storyPlace);});
-    initOffline($('offline-state'));
-  }
+  function renderTools(){adventure?.refresh();}
+  adventure=createAdventureGuide({areas,encounters:encounterTables,specials:specialEncounters,stage,editorial:black2AdventureData,data:pokemonGuideData,chapters:walkthroughChapters,allSpecies,items:itemTables,acquisition,
+    getProgress:()=>({...progress,tasks:progress.steps||[]}),chapterIndex:()=>progress.chapter||0,availableNames,lockReason,specialLock,methodInfo,sectionLabel,seasonLabel:s=>seasonsPT[s]||s,itemMatches:itemGuide.matches,spoilerLocked,isSpeciesVisible,
+    openArea:id=>{search.value='';phase='all';switchView('map');applyFilters();select(id);},
+    update:patch=>{if(patch.tasks)patch.steps=patch.tasks;progress=normalizeProgress({...progress,...patch});save();renderProgress();renderDexList();renderStoryOutline();renderWalkthrough();},
+    refresh:()=>{if(spoilerLocked(byId.get(current)))current='asp';renderStoryOutline();applyFilters();renderDetail();renderDexList();}
+  });
+  adventure.mount($('tools-view'));
+  $('team-choice').closest('.guide-tool').hidden=true;
+  $('cloud-tools').closest('.guide-tool').hidden=true;
+  $('agenda-output').closest('.guide-tool').hidden=true;
+  playingGuide=createPlayingGuide({areas,chapters:walkthroughChapters,editorial:black2AdventureData,spoilerLocked,getProgress:()=>({...progress,tasks:progress.steps||[]}),
+    update:(patch,refresh=true)=>{if(patch.tasks)patch.steps=patch.tasks;progress=normalizeProgress({...progress,...patch});save();if(refresh){renderProgress();playingGuide?.refresh();renderWalkthrough();}return true;},
+    openArea:id=>{search.value='';phase='all';switchView('map');applyFilters();select(id);},saveStatus:()=>$('save-status').textContent
+  });playingGuide.mount($('now-view'));
+  initOffline($('offline-state'));
   renderTools();renderWalkthrough();
   renderStoryOutline();renderProgress();applyFilters(); renderDetail(); renderDexList(); requestAnimationFrame(()=>centerOn('asp',false));
   const [initialView,initialArea]=location.hash.slice(1).split('/');

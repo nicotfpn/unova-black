@@ -10,7 +10,7 @@ async function boot(saved){
 (async()=>{
  const old={caught:['Eevee'],steps:['c01-s1'],items:['Route 16|Dawn Stone'],chapter:5,note:'Meu lembrete antigo'};
  let {dom,w,d,errors}=await boot(JSON.stringify(old));
- assert.equal(d.querySelectorAll('.view-tab').length,4);assert.ok(!d.querySelector('[data-view=team]'));
+ assert.equal(d.querySelectorAll('.view-tab').length,5);assert.ok(!d.querySelector('[data-view=team]'));
  assert.ok(d.querySelector('#map .node[data-id=asp]'));assert.ok(d.querySelector('#map-viewport'));assert.ok(d.querySelector('#mini-map'));
  const change=el=>el.dispatchEvent(new w.Event('change',{bubbles:true}));
  d.querySelector('#badge-count').value='8';change(d.querySelector('#badge-count'));
@@ -27,9 +27,20 @@ async function boot(saved){
  const check=d.querySelector('[data-step="c01-s2"]');check.checked=true;change(check);
  assert.match(d.querySelector('#walkthrough-count').textContent,/2\/4/);
  const note=d.querySelector('#walkthrough-note');assert.equal(note.value,'Meu lembrete antigo');note.value='Continua salvo';note.dispatchEvent(new w.Event('input',{bubbles:true}));
- d.querySelector('[data-view=tools]').click();d.querySelector('#b2-evolution').value='Eevee';change(d.querySelector('#b2-evolution'));assert.match(d.querySelector('#b2-evolution-result').textContent,/Dawn Stone/);
+ d.querySelector('[data-view=tools]').click();d.querySelector('#evolution-choice').value='Eevee';change(d.querySelector('#evolution-choice'));assert.match(d.querySelector('#evolution-output').textContent,/Dawn Stone/);
+ const input=el=>el.dispatchEvent(new w.Event('input',{bubbles:true}));
+ d.querySelector('#move-query').value='False Swipe';input(d.querySelector('#move-query'));assert.match(d.querySelector('#move-output').textContent,/TM54/);
+ d.querySelector('#item-query').value='Dawn Stone';input(d.querySelector('#item-query'));assert.match(d.querySelector('#item-output').textContent,/Rota 16/);
+ d.querySelector('#diagnostic-choice').value='Litwick';change(d.querySelector('#diagnostic-choice'));assert.match(d.querySelector('#diagnostic-output').textContent,/Celestial Tower/);assert.ok(!d.querySelector('#diagnostic-output').textContent.includes('null%'));
+ d.querySelector('#league-toggle').checked=false;change(d.querySelector('#league-toggle'));d.querySelector('#spoiler-free').checked=true;change(d.querySelector('#spoiler-free'));assert.equal(d.querySelector('#map [data-id=castle]'),null);d.querySelector('#spoiler-free').checked=false;change(d.querySelector('#spoiler-free'));d.querySelector('#league-toggle').checked=true;change(d.querySelector('#league-toggle'));
+ d.querySelector('#guide-now [data-guide-place]').click();assert.ok(d.querySelector('#area-note'));d.querySelector('#area-note').value='Voltar com Surf';input(d.querySelector('#area-note'));await new Promise(r=>setTimeout(r,10));assert.ok(Object.values(JSON.parse(w.localStorage.getItem(key)).notes).includes('Voltar com Surf'));
+ d.querySelector('.detail-close').click();
+ d.querySelector('[data-view=now]').click();assert.equal(d.querySelector('#now-view').hidden,false);assert.equal(d.querySelector('#play-view').hidden,true);assert.ok(d.querySelector('#playing-place'));
+ d.querySelector('#playing-note').value='Continuar amanhã';input(d.querySelector('#playing-note'));assert.equal(JSON.parse(w.localStorage.getItem(key)).playNote,'Continuar amanhã');
+ d.querySelector('[data-playing-tab=battles]').click();assert.match(d.querySelector('#now-view').textContent,/Marlon/);assert.match(d.querySelector('#now-view').textContent,/Capturas lendárias/);
+ const coords=w.document.querySelector('#map [data-id=cas] .ring');assert.equal(coords.getAttribute('cx'),'878');assert.equal(coords.getAttribute('cy'),'832');assert.equal(d.querySelector('#map [data-id=league] .site-marker').getAttribute('x'),'1123');
  d.querySelector('[data-view=dex]').click();assert.match(d.querySelector('#progress-summary').textContent,/301 Unova/);
  assert.deepEqual(errors,[]);const saved=w.localStorage.getItem(key);assert.ok(JSON.parse(saved).caught.includes('Eevee'));assert.ok(JSON.parse(saved).steps.includes('c01-s2'));assert.equal(w.localStorage.getItem('unova-black-field-guide-v2'),null);dom.window.close();
- const again=await boot(saved);again.d.querySelector('[data-view=play]').click();assert.equal(again.d.querySelector('#walkthrough-note').value,'Continua salvo');assert.equal(again.d.querySelectorAll('.view-tab').length,4);again.dom.window.close();
+ const again=await boot(saved);again.d.querySelector('[data-view=play]').click();assert.equal(again.d.querySelector('#walkthrough-note').value,'Continuar amanhã');assert.equal(again.d.querySelectorAll('.view-tab').length,5);again.dom.window.close();
  console.log('Black 2 original UI: map sheet, encounter rows, items, walkthrough, hack evolution and migration passed');
 })().catch(e=>{console.error(e);process.exit(1)});
