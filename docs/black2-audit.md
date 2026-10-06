@@ -14,7 +14,7 @@ A edição selecionada é a hack, com Black 2 como jogo-base. O progresso usa um
 
 ## Limites conhecidos
 
-Os documentos detalhados encontrados são v1.11. As mudanças v1.12 fornecidas pelo usuário prevalecem. Não há confirmação integral dos times alterados de treinadores. Taxas e níveis ausentes ficam sem valor; áreas alteradas não reutilizam as probabilidades originais. Os níveis preservados dos encontros não substituídos vêm do jogo-base e ainda precisam de auditoria contra a ROM.
+Os documentos detalhados encontrados são v1.11. As mudanças v1.12 fornecidas pelo usuário prevalecem, incluindo a regra de 20% para os lendários adicionados no pós-jogo (Latias aparece com 30% no documento anterior). Não há confirmação integral dos times alterados de treinadores. Taxas e níveis ausentes ficam sem valor; áreas alteradas não reutilizam as probabilidades originais. Os níveis preservados dos encontros não substituídos vêm do jogo-base e ainda precisam de auditoria contra a ROM.
 
 Os exclusivos opostos usam os habitats de White 2 como referência e a regra geral da hack; suas taxas menores não são inventadas. O catálogo de itens contém todas as TMs/HMs do jogo-base e itens selecionados, não todos os itens comuns do chão. Registros de shards e Heart Scale explicam serviços, não afirmam que o recurso seja coletado ali.
 
@@ -23,3 +23,5 @@ O mapa é esquemático, com o terreno do atlas anterior e conexões novas. A lis
 ## Verificação
 
 Testes de navegação, cadastro de equipe sem golpes obrigatórios, campos salvos durante digitação, retomada após reabrir, separação de progresso entre jogos, alterações de evolução, remoção de encontros e catálogo regional. O pacote offline inclui os arquivos de Black 2. O teste visual móvel deve complementar os testes de DOM.
+
+A conferência visual em largura de 390 px verificou capítulo, lista, mapa e equipe. Corrigiu a largura dos links, o contador do checklist e a rolagem ao escolher movimentos. Captura de referência: [interface móvel](black2-mobile.jpg).
