@@ -16,6 +16,11 @@ const Black2Bridge=(()=>{
  const coordinates={},anchors={};
  for(const n of names){let xy=X.points[n];if(!xy&&aliases[n])xy=X.points[aliases[n]];if(!xy&&fallback[n]){const [base,dx,dy]=fallback[n],p=X.points[base]||[1300,200];xy=[p[0]+dx,p[1]+dy];}if(!xy){const chapter=black2Chapters.find(c=>c.areas.includes(n));const p=chapter?.areas.map(a=>X.points[a]).find(Boolean)||[1300,200];xy=[p[0]+40,p[1]+45];}coordinates[nameToId[n]]=[Math.max(25,Math.min(1680,xy[0])),Math.max(25,Math.min(1050,xy[1]))];}
  for(const [child,parent]of Object.entries(aliases))if(nameToId[child]&&nameToId[parent]){anchors[nameToId[child]]=nameToId[parent];coordinates[nameToId[child]]=coordinates[nameToId[parent]];}
+ // Shared places retain the exact anchors of the first guide and its terrain.
+ for(const [id,xy] of Object.entries(UnovaMap.coordinates))if(coordinates[id])coordinates[id]=[...xy];
+ const newAnchors={'Aspertia City':[130,880],'Route 19':[205,880],'Floccesy Town':[280,880],'Route 20':[360,880],'Virbank City':[480,880],'Virbank Complex':[480,945],'Route 23':[1200,116],'N’s Castle':[1192,86]};
+ for(const [name,xy]of Object.entries(newAnchors))coordinates[nameToId[name]]=xy;
+ for(const [child,parent]of Object.entries(aliases))coordinates[nameToId[child]]=coordinates[nameToId[parent]];
  const chapterFor=n=>black2Chapters.findIndex(c=>c.areas.includes(n));
  const badgeStages=[0,0,1,2,3,3,4,5,5,5,6,6,6,8,8];
  const stage={},areaChapter={};
@@ -26,7 +31,8 @@ const Black2Bridge=(()=>{
  const conditionLabel=c=>({'item-lunar-wing':'Tenha Lunar Wing','item-dark-stone':'Tenha Dark Stone','other-captured-reshiram-or-zekrom':'Capture Reshiram ou Zekrom','story-progress-juniper-cave-of-being':'Encontre Juniper em Cave of Being','other-regirock-regice-registeel-in-party':'Leve Regirock, Regice e Registeel na equipe','story-progress-quake-badge':'Após a Quake Badge','special-encounter-couldnt-capture-before':'Reaparece se não foi capturado antes'}[c]||(c.startsWith('trade-')?'Ofereça '+c.slice(6):c.startsWith('item-')?'Tenha '+c.slice(5).replaceAll('-',' '):c));
  for(const e of D.encounters){const id=nameToId[e.area],season=e.conditions.filter(c=>c.startsWith('season-')).map(c=>seasons[c.slice(7)]),conditions=e.conditions.filter(c=>!c.startsWith('season-'));const level=e.min==null?'?':e.min===e.max?String(e.min):e.min+' - '+e.max;
   if(!labels[e.method]){(specials[id]??=[]).push([e.name,({'gift':'Presente','gift-egg':'Ovo recebido','npc-trade':'Troca com personagem',static:'Encontro fixo'}[e.method]||'Encontro especial'),[e.zone,level!=='?'?'Nv. '+level:null,...conditions.map(conditionLabel),e.post?'Disponível no pós-jogo':null,e.note].filter(Boolean).join(' · '),{conditions,post:e.post}]);continue;}
-  const method=labels[e.method],key=JSON.stringify([method,e.zone,season,conditions,!!e.post]);const tables=encounters[id]??=[];let table=tables.find(t=>t.key===key);if(!table){table={key,method,sections:[e.zone].filter(z=>z&&z!==e.area&&z!=='Área principal'),seasons:season,pokemon:[],requires:{league:!!e.post},conditions,sourceOrigin:e.origin};tables.push(table);}table.pokemon.push([e.name,e.chance,level]);
+  const genericZone=e.zone?.replace(/^Road /,'Route ')===e.area||['Grama','Habitat da outra versão','Área principal'].includes(e.zone);
+  const zone=genericZone?'':e.zone,method=labels[e.method],key=JSON.stringify([method,zone,season,conditions,!!e.post]);const tables=encounters[id]??=[];let table=tables.find(t=>t.key===key);if(!table){table={key,method,sections:[zone].filter(Boolean),seasons:season,pokemon:[],requires:{league:!!e.post},conditions,sourceOrigin:e.origin};tables.push(table);}table.pokemon.push([e.name,e.chance,level]);
  }
  const methodOrder=['Standard Walking','Doubles Grass','Ground Shaking Spots','Dust Clouds','Bridge Shadows','Standard Surfing','Surfing Spots','Standard Fishing','Fishing Spots','Hidden Grotto'];
  for(const [id,tables]of Object.entries(encounters)){
@@ -45,3 +51,16 @@ const Black2Bridge=(()=>{
 const rawAreas=Black2Bridge.areas,encounterTables=Black2Bridge.encounters,itemTables=Black2Bridge.items,walkthroughChapters=Black2Bridge.chapters,walkthroughSteps=Black2Bridge.steps;
 const unovaDex=Object.entries(black2Data.pokemon).filter(([,m])=>m.dex!=null).map(([n,m])=>[m.dex,n]).sort((a,b)=>a[0]-b[0]);
 const nationalNumbers=Object.fromEntries(Object.entries(black2Data.pokemon).map(([n,m])=>[n,m.id])),dexNumbers=nationalNumbers,pokemonGuideData=black2Data;
+pokemonGuideData.methods={1:'Por nível',2:'Por reprodução',3:'Tutor de golpes',4:'TM ou HM'};
+const black2AdventureData={
+ tasks:black2Chapters.map(c=>c.steps.map(s=>({id:s.id,area:Black2Bridge.nameToId[c.areas[0]],text:s.title}))),
+ gyms:Object.entries(black2Extra.battleTips).filter(([name])=>['Cheren','Roxie','Burgh','Elesa','Clay','Skyla','Drayden','Marlon'].includes(name)).map(([leader,advice],i)=>({leader,advice,area:Black2Bridge.nameToId[['Aspertia City','Virbank City','Castelia City','Nimbasa City','Driftveil City','Mistralton City','Opelucid City','Humilau City'][i]],type:['Normal','Veneno','Inseto','Elétrico','Terra','Voador','Dragão','Água'][i],ace:null,picks:[]})),
+ services:[
+ ['Pokémon World Tournament','Relembrar golpes','O Move Reminder cobra uma Heart Scale por golpe. Os golpes disponíveis dependem da espécie e do nível.'],
+ ['Pokémon World Tournament','Apagar golpes e HMs','O Move Deleter pode remover golpes, inclusive HMs.'],
+ ['Route 3','Creche e reprodução','A creche fica na Route 3, acessível no pós-jogo.'],
+ ['Nacrene City','Reviver fósseis','Leve os fósseis ao museu. A hack vende Cover Fossil e Plume Fossil por 7.000 cada.'],
+ ...[...new Set(black2Data.tutors.map(t=>t.area))].map(area=>[area,'Tutor de golpes',black2Data.tutors.filter(t=>t.area===area).map(t=>`${t.name}: ${t.cost} shards ${t.color}`).join(' · ')])
+ ].map(([area,name,text])=>({area:Black2Bridge.nameToId[area],name,text,source:'https://www.serebii.net/black2white2/movetutor.shtml'})),
+ agenda:[]
+};

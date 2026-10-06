@@ -41,6 +41,30 @@
   </g>
   <g fill="#e4d6a7" stroke="#7e806e" stroke-width="3"><path d="M1097 53l37-23 38 23v27h-75z"/><path d="M1108 54h54v10h-54z" fill="#a48869"/></g>
   <g fill="none" stroke="#ffffff" stroke-opacity=".42" stroke-width="2"><path d="M782 924h171M1280 584h111M800 506h145"/></g>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#566c61" stroke-width="28"><use href="#road-south"/><use href="#road-west"/><use href="#road-league"/><use href="#road-east"/></g>
+    <g stroke="#e7bb69" stroke-width="19"><use href="#road-south"/><use href="#road-west"/><use href="#road-league"/><use href="#road-east"/></g>
+    <g stroke="#f7e6b5" stroke-width="7"><use href="#road-south"/><use href="#road-west"/><use href="#road-league"/><use href="#road-east"/></g>
+    <use href="#sea-road" stroke="#3e7583" stroke-width="17"/>
+    <use href="#sea-road" stroke="#f7e6b5" stroke-width="9" stroke-dasharray="21 13"/>
+    <g stroke="#735f4d" stroke-width="6"><path d="M1135 742v50m24-44v45M687 545v46m26-47v48M682 220v52m25-52v52M1097 545v50m30-49v50"/></g>
+    <g stroke="#789d78" stroke-width="8" stroke-dasharray="12 9">
+      <path d="M878 685L766 651L776 613"/><path d="M367 489L417 442"/><path d="M1386 327L1323 157"/>
+      <path d="M1521 750H1598M1436 750L1439 699M489 568L492 649M365 328V256M365 328L433 287L488 246M488 246L435 157M593 246V183M1016 570L973 516M1377 489L1360 410M787 246L755 274M1134 57L1192 86"/>
+    </g>
+    <path d="M1498 410H1618V484M1240 1007L1380 864L1380 949M878 832Q658 842 488 930" stroke="#3e7583" stroke-width="5" stroke-dasharray="10 9"/>
+    <path d="M878 570Q188 535 100 156" stroke="#789d78" stroke-width="4" stroke-dasharray="5 12"/>
+  </g>
+
+  <!-- Black 2 extensions use the original road and water-route styles. -->
+  <defs><path id="b2-road-start" d="M130 880H280H360H480M360 880V790M480 945V880V820"/><path id="b2-road-east" d="M1100 410H1280H1498M1498 410L1570 355L1590 290L1600 185L1480 170L1323 157L1200 116L1085 116"/></defs>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#566c61" stroke-width="28"><use href="#b2-road-start"/><use href="#b2-road-east"/></g>
+    <g stroke="#e7bb69" stroke-width="19"><use href="#b2-road-start"/><use href="#b2-road-east"/></g>
+    <g stroke="#f7e6b5" stroke-width="7"><use href="#b2-road-start"/><use href="#b2-road-east"/></g>
+    <path d="M480 880Q682 963 878 832M259 410Q650 285 1100 410" stroke="#3e7583" stroke-width="5" stroke-dasharray="10 9"/>
+    <g stroke="#789d78" stroke-width="8" stroke-dasharray="12 9"><path d="M490 568V680L620 730L878 832M1100 410L1150 475M878 685V620M490 568V475L545 425M360 880L395 815M280 880L315 815M1600 185L1500 90"/></g>
+  </g>
   <g fill="#173e43" font-family="system-ui, sans-serif" font-weight="900" letter-spacing="5" opacity=".72">
     <text x="785" y="327" font-size="30">UNOVA</text><text x="235" y="1024" font-size="24">MAR DE UNOVA</text>
   </g>
