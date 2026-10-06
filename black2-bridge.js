@@ -2,7 +2,12 @@
 applyBlack2Hack(black2Data,black2Hack,black2Chapters,black2Extra);
 const Black2Bridge=(()=>{
  const D=black2Data,X=black2Extra;
- for(const e of D.encounters)if(e.area==="N's Castle")e.area='N’s Castle';
+ const areaName=n=>n==="N's Castle"?'N’s Castle':n.startsWith('Lacunosa Town ')?'Lacunosa Town':n;
+ for(const e of [...D.encounters,...D.machines]){e.originalArea=e.area;e.area=areaName(e.area);}
+ X.items=X.items.map(([name,area,...rest])=>[name,areaName(area),...rest]);
+ for(const c of black2Chapters)c.areas=c.areas.map(areaName);
+ X.points=Object.fromEntries(Object.entries(X.points).map(([n,p])=>[areaName(n),p]));
+ X.paths=X.paths.map(p=>p.map(areaName));
  const legacy={"Nuvema Town":"nu","Accumula Town":"acc","Striaton City":"str","Dreamyard":"dream","Wellspring Cave":"well","Nacrene City":"nac","Pinwheel Forest":"pin","Skyarrow Bridge":"sky","Castelia City":"cas","Desert Resort":"des","Relic Castle":"rel","Nimbasa City":"nim","Driftveil Drawbridge":"draw","Driftveil City":"dri","Chargestone Cave":"charge","Mistralton City":"mis","Mistralton Cave":"mc","Celestial Tower":"ct","Twist Mountain":"tw","Icirrus City":"ici","Moor of Icirrus":"moor","Tubeline Bridge":"tube","Dragonspiral Tower":"dt","Opelucid City":"ope","Victory Road":"vr","Pokémon League":"league","Village Bridge":"vb","Lacunosa Town":"lac","Undella Town":"und","Undella Bay":"bay","Giant Chasm":"chasm","Abundant Shrine":"ab","Lostlorn Forest":"lost","Marvelous Bridge":"marv","Black City":"black","Anville Town":"anv","P2 Laboratory":"p2","N’s Castle":"castle","Aspertia City":"asp"};
  const names=[...new Set([...D.encounters.map(e=>e.area),...D.machines.map(e=>e.area),...X.items.map(e=>e[1]),...black2Chapters.flatMap(c=>c.areas),...Object.keys(X.points)])];
  const nameToId=Object.fromEntries(names.map(n=>[n,legacy[n]||(/^Route (\d+)$/.test(n)?'r'+n.match(/\d+/)[0]:'b2-'+n.toLowerCase().replace(/[^a-z0-9]+/g,'-'))]));
@@ -30,7 +35,7 @@ const Black2Bridge=(()=>{
   encounters[id]=[...merged.values()].map(t=>({...t,seasons:t.seasons.length===4?[]:t.seasons})).sort((a,b)=>methodOrder.indexOf(a.method)-methodOrder.indexOf(b.method));
  }
  const items={};
- for(const m of D.machines){const id=nameToId[m.area];if(!id)continue;(items[id]??=[]).push({id:m.code.toLowerCase(),name:m.code+' · '+m.name,code:m.code,move:m.name,kind:m.code.startsWith('HM')?'hm':'tm',method:/BP|Battle Points/.test(m.note)?'bp':/receb|entreg|personagem/i.test(m.note)?'gift':'ground',where:m.note,source:'https://www.serebii.net/black2white2/tmhm.shtml',legacyIds:[m.area+'|'+m.code+' · '+m.name]});}
+ for(const m of D.machines){const id=nameToId[m.area];if(!id)continue;(items[id]??=[]).push({id:m.code.toLowerCase(),name:m.code+' · '+m.name,code:m.code,move:m.name,kind:m.code.startsWith('HM')?'hm':'tm',method:/BP|Battle Points/.test(m.note)?'bp':/receb|entreg|personagem/i.test(m.note)?'gift':'ground',where:m.note,source:'https://www.serebii.net/black2white2/tmhm.shtml',legacyIds:[m.area+'|'+m.code+' · '+m.name,m.originalArea+'|'+m.code+' · '+m.name]});}
  for(const [name,area,note] of X.items){const id=nameToId[area];if(!id)continue;(items[id]??=[]).push({id:'b2item-'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-'+id,name,kind:'item',method:/7.000|7,000|À venda/.test(note)?'shop':'gift',where:note,source:'docs/black2-audit.md',legacyIds:[area+'|'+name]});}
  const chapters=black2Chapters.map((c,i)=>({title:c.title,when:c.post?'Pós-Liga':'Capítulo '+(i+1),path:c.areas.map(a=>nameToId[a]).filter(Boolean),text:c.goal,optional:[]}));
  const steps=Object.fromEntries(areas.filter(a=>areaChapter[a[0]]>=0).map(a=>[a[0],black2Chapters[areaChapter[a[0]]].goal]));
