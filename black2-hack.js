@@ -21,7 +21,7 @@ function applyHack(data,hack,chapters,extra){
  for(const e of data.encounters){e.origin='base';if(replacements[e.name]&&!['gift','gift-egg','npc-trade'].includes(e.method)){e.name=replacements[e.name];e.chance=null;e.min=null;e.max=null;e.origin='replacement';}if(changedAreas.has(e.area)&&!['static','gift','gift-egg','npc-trade'].includes(e.method))e.chance=null;
   e.conditions=e.conditions.filter(c=>!['item-ice-key','item-iron-key'].includes(c));
  }
- for(const e of additions){if(removed[e.area]?.includes(e.name))continue;data.encounters.push({...e,name:replacements[e.name]||e.name});}
+ for(const e of additions){if(e.name==='Latias'&&e.post)e.chance=20;if(removed[e.area]?.includes(e.name))continue;data.encounters.push({...e,name:replacements[e.name]||e.name});}
  extra.items.push(['Dawn Stone','Route 16','Adicionada pela hack. Use em Eevee para obter Glaceon; o resumo não informa a posição exata do item.',6],['Cover Fossil','Nacrene City','Segundo vendedor: 7.000 ₽ na hack. Reviva o fóssil no museu.',20],['Plume Fossil','Nacrene City','Segundo vendedor: 7.000 ₽ na hack. Reviva o fóssil no museu.',20],['Electirizer','Virbank Complex','Elekid selvagem tem 5% de chance de carregar. Confira o item após capturar. Na hack, Electabuzz evolui ao subir um nível segurando-o.',3],['Magmarizer','Virbank Complex','Magby selvagem tem 5% de chance de carregar. Confira o item após capturar. Na hack, Magmar evolui ao subir um nível segurando-o.',3]);
  const c=chapters;
  c[8].optional=c[8].optional.replace('Mistralton Cave oferece Axew;','Axew foi removido da Guidance Chamber; confira os demais andares de Mistralton Cave.');
