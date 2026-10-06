@@ -1,0 +1,42 @@
+/* Black 2 facts adapted to the original field-guide interface. */
+applyBlack2Hack(black2Data,black2Hack,black2Chapters,black2Extra);
+const Black2Bridge=(()=>{
+ const D=black2Data,X=black2Extra;
+ for(const e of D.encounters)if(e.area==="N's Castle")e.area='N’s Castle';
+ const legacy={"Nuvema Town":"nu","Accumula Town":"acc","Striaton City":"str","Dreamyard":"dream","Wellspring Cave":"well","Nacrene City":"nac","Pinwheel Forest":"pin","Skyarrow Bridge":"sky","Castelia City":"cas","Desert Resort":"des","Relic Castle":"rel","Nimbasa City":"nim","Driftveil Drawbridge":"draw","Driftveil City":"dri","Chargestone Cave":"charge","Mistralton City":"mis","Mistralton Cave":"mc","Celestial Tower":"ct","Twist Mountain":"tw","Icirrus City":"ici","Moor of Icirrus":"moor","Tubeline Bridge":"tube","Dragonspiral Tower":"dt","Opelucid City":"ope","Victory Road":"vr","Pokémon League":"league","Village Bridge":"vb","Lacunosa Town":"lac","Undella Town":"und","Undella Bay":"bay","Giant Chasm":"chasm","Abundant Shrine":"ab","Lostlorn Forest":"lost","Marvelous Bridge":"marv","Black City":"black","Anville Town":"anv","P2 Laboratory":"p2","N’s Castle":"castle","Aspertia City":"asp"};
+ const names=[...new Set([...D.encounters.map(e=>e.area),...D.machines.map(e=>e.area),...X.items.map(e=>e[1]),...black2Chapters.flatMap(c=>c.areas),...Object.keys(X.points)])];
+ const nameToId=Object.fromEntries(names.map(n=>[n,legacy[n]||(/^Route (\d+)$/.test(n)?'r'+n.match(/\d+/)[0]:'b2-'+n.toLowerCase().replace(/[^a-z0-9]+/g,'-'))]));
+ const aliases={'Guidance Chamber':'Mistralton Cave','Glacier Room':'Underground Ruins','Iron Room':'Underground Ruins','Rocky Mountain Room':'Underground Ruins'};
+ const fallback={'Cave of Being':['Route 20',35,-65],'Pledge Grove':['Floccesy Town',35,-65],'Underground Ruins':['Clay Tunnel',55,-50],'Nature Sanctuary':['Humilau City',-100,-95],'Castelia Sewers':['Castelia City',45,45],'Pokéstar Studios':['Virbank City',-30,-70],"N’s Castle":['Victory Road',-45,65],'Plasma Frigate':['Giant Chasm',-50,70]};
+ const coordinates={},anchors={};
+ for(const n of names){let xy=X.points[n];if(!xy&&aliases[n])xy=X.points[aliases[n]];if(!xy&&fallback[n]){const [base,dx,dy]=fallback[n],p=X.points[base]||[1300,200];xy=[p[0]+dx,p[1]+dy];}if(!xy){const chapter=black2Chapters.find(c=>c.areas.includes(n));const p=chapter?.areas.map(a=>X.points[a]).find(Boolean)||[1300,200];xy=[p[0]+40,p[1]+45];}coordinates[nameToId[n]]=[Math.max(25,Math.min(1680,xy[0])),Math.max(25,Math.min(1050,xy[1]))];}
+ for(const [child,parent]of Object.entries(aliases))if(nameToId[child]&&nameToId[parent]){anchors[nameToId[child]]=nameToId[parent];coordinates[nameToId[child]]=coordinates[nameToId[parent]];}
+ const chapterFor=n=>black2Chapters.findIndex(c=>c.areas.includes(n));
+ const badgeStages=[0,0,1,2,3,3,4,5,5,5,6,6,6,8,8];
+ const stage={},areaChapter={};
+ const areas=names.map(n=>{const id=nameToId[n],ci=chapterFor(n),post=ci>=15;stage[id]=post?8:badgeStages[Math.max(0,ci)]??0;areaChapter[id]=ci;return [id,n.replace(/^Route /,'Rota '),/City|Town/.test(n)?'city':/^Route /.test(n)?'route':'special',...coordinates[id],post?'post':'story',ci<0?'Exploração':post?'Pós-Liga':'Capítulo '+(ci+1),'Consulte a ficha para os encontros e itens documentados.',ci<0?'Confira as condições de cada encontro.':black2Chapters[ci].goal,'','',D.encounters.some(e=>e.area===n&&e.post&&['Victini','Keldeo','Meloetta','Genesect','Reshiram','Latias','Tornadus','Thundurus','Landorus'].includes(e.name))?'legend':''];});
+ const labels={walk:'Standard Walking','dark-grass':'Doubles Grass','grass-spots':'Ground Shaking Spots','cave-spots':'Dust Clouds','bridge-spots':'Bridge Shadows',surf:'Standard Surfing','surf-spots':'Surfing Spots','super-rod':'Standard Fishing','super-rod-spots':'Fishing Spots','hidden-grotto':'Hidden Grotto'};
+ const seasons={spring:'Spring',summer:'Summer',autumn:'Autumn',winter:'Winter'};
+ const encounters={},specials={};
+ const conditionLabel=c=>({'item-lunar-wing':'Tenha Lunar Wing','item-dark-stone':'Tenha Dark Stone','other-captured-reshiram-or-zekrom':'Capture Reshiram ou Zekrom','story-progress-juniper-cave-of-being':'Encontre Juniper em Cave of Being','other-regirock-regice-registeel-in-party':'Leve Regirock, Regice e Registeel na equipe','story-progress-quake-badge':'Após a Quake Badge','special-encounter-couldnt-capture-before':'Reaparece se não foi capturado antes'}[c]||(c.startsWith('trade-')?'Ofereça '+c.slice(6):c.startsWith('item-')?'Tenha '+c.slice(5).replaceAll('-',' '):c));
+ for(const e of D.encounters){const id=nameToId[e.area],season=e.conditions.filter(c=>c.startsWith('season-')).map(c=>seasons[c.slice(7)]),conditions=e.conditions.filter(c=>!c.startsWith('season-'));const level=e.min==null?'?':e.min===e.max?String(e.min):e.min+' - '+e.max;
+  if(!labels[e.method]){(specials[id]??=[]).push([e.name,({'gift':'Presente','gift-egg':'Ovo recebido','npc-trade':'Troca com personagem',static:'Encontro fixo'}[e.method]||'Encontro especial'),[e.zone,level!=='?'?'Nv. '+level:null,...conditions.map(conditionLabel),e.post?'Disponível no pós-jogo':null,e.note].filter(Boolean).join(' · '),{conditions,post:e.post}]);continue;}
+  const method=labels[e.method],key=JSON.stringify([method,e.zone,season,conditions,!!e.post]);const tables=encounters[id]??=[];let table=tables.find(t=>t.key===key);if(!table){table={key,method,sections:[e.zone].filter(z=>z&&z!==e.area&&z!=='Área principal'),seasons:season,pokemon:[],requires:{league:!!e.post},conditions,sourceOrigin:e.origin};tables.push(table);}table.pokemon.push([e.name,e.chance,level]);
+ }
+ const methodOrder=['Standard Walking','Doubles Grass','Ground Shaking Spots','Dust Clouds','Bridge Shadows','Standard Surfing','Surfing Spots','Standard Fishing','Fishing Spots','Hidden Grotto'];
+ for(const [id,tables]of Object.entries(encounters)){
+  const merged=new Map();
+  for(const t of tables){const signature=JSON.stringify([t.method,t.pokemon,t.requires,t.conditions]);const existing=merged.get(signature);if(existing){existing.sections=[...new Set([...existing.sections,...t.sections])];existing.seasons=[...new Set([...existing.seasons,...t.seasons])];}else merged.set(signature,{...t,sections:[...t.sections],seasons:[...t.seasons]});}
+  encounters[id]=[...merged.values()].map(t=>({...t,seasons:t.seasons.length===4?[]:t.seasons})).sort((a,b)=>methodOrder.indexOf(a.method)-methodOrder.indexOf(b.method));
+ }
+ const items={};
+ for(const m of D.machines){const id=nameToId[m.area];if(!id)continue;(items[id]??=[]).push({id:m.code.toLowerCase(),name:m.code+' · '+m.name,code:m.code,move:m.name,kind:m.code.startsWith('HM')?'hm':'tm',method:/BP|Battle Points/.test(m.note)?'bp':/receb|entreg|personagem/i.test(m.note)?'gift':'ground',where:m.note,source:'https://www.serebii.net/black2white2/tmhm.shtml',legacyIds:[m.area+'|'+m.code+' · '+m.name]});}
+ for(const [name,area,note] of X.items){const id=nameToId[area];if(!id)continue;(items[id]??=[]).push({id:'b2item-'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-'+id,name,kind:'item',method:/7.000|7,000|À venda/.test(note)?'shop':'gift',where:note,source:'docs/black2-audit.md',legacyIds:[area+'|'+name]});}
+ const chapters=black2Chapters.map((c,i)=>({title:c.title,when:c.post?'Pós-Liga':'Capítulo '+(i+1),path:c.areas.map(a=>nameToId[a]).filter(Boolean),text:c.goal,optional:[]}));
+ const steps=Object.fromEntries(areas.filter(a=>areaChapter[a[0]]>=0).map(a=>[a[0],black2Chapters[areaChapter[a[0]]].goal]));
+ const acquisition=Object.fromEntries(Object.keys(D.pokemon).map(name=>{const evo=D.evolutions.filter(e=>e.toSpecies===name);const selected=evo.find(e=>e.hack)||evo[0];return [name,selected?selected.fromSpecies+': '+selected.condition:''];}));
+ return {areas,nameToId,encounters,specials,items,chapters,steps,acquisition,stage,areaChapter,conditionLabel,paths:X.paths.map(p=>p.map(n=>nameToId[n]).filter(Boolean)),map:{coordinates,anchors,onMap:a=>!Object.hasOwn(anchors,a[0]),nearest:(as,x,y)=>as.reduce((best,a)=>Math.hypot(a[3]-x,a[4]-y)<Math.hypot(best[3]-x,best[4]-y)?a:best)}};
+})();
+const rawAreas=Black2Bridge.areas,encounterTables=Black2Bridge.encounters,itemTables=Black2Bridge.items,walkthroughChapters=Black2Bridge.chapters,walkthroughSteps=Black2Bridge.steps;
+const unovaDex=Object.entries(black2Data.pokemon).filter(([,m])=>m.dex!=null).map(([n,m])=>[m.dex,n]).sort((a,b)=>a[0]-b[0]);
+const nationalNumbers=Object.fromEntries(Object.entries(black2Data.pokemon).map(([n,m])=>[n,m.id])),dexNumbers=nationalNumbers,pokemonGuideData=black2Data;
