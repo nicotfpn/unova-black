@@ -11,12 +11,12 @@
   const editions = freeze([
     {
       id: 'pokemon-black', gameId: 'black', regionIds: ['unova'], generation: 5,
-      kind: 'official', title: 'Pokémon Black', entry: 'index.html?game=black',
+      kind: 'official', status: 'usable', title: 'Pokémon Black', entry: 'index.html?game=black',
       adapter: 'packages/black/adapter.js',
       progress: { key: 'unova-black-field-guide-v2', legacyGame: 'black' },
       coverage: {
         map: 'available', encounters: 'partial', items: 'partial', pokedex: 'available',
-        walkthrough: 'outline', battles: 'partial', offline: 'shared-bundle',
+        walkthrough: 'outline', battles: 'partial', offline: 'edition-selectable',
         notes: ['Roteiro de etapas, sem detonado detalhado.', 'Eventos antigos e exclusivos têm condições próprias; nenhuma auditoria integral contra a ROM.']
       },
       sources: ['docs/map-audit.md', 'docs/items-audit.md', 'docs/adventure-audit.md'],
@@ -24,18 +24,30 @@
     },
     {
       id: 'pokemon-black2-complete-unova-1.12', gameId: 'black-2', regionIds: ['unova'], generation: 5,
-      kind: 'hack', title: 'Pokémon Black 2 · Complete Unova Pokédex Edition v1.12',
+      kind: 'hack', status: 'usable', title: 'Pokémon Black 2 · Complete Unova Pokédex Edition v1.12',
       hack: { id: 'complete-unova', version: '1.12', detailedSourcesVersion: '1.11', baseGameId: 'black-2' },
       entry: 'black2.html', adapter: 'packages/black2-complete/adapter.js',
       progress: { key: 'unova-black2-complete-1.12-v1', legacyGame: 'black2' },
       coverage: {
         map: 'available', encounters: 'partial', items: 'partial', pokedex: 'available',
-        walkthrough: 'partial', battles: 'advice-only', offline: 'shared-bundle',
+        walkthrough: 'partial', battles: 'advice-only', offline: 'edition-selectable',
         notes: ['22 capítulos; itens comuns e times da hack sem auditoria integral.', 'Documentação detalhada v1.11 com regras v1.12; valores desconhecidos continuam ausentes.']
       },
       sources: ['docs/black2-audit.md'],
       audit: { codeRevision: 'c7cea1bc162be9e4e33a00e0c2f76515cc5400cd', inspectedOn: '2026-10-08', contentVerification: 'partial' }
+    },
+    {
+      id: 'pokemon-platinum', gameId: 'platinum', regionIds: ['sinnoh'], generation: 4,
+      kind: 'official', status: 'usable', title: 'Pokémon Platinum', entry: 'platinum.html',
+      adapter: 'packages/platinum/adapter.js',
+      progress: { key: 'sinnoh-platinum-field-guide-v1', legacyGame: 'platinum' },
+      coverage: { map: 'available', encounters: 'partial', items: 'partial', pokedex: 'available',
+        walkthrough: 'available', battles: 'available', offline: 'edition-selectable',
+        notes: ['Sinnoh e Battle Zone; história, Liga e pós-jogo.', '210 entradas regionais; encontros por setor e condições. Presentes e eventos têm requisitos próprios.'] },
+      sources: ['docs/platinum-audit.md', 'packages/platinum/sources.json'],
+      audit: { inspectedOn: '2026-10-08', contentVerification: 'partial' }
     }
+
   ]);
   const byId = new Map(editions.map(edition => [edition.id, edition]));
   const adapters = new Map();

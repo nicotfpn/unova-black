@@ -3,7 +3,7 @@ const root=path.join(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'
 function edition(page,id){
  const c=vm.createContext({console});c.window=c;
  for(const [,src]of read(page).matchAll(/<script src="([^"]+)"/g)){
-  if(['app.js','black2-app.js','offline.js'].includes(src))continue;
+  if(['app.js','black2-app.js','offline.js','core/game-picker.js'].includes(src))continue;
   vm.runInContext(read(src),c,{filename:src});
  }
  return {c,package:c.GameRegistry.open(id)};
@@ -81,4 +81,19 @@ test('item queries remain edition-bound and accept old hack item IDs without cha
  assert.ok(b.search('ct','TM 061').some(r=>r.code==='TM61'));
  assert.equal(b.normalizeCollected(['TM95']).length,0);
  assert.equal(b.forArea('missing').length,0);
+});
+test('acquisition order uses the first currently usable route and updates without rebuilding source data',()=>{
+ let progress={badges:0,league:false,surf:false,rod:false,season:'Summer',starter:'Snivy'};
+ const tables={r1:[{method:'Standard Surfing',pokemon:[['Basculin',100,'5']]}],r2:[{method:'Standard Walking',pokemon:[['Basculin',100,'5']]}],later:[{method:'Standard Walking',pokemon:[['Litwick',100,'20']]}],snow:[{method:'Standard Walking',seasons:['Winter'],pokemon:[['Eevee',100,'5']]}]};
+ const q=black.c.createBlackEncounterQueries({tables,specials:{},stage:{later:5},getProgress:()=>progress,regionalSet:new Set(['Basculin','Litwick','Eevee']),extraSpecies:[]}),order=[area('r1'),area('r2'),area('later'),area('snow')];
+ const before=JSON.stringify(tables);assert.equal(q.firstAvailable(order).get('Basculin').area[0],'r2');assert.equal(q.firstAvailable(order).has('Litwick'),false);assert.equal(q.firstAvailable(order).has('Eevee'),false);
+ progress={...progress,surf:true,badges:5,season:'Winter'};assert.equal(q.firstAvailable(order).get('Basculin').area[0],'r1');assert.ok(q.firstAvailable(order).has('Litwick'));assert.ok(q.firstAvailable(order).has('Eevee'));assert.equal(JSON.stringify(tables),before);
+});
+test('acquisition order requires trade offerings and does not treat showing events as owning event requirements',()=>{
+ const specials={nac:[['Petilil','Troca interna de Black','']],lib:[['Litwick','Evento antigo','']]};
+ let progress={badges:8,league:true,events:true,trades:true,season:'Summer',caught:[]};
+ const q=black.c.createBlackEncounterQueries({tables:{},specials,stage:{},getProgress:()=>progress,regionalSet:new Set(['Petilil','Litwick']),extraSpecies:[]});
+ assert.equal(q.firstAvailable([area('nac'),area('lib')]).size,0);progress.caught=['Cottonee'];assert.ok(q.firstAvailable([area('nac'),area('lib')]).has('Petilil'));assert.equal(q.firstAvailable([area('nac'),area('lib')]).has('Litwick'),false);
+ const gifts={nu:[['Snivy','Presente',''],['Tepig','Presente','']]};let starter='';
+ const h=hack.c.createBlack2CompleteEncounterQueries({tables:{},specials:gifts,stage:{},getProgress:()=>({...progress,starter}),regionalSet:new Set(['Snivy','Tepig']),extraSpecies:[],conditionLabel:x=>x});assert.equal(h.firstAvailable([area('nu')]).size,0);starter='Snivy';assert.equal([...h.firstAvailable([area('nu')]).keys()].join(','),'Snivy');
 });

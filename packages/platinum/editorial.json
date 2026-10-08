@@ -1,0 +1,3280 @@
+{
+  "areas": [
+    {
+      "id": "twinleaf",
+      "name": "Twinleaf Town",
+      "type": "city",
+      "x": 236.0,
+      "y": 1275.0,
+      "mapKey": "twinleaf_town",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 177,
+          "name": "Twinleaf Town"
+        }
+      ],
+      "description": "Seu ponto de partida. Visite Barry e siga para a Route 201.",
+      "post": false
+    },
+    {
+      "id": "r201",
+      "name": "Route 201",
+      "type": "route",
+      "x": 262.0,
+      "y": 1230.0,
+      "mapKey": "route_201",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 141,
+          "name": "Route 201"
+        }
+      ],
+      "description": "Rowan oferece Turtwig, Chimchar ou Piplup. Depois da primeira batalha com Barry, volte para casa.",
+      "post": false
+    },
+    {
+      "id": "verity",
+      "name": "Verity Lakefront / Lake Verity",
+      "type": "special",
+      "x": 158.0,
+      "y": 1207.5,
+      "mapKey": "verity_lakefront",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 135,
+          "name": "Antes da intervenção Galactic"
+        },
+        {
+          "sourceArea": 136,
+          "name": "Depois da intervenção Galactic"
+        }
+      ],
+      "description": "Visite o lago com Barry no início, volte durante a crise da Team Galactic e retorne para encontrar Mesprit após Spear Pillar. Escolha no seletor o estado do lago correspondente à sua jornada.",
+      "post": false
+    },
+    {
+      "id": "sandgem",
+      "name": "Sandgem Town",
+      "type": "city",
+      "x": 340.0,
+      "y": 1230.0,
+      "mapKey": "sandgem_town",
+      "mapped": true,
+      "sections": [],
+      "description": "Visite Rowan no laboratório para receber a Pokédex. Volte a Twinleaf e leve o Parcel de Barry antes de seguir ao norte.",
+      "post": false
+    },
+    {
+      "id": "r202",
+      "name": "Route 202",
+      "type": "route",
+      "x": 340.0,
+      "y": 1185.0,
+      "mapKey": "route_202",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 142,
+          "name": "Route 202"
+        }
+      ],
+      "description": "Dawn ou Lucas demonstra uma captura e entrega cinco Poké Balls. Siga ao norte, enfrentando os treinadores.",
+      "post": false
+    },
+    {
+      "id": "jubilife",
+      "name": "Jubilife City",
+      "type": "city",
+      "x": 314.0,
+      "y": 1117.5,
+      "mapKey": "jubilife_city",
+      "mapped": true,
+      "sections": [],
+      "description": "Entregue o Parcel a Barry na Trainers’ School. Responda aos três palhaços e troque os cupons pelo Pokétch.",
+      "post": false
+    },
+    {
+      "id": "r203",
+      "name": "Route 203",
+      "type": "route",
+      "x": 418.0,
+      "y": 1095.0,
+      "mapKey": "route_203",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 143,
+          "name": "Route 203"
+        }
+      ],
+      "description": "Prepare-se para outra batalha com Barry na saída leste de Jubilife. Atravesse a rota rumo a Oreburgh Gate.",
+      "post": false
+    },
+    {
+      "id": "gate",
+      "name": "Oreburgh Gate",
+      "type": "special",
+      "x": 466.0,
+      "y": 1095.0,
+      "mapKey": "oreburgh_gate",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 55,
+          "name": "1F"
+        },
+        {
+          "sourceArea": 56,
+          "name": "B1F"
+        }
+      ],
+      "description": "Receba HM06 de um Hiker e atravesse o piso térreo. O subsolo exige Rock Smash e a Coal Badge; use o seletor de setores para consultar seus encontros.",
+      "post": false
+    },
+    {
+      "id": "oreburgh",
+      "name": "Oreburgh City",
+      "type": "city",
+      "x": 530.67,
+      "y": 1110.0,
+      "mapKey": "oreburgh_city",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 1360,
+          "name": "oreburgh mining museum"
+        },
+        {
+          "sourceArea": 1660,
+          "name": "north west house"
+        }
+      ],
+      "description": "O líder está trabalhando na mina. Encontre Roark lá e depois vá ao ginásio para disputar a primeira insígnia.",
+      "post": false
+    },
+    {
+      "id": "mine",
+      "name": "Oreburgh Mine",
+      "type": "special",
+      "x": 554.68,
+      "y": 1151.56,
+      "mapKey": "oreburgh_mine",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 6,
+          "name": "1F"
+        },
+        {
+          "sourceArea": 7,
+          "name": "B1F"
+        }
+      ],
+      "description": "Desça ao B1F e fale com Roark para fazê-lo retornar ao ginásio.",
+      "post": false
+    },
+    {
+      "id": "floaroma",
+      "name": "Floaroma Town",
+      "type": "city",
+      "x": 340.0,
+      "y": 937.5,
+      "mapKey": "floaroma_town",
+      "mapped": true,
+      "sections": [],
+      "description": "Volte a Jubilife e ajude Dawn ou Lucas na batalha contra os dois Grunts. Siga pela Route 204; Rock Smash abre a passagem em Ravaged Path.",
+      "post": false
+    },
+    {
+      "id": "eterna",
+      "name": "Eterna City",
+      "type": "city",
+      "x": 565.33,
+      "y": 795.0,
+      "mapKey": "eternia_city",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 2,
+          "name": "Eterna City"
+        },
+        {
+          "sourceArea": 788,
+          "name": "west gate"
+        },
+        {
+          "sourceArea": 1661,
+          "name": "eterna condominiums"
+        }
+      ],
+      "description": "Entre usando a Works Key, atravesse os Grunts e enfrente Mars. Purugly exige cuidado: cure o time antes de avançar. Com a equipe Galactic expulsa, a Route 205 fica livre.",
+      "post": false
+    },
+    {
+      "id": "hearthome",
+      "name": "Hearthome City",
+      "type": "city",
+      "x": 834.0,
+      "y": 1027.5,
+      "mapKey": "hearthome_city",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 771,
+          "name": "Hearthome City"
+        }
+      ],
+      "description": "Atravesse a entrada sul de Mt. Coronet até a Route 208. Vá para Hearthome e visite o Contest Hall para encontrar Fantina e fazê-la voltar ao ginásio.",
+      "post": false
+    },
+    {
+      "id": "solaceon",
+      "name": "Solaceon Town",
+      "type": "city",
+      "x": 990.0,
+      "y": 960.0,
+      "mapKey": "solaceon_town",
+      "mapped": true,
+      "sections": [],
+      "description": "Atravesse a Route 209 até Solaceon. Pegue a Good Rod com o pescador da rota e explore a cidade, o Day Care e os serviços locais.",
+      "post": false
+    },
+    {
+      "id": "veilstone",
+      "name": "Veilstone City",
+      "type": "city",
+      "x": 1198.0,
+      "y": 892.5,
+      "mapKey": "veilstone_city",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 772,
+          "name": "Veilstone City"
+        }
+      ],
+      "description": "Atravesse a Route 215, usando as pontes para chegar a Veilstone. Explore a Department Store e os serviços da cidade antes do ginásio.",
+      "post": false
+    },
+    {
+      "id": "pastoria",
+      "name": "Pastoria City",
+      "type": "city",
+      "x": 1042.0,
+      "y": 1207.5,
+      "mapKey": "pastoria_city",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 3,
+          "name": "Pastoria City"
+        }
+      ],
+      "description": "Saia de Veilstone ao sul pela Route 214. Ruin Maniac Cave é um desvio que muda conforme você reúne formas de Unown; consulte os setores separados.",
+      "post": false
+    },
+    {
+      "id": "celestic",
+      "name": "Celestic Town",
+      "type": "city",
+      "x": 808.0,
+      "y": 780.0,
+      "mapKey": "celestic_town",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 178,
+          "name": "Celestic Town"
+        }
+      ],
+      "description": "Use a SecretPotion nos Psyduck da Route 210. Cynthia entrega o Old Charm; leve-o à avó dela em Celestic. Defog facilita a travessia da área com neblina.",
+      "post": false
+    },
+    {
+      "id": "canalave",
+      "name": "Canalave City",
+      "type": "city",
+      "x": 132.0,
+      "y": 1072.5,
+      "mapKey": "canalave_city",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 1,
+          "name": "Canalave City"
+        }
+      ],
+      "description": "Se quiser explorar antes de continuar, vá ao sul de Sandgem pelas Routes 219, 220 e 221. O acesso ao Pal Park exige a Pokédex Nacional.",
+      "post": false
+    },
+    {
+      "id": "snowpoint",
+      "name": "Snowpoint City",
+      "type": "city",
+      "x": 652.0,
+      "y": 352.5,
+      "mapKey": "snowpoint_city",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 1662,
+          "name": "north west house"
+        }
+      ],
+      "description": "Em Snowpoint, deslize pelas pistas do ginásio para romper as bolas de neve e abrir a escada central até Candice. A Icicle Badge, sétima insígnia, libera Rock Climb; receba TM72.",
+      "post": false
+    },
+    {
+      "id": "sunyshore",
+      "name": "Sunyshore City",
+      "type": "city",
+      "x": 1458.0,
+      "y": 1117.5,
+      "mapKey": "sunyshore_city",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 4,
+          "name": "Sunyshore City"
+        }
+      ],
+      "description": "Volte ao laboratório de Rowan em Sandgem após sair de Distortion World. A passagem de Valor Lakefront para a Route 222 e Sunyshore fica liberada.",
+      "post": false
+    },
+    {
+      "id": "fight",
+      "name": "Fight Area",
+      "type": "city",
+      "x": 1094.0,
+      "y": 645.0,
+      "mapKey": "fight_area",
+      "mapped": true,
+      "sections": [],
+      "description": "Pegue o barco em Snowpoint para Fight Area. Enfrente Flint e Volkner em dupla com Barry diante da Battle Frontier; prepare o time antes de aceitar.",
+      "post": true
+    },
+    {
+      "id": "survival",
+      "name": "Survival Area",
+      "type": "city",
+      "x": 1120.0,
+      "y": 510.0,
+      "mapKey": "survival_area",
+      "mapped": true,
+      "sections": [],
+      "description": "Pegue o barco em Snowpoint para Fight Area. Enfrente Flint e Volkner em dupla com Barry diante da Battle Frontier; prepare o time antes de aceitar.",
+      "post": true
+    },
+    {
+      "id": "resort",
+      "name": "Resort Area",
+      "type": "city",
+      "x": 1380.0,
+      "y": 690.0,
+      "mapKey": "resort_area",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 179,
+          "name": "Resort Area"
+        }
+      ],
+      "description": "Retorne sozinho à câmara de Stark Mountain para encontrar Heatran no nível 50. Salve antes da batalha e use os caminhos de Rock Climb para revisar itens deixados para trás.",
+      "post": true
+    },
+    {
+      "id": "r204",
+      "name": "Route 204",
+      "type": "route",
+      "x": 340.0,
+      "y": 1027.5,
+      "mapKey": "route_204",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 144,
+          "name": "Sul · Jubilife"
+        },
+        {
+          "sourceArea": 145,
+          "name": "Norte · Floaroma"
+        }
+      ],
+      "description": "Volte a Jubilife e ajude Dawn ou Lucas na batalha contra os dois Grunts. Siga pela Route 204; Rock Smash abre a passagem em Ravaged Path.",
+      "post": false
+    },
+    {
+      "id": "r205",
+      "name": "Route 205",
+      "type": "route",
+      "x": 412.8,
+      "y": 879.0,
+      "mapKey": "route_205",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 146,
+          "name": "Sul · Floaroma"
+        },
+        {
+          "sourceArea": 147,
+          "name": "Leste · Eterna"
+        }
+      ],
+      "description": "Entre usando a Works Key, atravesse os Grunts e enfrente Mars. Purugly exige cuidado: cure o time antes de avançar. Com a equipe Galactic expulsa, a Route 205 fica livre.",
+      "post": false
+    },
+    {
+      "id": "r206",
+      "name": "Route 206",
+      "type": "route",
+      "x": 548.0,
+      "y": 937.5,
+      "mapKey": "route_206",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 148,
+          "name": "Route 206"
+        }
+      ],
+      "description": "Use Cut no prédio Galactic de Eterna. As escadas com cartaz conduzem ao caminho principal; explore as outras para itens. Vença Jupiter e liberte o dono da loja de bicicletas.",
+      "post": false
+    },
+    {
+      "id": "r207",
+      "name": "Route 207",
+      "type": "route",
+      "x": 574.0,
+      "y": 1050.0,
+      "mapKey": "route_207",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 149,
+          "name": "Route 207"
+        }
+      ],
+      "description": "Use Cut no prédio Galactic de Eterna. As escadas com cartaz conduzem ao caminho principal; explore as outras para itens. Vença Jupiter e liberte o dono da loja de bicicletas.",
+      "post": false
+    },
+    {
+      "id": "r208",
+      "name": "Route 208",
+      "type": "route",
+      "x": 730.0,
+      "y": 1050.0,
+      "mapKey": "route_208",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 150,
+          "name": "Route 208"
+        }
+      ],
+      "description": "Atravesse a entrada sul de Mt. Coronet até a Route 208. Vá para Hearthome e visite o Contest Hall para encontrar Fantina e fazê-la voltar ao ginásio.",
+      "post": false
+    },
+    {
+      "id": "r209",
+      "name": "Route 209",
+      "type": "route",
+      "x": 946.67,
+      "y": 1035.0,
+      "mapKey": "route_209",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 151,
+          "name": "Route 209"
+        }
+      ],
+      "description": "Atravesse a entrada sul de Mt. Coronet até a Route 208. Vá para Hearthome e visite o Contest Hall para encontrar Fantina e fazê-la voltar ao ginásio.",
+      "post": false
+    },
+    {
+      "id": "r210",
+      "name": "Route 210",
+      "type": "route",
+      "x": 941.71,
+      "y": 831.43,
+      "mapKey": "route_210",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 157,
+          "name": "Sul · Solaceon"
+        },
+        {
+          "sourceArea": 158,
+          "name": "Oeste · Celestic"
+        }
+      ],
+      "description": "Atravesse a Route 209 até Solaceon. Pegue a Good Rod com o pescador da rota e explore a cidade, o Day Care e os serviços locais.",
+      "post": false
+    },
+    {
+      "id": "r211",
+      "name": "Route 211",
+      "type": "route",
+      "x": 704.0,
+      "y": 780.0,
+      "mapKey": "route_211",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 159,
+          "name": "Oeste · Eterna"
+        },
+        {
+          "sourceArea": 160,
+          "name": "Leste · Celestic"
+        }
+      ],
+      "description": "Vá a Lake Verity e ajude Rowan e Dawn ou Lucas contra a Team Galactic. Enfrente Mars; o próximo destino é Lake Acuity.",
+      "post": false
+    },
+    {
+      "id": "r212",
+      "name": "Route 212",
+      "type": "route",
+      "x": 860.0,
+      "y": 1196.25,
+      "mapKey": "route_212",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 161,
+          "name": "Norte · Hearthome"
+        },
+        {
+          "sourceArea": 162,
+          "name": "Leste · Pastoria"
+        }
+      ],
+      "description": "Prepare-se para a batalha com Barry e depois para o ginásio de Pastoria. Use os botões para alterar o nível da água e alcançar Wake.",
+      "post": false
+    },
+    {
+      "id": "r213",
+      "name": "Route 213",
+      "type": "route",
+      "x": 1172.0,
+      "y": 1207.5,
+      "mapKey": "route_213",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 163,
+          "name": "Route 213"
+        }
+      ],
+      "description": "Saia de Veilstone ao sul pela Route 214. Ruin Maniac Cave é um desvio que muda conforme você reúne formas de Unown; consulte os setores separados.",
+      "post": false
+    },
+    {
+      "id": "r214",
+      "name": "Route 214",
+      "type": "route",
+      "x": 1224.0,
+      "y": 1005.0,
+      "mapKey": "route_214",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 164,
+          "name": "Route 214"
+        }
+      ],
+      "description": "Saia de Veilstone ao sul pela Route 214. Ruin Maniac Cave é um desvio que muda conforme você reúne formas de Unown; consulte os setores separados.",
+      "post": false
+    },
+    {
+      "id": "r215",
+      "name": "Route 215",
+      "type": "route",
+      "x": 1068.0,
+      "y": 870.0,
+      "mapKey": "route_215",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 165,
+          "name": "Route 215"
+        }
+      ],
+      "description": "Atravesse a Route 215, usando as pontes para chegar a Veilstone. Explore a Department Store e os serviços da cidade antes do ginásio.",
+      "post": false
+    },
+    {
+      "id": "r216",
+      "name": "Route 216",
+      "type": "route",
+      "x": 600.0,
+      "y": 600.0,
+      "mapKey": "route_216",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 166,
+          "name": "Route 216"
+        }
+      ],
+      "description": "Vá a Lake Verity e ajude Rowan e Dawn ou Lucas contra a Team Galactic. Enfrente Mars; o próximo destino é Lake Acuity.",
+      "post": false
+    },
+    {
+      "id": "r217",
+      "name": "Route 217",
+      "type": "route",
+      "x": 548.0,
+      "y": 487.5,
+      "mapKey": "route_217",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 167,
+          "name": "Route 217"
+        }
+      ],
+      "description": "Vá a Lake Verity e ajude Rowan e Dawn ou Lucas contra a Team Galactic. Enfrente Mars; o próximo destino é Lake Acuity.",
+      "post": false
+    },
+    {
+      "id": "r218",
+      "name": "Route 218",
+      "type": "route",
+      "x": 210.0,
+      "y": 1095.0,
+      "mapKey": "route_218",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 168,
+          "name": "Route 218"
+        }
+      ],
+      "description": "Se quiser explorar antes de continuar, vá ao sul de Sandgem pelas Routes 219, 220 e 221. O acesso ao Pal Park exige a Pokédex Nacional.",
+      "post": false
+    },
+    {
+      "id": "r219",
+      "name": "Route 219",
+      "type": "route",
+      "x": 340.0,
+      "y": 1275.0,
+      "mapKey": "route_219",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 169,
+          "name": "Route 219"
+        }
+      ],
+      "description": "Se quiser explorar antes de continuar, vá ao sul de Sandgem pelas Routes 219, 220 e 221. O acesso ao Pal Park exige a Pokédex Nacional.",
+      "post": false
+    },
+    {
+      "id": "r220",
+      "name": "Route 220",
+      "type": "route",
+      "x": 366.0,
+      "y": 1320.0,
+      "mapKey": "route_220",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 180,
+          "name": "Route 220"
+        }
+      ],
+      "description": "Se quiser explorar antes de continuar, vá ao sul de Sandgem pelas Routes 219, 220 e 221. O acesso ao Pal Park exige a Pokédex Nacional.",
+      "post": false
+    },
+    {
+      "id": "r221",
+      "name": "Route 221",
+      "type": "route",
+      "x": 496.0,
+      "y": 1320.0,
+      "mapKey": "route_221",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 170,
+          "name": "Route 221"
+        }
+      ],
+      "description": "Se quiser explorar antes de continuar, vá ao sul de Sandgem pelas Routes 219, 220 e 221. O acesso ao Pal Park exige a Pokédex Nacional.",
+      "post": false
+    },
+    {
+      "id": "r222",
+      "name": "Route 222",
+      "type": "route",
+      "x": 1328.0,
+      "y": 1140.0,
+      "mapKey": "route_222",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 171,
+          "name": "Route 222"
+        }
+      ],
+      "description": "Volte ao laboratório de Rowan em Sandgem após sair de Distortion World. A passagem de Valor Lakefront para a Route 222 e Sunyshore fica liberada.",
+      "post": false
+    },
+    {
+      "id": "r223",
+      "name": "Route 223",
+      "type": "route",
+      "x": 1432.0,
+      "y": 982.5,
+      "mapKey": "route_223",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 181,
+          "name": "Route 223"
+        }
+      ],
+      "description": "No ginásio de Sunyshore, gire as plataformas com os botões para criar uma passagem. Vença Volkner para obter a oitava insígnia, Beacon Badge, e TM57.",
+      "post": false
+    },
+    {
+      "id": "r224",
+      "name": "Route 224",
+      "type": "route",
+      "x": 1510.0,
+      "y": 780.0,
+      "mapKey": "route_224",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 172,
+          "name": "Route 224"
+        }
+      ],
+      "description": "Em Turnback Cave, encontre os três pilares antes de atingir o limite de salas e chegue à câmara final. O portal leva ao trecho de Distortion World que contém a Griseous Orb.",
+      "post": true
+    },
+    {
+      "id": "r225",
+      "name": "Route 225",
+      "type": "route",
+      "x": 1068.0,
+      "y": 555.0,
+      "mapKey": "route_225",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 173,
+          "name": "Route 225"
+        }
+      ],
+      "description": "Pegue o barco em Snowpoint para Fight Area. Enfrente Flint e Volkner em dupla com Barry diante da Battle Frontier; prepare o time antes de aceitar.",
+      "post": true
+    },
+    {
+      "id": "r226",
+      "name": "Route 226",
+      "type": "route",
+      "x": 1224.0,
+      "y": 510.0,
+      "mapKey": "route_226",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 182,
+          "name": "Route 226"
+        },
+        {
+          "sourceArea": 1663,
+          "name": "island house"
+        }
+      ],
+      "description": "Pegue o barco em Snowpoint para Fight Area. Enfrente Flint e Volkner em dupla com Barry diante da Battle Frontier; prepare o time antes de aceitar.",
+      "post": true
+    },
+    {
+      "id": "r227",
+      "name": "Route 227",
+      "type": "route",
+      "x": 1276.0,
+      "y": 442.5,
+      "mapKey": "route_227",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 174,
+          "name": "Route 227"
+        }
+      ],
+      "description": "Pegue o barco em Snowpoint para Fight Area. Enfrente Flint e Volkner em dupla com Barry diante da Battle Frontier; prepare o time antes de aceitar.",
+      "post": true
+    },
+    {
+      "id": "r228",
+      "name": "Route 228",
+      "type": "route",
+      "x": 1328.0,
+      "y": 555.0,
+      "mapKey": "route_228",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 175,
+          "name": "Route 228"
+        }
+      ],
+      "description": "Retorne sozinho à câmara de Stark Mountain para encontrar Heatran no nível 50. Salve antes da batalha e use os caminhos de Rock Climb para revisar itens deixados para trás.",
+      "post": true
+    },
+    {
+      "id": "r229",
+      "name": "Route 229",
+      "type": "route",
+      "x": 1354.0,
+      "y": 645.0,
+      "mapKey": "route_229",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 176,
+          "name": "Route 229"
+        }
+      ],
+      "description": "Retorne sozinho à câmara de Stark Mountain para encontrar Heatran no nível 50. Salve antes da batalha e use os caminhos de Rock Climb para revisar itens deixados para trás.",
+      "post": true
+    },
+    {
+      "id": "r230",
+      "name": "Route 230",
+      "type": "route",
+      "x": 1224.0,
+      "y": 645.0,
+      "mapKey": "route_230",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 183,
+          "name": "Route 230"
+        }
+      ],
+      "description": "Retorne sozinho à câmara de Stark Mountain para encontrar Heatran no nível 50. Salve antes da batalha e use os caminhos de Rock Climb para revisar itens deixados para trás.",
+      "post": true
+    },
+    {
+      "id": "ravaged",
+      "name": "Ravaged Path",
+      "type": "special",
+      "x": 340.0,
+      "y": 1075.5,
+      "mapKey": "ravaged_path",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 54,
+          "name": "Ravaged Path"
+        }
+      ],
+      "description": "Volte a Jubilife e ajude Dawn ou Lucas na batalha contra os dois Grunts. Siga pela Route 204; Rock Smash abre a passagem em Ravaged Path.",
+      "post": false
+    },
+    {
+      "id": "meadow",
+      "name": "Floaroma Meadow",
+      "type": "special",
+      "x": 288,
+      "y": 889.5,
+      "mapKey": "floaroma_meadow",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 1362,
+          "name": "Floaroma Meadow"
+        }
+      ],
+      "description": "Volte a Jubilife e ajude Dawn ou Lucas na batalha contra os dois Grunts. Siga pela Route 204; Rock Smash abre a passagem em Ravaged Path.",
+      "post": false
+    },
+    {
+      "id": "windworks",
+      "name": "Valley Windworks",
+      "type": "special",
+      "x": 444.0,
+      "y": 960.0,
+      "mapKey": "valley_windworks",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 8,
+          "name": "Valley Windworks"
+        }
+      ],
+      "description": "Entre usando a Works Key, atravesse os Grunts e enfrente Mars. Purugly exige cuidado: cure o time antes de avançar. Com a equipe Galactic expulsa, a Route 205 fica livre.",
+      "post": false
+    },
+    {
+      "id": "forest",
+      "name": "Eterna Forest",
+      "type": "special",
+      "x": 418.0,
+      "y": 802.5,
+      "mapKey": "eterna_forest",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 9,
+          "name": "Eterna Forest"
+        }
+      ],
+      "description": "Entre usando a Works Key, atravesse os Grunts e enfrente Mars. Purugly exige cuidado: cure o time antes de avançar. Com a equipe Galactic expulsa, a Route 205 fica livre.",
+      "post": false
+    },
+    {
+      "id": "chateau",
+      "name": "Old Chateau",
+      "type": "special",
+      "x": 454.3,
+      "y": 771.09,
+      "mapKey": "old_chateau",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 126,
+          "name": "entrance"
+        },
+        {
+          "sourceArea": 127,
+          "name": "dining room"
+        },
+        {
+          "sourceArea": 128,
+          "name": "2f private room"
+        },
+        {
+          "sourceArea": 129,
+          "name": "2F"
+        },
+        {
+          "sourceArea": 130,
+          "name": "2f leftmost room"
+        },
+        {
+          "sourceArea": 131,
+          "name": "2f left room"
+        },
+        {
+          "sourceArea": 132,
+          "name": "2f middle room"
+        },
+        {
+          "sourceArea": 133,
+          "name": "2f right room"
+        },
+        {
+          "sourceArea": 134,
+          "name": "2f rightmost room"
+        }
+      ],
+      "description": "Use Cut no prédio Galactic de Eterna. As escadas com cartaz conduzem ao caminho principal; explore as outras para itens. Vença Jupiter e liberte o dono da loja de bicicletas.",
+      "post": false
+    },
+    {
+      "id": "fuego",
+      "name": "Fuego Ironworks",
+      "type": "special",
+      "x": 340.0,
+      "y": 870.0,
+      "mapKey": "fuego_ironworks",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 10,
+          "name": "Fuego Ironworks"
+        }
+      ],
+      "description": "Use a SecretPotion nos Psyduck da Route 210. Cynthia entrega o Old Charm; leve-o à avó dela em Celestic. Defog facilita a travessia da área com neblina.",
+      "post": false
+    },
+    {
+      "id": "wayward",
+      "name": "Wayward Cave",
+      "type": "special",
+      "x": 548.0,
+      "y": 889.5,
+      "mapKey": "wayward_cave",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 113,
+          "name": "1F"
+        },
+        {
+          "sourceArea": 114,
+          "name": "B1F"
+        }
+      ],
+      "description": "Use Cut no prédio Galactic de Eterna. As escadas com cartaz conduzem ao caminho principal; explore as outras para itens. Vença Jupiter e liberte o dono da loja de bicicletas.",
+      "post": false
+    },
+    {
+      "id": "coronet",
+      "name": "Mt. Coronet",
+      "type": "special",
+      "x": 686.67,
+      "y": 832.5,
+      "mapKey": "mount_coronet",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 11,
+          "name": "1f route 207"
+        },
+        {
+          "sourceArea": 12,
+          "name": "2F"
+        },
+        {
+          "sourceArea": 13,
+          "name": "3F"
+        },
+        {
+          "sourceArea": 14,
+          "name": "exterior snowfall"
+        },
+        {
+          "sourceArea": 15,
+          "name": "exterior blizzard"
+        },
+        {
+          "sourceArea": 16,
+          "name": "4F"
+        },
+        {
+          "sourceArea": 17,
+          "name": "4f small room"
+        },
+        {
+          "sourceArea": 18,
+          "name": "5F"
+        },
+        {
+          "sourceArea": 19,
+          "name": "6F"
+        },
+        {
+          "sourceArea": 20,
+          "name": "1f from exterior"
+        },
+        {
+          "sourceArea": 21,
+          "name": "1f route 216"
+        },
+        {
+          "sourceArea": 22,
+          "name": "1f route 211"
+        },
+        {
+          "sourceArea": 23,
+          "name": "B1F"
+        }
+      ],
+      "description": "Atravesse a entrada sul de Mt. Coronet até a Route 208. Vá para Hearthome e visite o Contest Hall para encontrar Fantina e fazê-la voltar ao ginásio.",
+      "post": false
+    },
+    {
+      "id": "ruins",
+      "name": "Solaceon Ruins",
+      "type": "special",
+      "x": 1038.0,
+      "y": 960.0,
+      "mapKey": "solaceon_ruins",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 30,
+          "name": "2F"
+        },
+        {
+          "sourceArea": 31,
+          "name": "1F"
+        },
+        {
+          "sourceArea": 32,
+          "name": "b1f a"
+        },
+        {
+          "sourceArea": 33,
+          "name": "b1f b"
+        },
+        {
+          "sourceArea": 34,
+          "name": "b1f c"
+        },
+        {
+          "sourceArea": 35,
+          "name": "b2f a"
+        },
+        {
+          "sourceArea": 36,
+          "name": "b2f b"
+        },
+        {
+          "sourceArea": 37,
+          "name": "b2f c"
+        },
+        {
+          "sourceArea": 38,
+          "name": "b3f a"
+        },
+        {
+          "sourceArea": 39,
+          "name": "b3f b"
+        },
+        {
+          "sourceArea": 40,
+          "name": "b3f c"
+        },
+        {
+          "sourceArea": 41,
+          "name": "b3f d"
+        },
+        {
+          "sourceArea": 42,
+          "name": "b3f e"
+        },
+        {
+          "sourceArea": 43,
+          "name": "b4f a"
+        },
+        {
+          "sourceArea": 44,
+          "name": "b4f b"
+        },
+        {
+          "sourceArea": 45,
+          "name": "b4f c"
+        },
+        {
+          "sourceArea": 46,
+          "name": "b4f d"
+        },
+        {
+          "sourceArea": 47,
+          "name": "B5F"
+        }
+      ],
+      "description": "Atravesse a Route 209 até Solaceon. Pegue a Good Rod com o pescador da rota e explore a cidade, o Day Care e os serviços locais.",
+      "post": false
+    },
+    {
+      "id": "tower",
+      "name": "Lost Tower",
+      "type": "special",
+      "x": 994.67,
+      "y": 1035.0,
+      "mapKey": "lost_tower",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 152,
+          "name": "1F"
+        },
+        {
+          "sourceArea": 153,
+          "name": "2F"
+        },
+        {
+          "sourceArea": 154,
+          "name": "3F"
+        },
+        {
+          "sourceArea": 155,
+          "name": "4F"
+        },
+        {
+          "sourceArea": 156,
+          "name": "5F"
+        }
+      ],
+      "description": "Atravesse a Route 209 até Solaceon. Pegue a Good Rod com o pescador da rota e explore a cidade, o Day Care e os serviços locais.",
+      "post": false
+    },
+    {
+      "id": "marsh",
+      "name": "Great Marsh",
+      "type": "special",
+      "x": 1078.3,
+      "y": 1176.09,
+      "mapKey": "great_marsh",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 24,
+          "name": "area 1"
+        },
+        {
+          "sourceArea": 25,
+          "name": "area 2"
+        },
+        {
+          "sourceArea": 26,
+          "name": "area 3"
+        },
+        {
+          "sourceArea": 27,
+          "name": "area 4"
+        },
+        {
+          "sourceArea": 28,
+          "name": "area 5"
+        },
+        {
+          "sourceArea": 29,
+          "name": "area 6"
+        }
+      ],
+      "description": "Saia de Veilstone ao sul pela Route 214. Ruin Maniac Cave é um desvio que muda conforme você reúne formas de Unown; consulte os setores separados.",
+      "post": false
+    },
+    {
+      "id": "garden",
+      "name": "Trophy Garden / Pokémon Mansion",
+      "type": "special",
+      "x": 808.0,
+      "y": 1140.0,
+      "mapKey": "pokemon_mansion",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 118,
+          "name": "Trophy Garden / Pokémon Mansion"
+        }
+      ],
+      "description": "Com a Pokédex Nacional, converse com Backlot para o Pokémon diário do Trophy Garden. A espécie de hoje e a anterior permanecem no jardim; as chances condicionais não se somam a uma lista diária inteira.",
+      "post": false
+    },
+    {
+      "id": "maniac",
+      "name": "Ruin Maniac Cave / Maniac Tunnel",
+      "type": "special",
+      "x": 1224.0,
+      "y": 960.0,
+      "mapKey": "ruin_maniac_cave",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 115,
+          "name": "0 9 different unown caught"
+        },
+        {
+          "sourceArea": 116,
+          "name": "10 25 different unown caught"
+        },
+        {
+          "sourceArea": 117,
+          "name": "26 plus different unown caught"
+        }
+      ],
+      "description": "Saia de Veilstone ao sul pela Route 214. Ruin Maniac Cave é um desvio que muda conforme você reúne formas de Unown; consulte os setores separados.",
+      "post": false
+    },
+    {
+      "id": "valorfront",
+      "name": "Valor Lakefront",
+      "type": "special",
+      "x": 1198.0,
+      "y": 1117.5,
+      "mapKey": "valor_lakefront",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 139,
+          "name": "Valor Lakefront"
+        }
+      ],
+      "description": "Saia de Veilstone ao sul pela Route 214. Ruin Maniac Cave é um desvio que muda conforme você reúne formas de Unown; consulte os setores separados.",
+      "post": false
+    },
+    {
+      "id": "valor",
+      "name": "Lake Valor",
+      "type": "special",
+      "x": 1234.3,
+      "y": 1086.09,
+      "mapKey": "valor_cavern",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 137,
+          "name": "Lake Valor"
+        },
+        {
+          "sourceArea": 830,
+          "name": "cavern"
+        }
+      ],
+      "description": "Em Iron Island, receba HM04 de Riley na entrada. Explore os dois lados da mina; no trecho em parceria, elimine os Grunts com Riley.",
+      "post": false
+    },
+    {
+      "id": "acuityfront",
+      "name": "Acuity Lakefront",
+      "type": "special",
+      "x": 574.0,
+      "y": 352.5,
+      "mapKey": "acuity_lakefront",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 140,
+          "name": "Acuity Lakefront"
+        }
+      ],
+      "description": "Em Snowpoint, deslize pelas pistas do ginásio para romper as bolas de neve e abrir a escada central até Candice. A Icicle Badge, sétima insígnia, libera Rock Climb; receba TM72.",
+      "post": false
+    },
+    {
+      "id": "acuity",
+      "name": "Lake Acuity",
+      "type": "special",
+      "x": 610.3,
+      "y": 383.91,
+      "mapKey": "acuity_cavern",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 138,
+          "name": "Lake Acuity"
+        },
+        {
+          "sourceArea": 829,
+          "name": "cavern"
+        }
+      ],
+      "description": "Em Snowpoint, deslize pelas pistas do ginásio para romper as bolas de neve e abrir a escada central até Candice. A Icicle Badge, sétima insígnia, libera Rock Climb; receba TM72.",
+      "post": false
+    },
+    {
+      "id": "iron",
+      "name": "Iron Island",
+      "type": "special",
+      "x": 236.0,
+      "y": 735.0,
+      "mapKey": "iron_island",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 119,
+          "name": "Iron Island"
+        },
+        {
+          "sourceArea": 120,
+          "name": "1F"
+        },
+        {
+          "sourceArea": 121,
+          "name": "b1f left"
+        },
+        {
+          "sourceArea": 122,
+          "name": "b1f right"
+        },
+        {
+          "sourceArea": 123,
+          "name": "b2f right"
+        },
+        {
+          "sourceArea": 124,
+          "name": "b2f left"
+        },
+        {
+          "sourceArea": 125,
+          "name": "B3F"
+        }
+      ],
+      "description": "Em Iron Island, receba HM04 de Riley na entrada. Explore os dois lados da mina; no trecho em parceria, elimine os Grunts com Riley.",
+      "post": false
+    },
+    {
+      "id": "fullmoon",
+      "name": "Fullmoon Island",
+      "type": "special",
+      "x": 132.0,
+      "y": 420.0,
+      "mapKey": "fullmoon_island",
+      "mapped": true,
+      "sections": [],
+      "description": "Com a Pokédex Nacional, converse com Backlot para o Pokémon diário do Trophy Garden. A espécie de hoje e a anterior permanecem no jardim; as chances condicionais não se somam a uma lista diária inteira.",
+      "post": true
+    },
+    {
+      "id": "temple",
+      "name": "Snowpoint Temple",
+      "type": "special",
+      "x": 688.4,
+      "y": 298.5,
+      "mapKey": "snowpoint_temple_and_gym",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 107,
+          "name": "1F"
+        },
+        {
+          "sourceArea": 108,
+          "name": "B1F"
+        },
+        {
+          "sourceArea": 109,
+          "name": "B2F"
+        },
+        {
+          "sourceArea": 110,
+          "name": "B3F"
+        },
+        {
+          "sourceArea": 111,
+          "name": "B4F"
+        },
+        {
+          "sourceArea": 112,
+          "name": "B5F"
+        }
+      ],
+      "description": "Com a Pokédex Nacional, converse com Backlot para o Pokémon diário do Trophy Garden. A espécie de hoje e a anterior permanecem no jardim; as chances condicionais não se somam a uma lista diária inteira.",
+      "post": true
+    },
+    {
+      "id": "spear",
+      "name": "Spear Pillar",
+      "type": "special",
+      "x": 652.0,
+      "y": 915.0,
+      "mapKey": "spear_pillar",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 831,
+          "name": "Área"
+        }
+      ],
+      "description": "Leve Surf, Strength, Rock Climb e Rock Smash. Entre em Mt. Coronet pela Route 207, atravesse a água e suba pelo ponto de Rock Climb.",
+      "post": false
+    },
+    {
+      "id": "distortion",
+      "name": "Distortion World",
+      "type": "special",
+      "x": 688.4,
+      "y": 946.5,
+      "mapKey": "spear_pillar",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 1379,
+          "name": "Distortion World"
+        }
+      ],
+      "description": "No topo, enfrente Mars e Jupiter em dupla com Barry. Depois dos acontecimentos em Spear Pillar, acompanhe Cynthia pelo portal para Distortion World.",
+      "post": false
+    },
+    {
+      "id": "spring",
+      "name": "Sendoff Spring / Spring Path",
+      "type": "special",
+      "x": 1302.0,
+      "y": 1027.5,
+      "mapKey": "spring_path",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 60,
+          "name": "Sendoff Spring / Spring Path"
+        }
+      ],
+      "description": "No topo, enfrente Mars e Jupiter em dupla com Barry. Depois dos acontecimentos em Spear Pillar, acompanhe Cynthia pelo portal para Distortion World.",
+      "post": false
+    },
+    {
+      "id": "turnback",
+      "name": "Turnback Cave",
+      "type": "special",
+      "x": 1265.7,
+      "y": 1058.91,
+      "mapKey": "turnback_cave",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 61,
+          "name": "pillar 1"
+        },
+        {
+          "sourceArea": 62,
+          "name": "pillar 2"
+        },
+        {
+          "sourceArea": 63,
+          "name": "pillar 3"
+        },
+        {
+          "sourceArea": 64,
+          "name": "before pillar 1"
+        },
+        {
+          "sourceArea": 70,
+          "name": "between pillars 1 and 2"
+        },
+        {
+          "sourceArea": 76,
+          "name": "between pillars 2 and 3"
+        },
+        {
+          "sourceArea": 82,
+          "name": "after pillar 3"
+        }
+      ],
+      "description": "Com a Pokédex Nacional, converse com Backlot para o Pokémon diário do Trophy Garden. A espécie de hoje e a anterior permanecem no jardim; as chances condicionais não se somam a uma lista diária inteira.",
+      "post": false
+    },
+    {
+      "id": "victory",
+      "name": "Victory Road",
+      "type": "special",
+      "x": 1432.0,
+      "y": 870.0,
+      "mapKey": "victory_road",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 48,
+          "name": "1F"
+        },
+        {
+          "sourceArea": 49,
+          "name": "2F"
+        },
+        {
+          "sourceArea": 50,
+          "name": "B1F"
+        },
+        {
+          "sourceArea": 51,
+          "name": "inside b1f"
+        },
+        {
+          "sourceArea": 52,
+          "name": "inside"
+        },
+        {
+          "sourceArea": 53,
+          "name": "inside exit"
+        }
+      ],
+      "description": "No ginásio de Sunyshore, gire as plataformas com os botões para criar uma passagem. Vença Volkner para obter a oitava insígnia, Beacon Badge, e TM57.",
+      "post": false
+    },
+    {
+      "id": "league",
+      "name": "Pokémon League",
+      "type": "special",
+      "x": 1432.0,
+      "y": 825.0,
+      "mapKey": "pokemon_league",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 5,
+          "name": "Pokémon League"
+        }
+      ],
+      "description": "No ginásio de Sunyshore, gire as plataformas com os botões para criar uma passagem. Vença Volkner para obter a oitava insígnia, Beacon Badge, e TM57.",
+      "post": false
+    },
+    {
+      "id": "frontier",
+      "name": "Battle Frontier",
+      "type": "special",
+      "x": 1120.0,
+      "y": 600.0,
+      "mapKey": "battle_frontier",
+      "mapped": true,
+      "sections": [],
+      "description": "Pegue o barco em Snowpoint para Fight Area. Enfrente Flint e Volkner em dupla com Barry diante da Battle Frontier; prepare o time antes de aceitar.",
+      "post": true
+    },
+    {
+      "id": "stark",
+      "name": "Stark Mountain",
+      "type": "special",
+      "x": 1276.0,
+      "y": 375.0,
+      "mapKey": "stark_mountain",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 57,
+          "name": "Stark Mountain"
+        },
+        {
+          "sourceArea": 58,
+          "name": "entrance"
+        },
+        {
+          "sourceArea": 59,
+          "name": "inside"
+        },
+        {
+          "sourceArea": 837,
+          "name": "heatran chamber"
+        }
+      ],
+      "description": "Entre em Stark Mountain e enfrente Mars e Jupiter. Use Strength e Rock Smash para alcançar a sala principal; Buck acompanha você e cura o time entre batalhas.",
+      "post": true
+    },
+    {
+      "id": "newmoon",
+      "name": "Newmoon Island",
+      "type": "special",
+      "x": 288.0,
+      "y": 420.0,
+      "mapKey": "newmoon_island",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 838,
+          "name": "Newmoon Island"
+        }
+      ],
+      "description": "Explore Newmoon Island, consultando o setor e as condições de cada encontro. O roteiro liga este local às etapas da jornada.",
+      "post": true
+    },
+    {
+      "id": "flower",
+      "name": "Flower Paradise / Seabreak Path",
+      "type": "special",
+      "x": 1536.0,
+      "y": 330.0,
+      "mapKey": "flower_paradise",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 839,
+          "name": "Flower Paradise / Seabreak Path"
+        }
+      ],
+      "description": "Explore Flower Paradise / Seabreak Path, consultando o setor e as condições de cada encontro. O roteiro liga este local às etapas da jornada.",
+      "post": true
+    },
+    {
+      "id": "origin",
+      "name": "Hall of Origin",
+      "type": "special",
+      "x": 615.6,
+      "y": 883.5,
+      "mapKey": "spear_pillar",
+      "mapped": true,
+      "sections": [
+        {
+          "sourceArea": 840,
+          "name": "Hall of Origin"
+        }
+      ],
+      "description": "Explore Hall of Origin, consultando o setor e as condições de cada encontro. O roteiro liga este local às etapas da jornada.",
+      "post": true
+    },
+    {
+      "id": "palpark",
+      "name": "Pal Park",
+      "type": "special",
+      "x": 548.0,
+      "y": 1320.0,
+      "mapKey": "pal_park_front_gate",
+      "mapped": true,
+      "sections": [],
+      "description": "Se quiser explorar antes de continuar, vá ao sul de Sandgem pelas Routes 219, 220 e 221. O acesso ao Pal Park exige a Pokédex Nacional.",
+      "post": false
+    },
+    {
+      "id": "roamers",
+      "name": "Pokémon errantes de Sinnoh",
+      "type": "special",
+      "x": 0,
+      "y": 0,
+      "mapKey": null,
+      "mapped": false,
+      "sections": [
+        {
+          "sourceArea": 797,
+          "name": "Área"
+        }
+      ],
+      "description": "Explore Pokémon errantes de Sinnoh, consultando o setor e as condições de cada encontro. O roteiro liga este local às etapas da jornada.",
+      "post": true
+    },
+    {
+      "id": "events",
+      "name": "Transferência Pokémon Ranger",
+      "type": "special",
+      "x": 0,
+      "y": 0,
+      "mapKey": null,
+      "mapped": false,
+      "sections": [
+        {
+          "sourceArea": 1213,
+          "name": "Transferência Pokémon Ranger"
+        }
+      ],
+      "description": "Explore Transferência Pokémon Ranger, consultando o setor e as condições de cada encontro. O roteiro liga este local às etapas da jornada.",
+      "post": false
+    }
+  ],
+  "paths": [
+    [
+      "twinleaf",
+      "r201"
+    ],
+    [
+      "r201",
+      "sandgem"
+    ],
+    [
+      "sandgem",
+      "r202"
+    ],
+    [
+      "r202",
+      "jubilife"
+    ],
+    [
+      "jubilife",
+      "r203"
+    ],
+    [
+      "r203",
+      "gate"
+    ],
+    [
+      "gate",
+      "oreburgh"
+    ],
+    [
+      "oreburgh",
+      "r207"
+    ],
+    [
+      "r207",
+      "coronet"
+    ],
+    [
+      "coronet",
+      "r208"
+    ],
+    [
+      "r208",
+      "hearthome"
+    ],
+    [
+      "hearthome",
+      "r209"
+    ],
+    [
+      "r209",
+      "solaceon"
+    ],
+    [
+      "solaceon",
+      "r210"
+    ],
+    [
+      "r210",
+      "r215"
+    ],
+    [
+      "r215",
+      "veilstone"
+    ],
+    [
+      "veilstone",
+      "r214"
+    ],
+    [
+      "r214",
+      "valorfront"
+    ],
+    [
+      "valorfront",
+      "r213"
+    ],
+    [
+      "r213",
+      "pastoria"
+    ],
+    [
+      "pastoria",
+      "r212"
+    ],
+    [
+      "r212",
+      "hearthome"
+    ],
+    [
+      "r201",
+      "verity"
+    ],
+    [
+      "jubilife",
+      "r204"
+    ],
+    [
+      "r204",
+      "ravaged"
+    ],
+    [
+      "ravaged",
+      "floaroma"
+    ],
+    [
+      "floaroma",
+      "r205"
+    ],
+    [
+      "r205",
+      "forest"
+    ],
+    [
+      "forest",
+      "eterna"
+    ],
+    [
+      "eterna",
+      "r206"
+    ],
+    [
+      "r206",
+      "r207"
+    ],
+    [
+      "floaroma",
+      "meadow"
+    ],
+    [
+      "r205",
+      "windworks"
+    ],
+    [
+      "r205",
+      "fuego"
+    ],
+    [
+      "forest",
+      "chateau"
+    ],
+    [
+      "r206",
+      "wayward"
+    ],
+    [
+      "oreburgh",
+      "mine"
+    ],
+    [
+      "r209",
+      "tower"
+    ],
+    [
+      "solaceon",
+      "ruins"
+    ],
+    [
+      "r210",
+      "celestic"
+    ],
+    [
+      "celestic",
+      "r211"
+    ],
+    [
+      "r211",
+      "eterna"
+    ],
+    [
+      "r211",
+      "coronet"
+    ],
+    [
+      "coronet",
+      "r216"
+    ],
+    [
+      "r216",
+      "r217"
+    ],
+    [
+      "r217",
+      "acuityfront"
+    ],
+    [
+      "acuityfront",
+      "snowpoint"
+    ],
+    [
+      "acuityfront",
+      "acuity"
+    ],
+    [
+      "pastoria",
+      "marsh"
+    ],
+    [
+      "r212",
+      "garden"
+    ],
+    [
+      "r214",
+      "maniac"
+    ],
+    [
+      "valorfront",
+      "valor"
+    ],
+    [
+      "jubilife",
+      "r218"
+    ],
+    [
+      "r218",
+      "canalave"
+    ],
+    [
+      "canalave",
+      "iron"
+    ],
+    [
+      "canalave",
+      "fullmoon"
+    ],
+    [
+      "sandgem",
+      "r219"
+    ],
+    [
+      "r219",
+      "r220"
+    ],
+    [
+      "r220",
+      "r221"
+    ],
+    [
+      "r221",
+      "palpark"
+    ],
+    [
+      "valorfront",
+      "r222"
+    ],
+    [
+      "r222",
+      "sunyshore"
+    ],
+    [
+      "sunyshore",
+      "r223"
+    ],
+    [
+      "r223",
+      "victory"
+    ],
+    [
+      "victory",
+      "league"
+    ],
+    [
+      "coronet",
+      "spear"
+    ],
+    [
+      "spear",
+      "distortion"
+    ],
+    [
+      "distortion",
+      "spring"
+    ],
+    [
+      "spring",
+      "turnback"
+    ],
+    [
+      "r214",
+      "spring"
+    ],
+    [
+      "victory",
+      "r224"
+    ],
+    [
+      "r224",
+      "flower"
+    ],
+    [
+      "snowpoint",
+      "temple"
+    ],
+    [
+      "snowpoint",
+      "fight"
+    ],
+    [
+      "fight",
+      "frontier"
+    ],
+    [
+      "fight",
+      "r225"
+    ],
+    [
+      "r225",
+      "survival"
+    ],
+    [
+      "survival",
+      "r226"
+    ],
+    [
+      "r226",
+      "r227"
+    ],
+    [
+      "r227",
+      "stark"
+    ],
+    [
+      "r226",
+      "r228"
+    ],
+    [
+      "r228",
+      "r229"
+    ],
+    [
+      "r229",
+      "resort"
+    ],
+    [
+      "r229",
+      "r230"
+    ],
+    [
+      "r230",
+      "fight"
+    ],
+    [
+      "canalave",
+      "newmoon"
+    ],
+    [
+      "spear",
+      "origin"
+    ]
+  ],
+  "chapters": [
+    {
+      "id": "pt-start",
+      "title": "O início em Twinleaf",
+      "path": [
+        "twinleaf",
+        "r201",
+        "verity",
+        "sandgem"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_1",
+      "steps": [
+        [
+          "pt-starter",
+          "Encontre Barry na Route 201, escolha seu inicial com Rowan e faça a primeira batalha."
+        ],
+        [
+          "pt-home",
+          "Volte para casa, receba os Running Shoes e acompanhe Barry até Lake Verity."
+        ],
+        [
+          "pt-dex",
+          "Visite o laboratório em Sandgem, receba a Pokédex e volte a Twinleaf para pegar o Parcel destinado a Barry."
+        ]
+      ]
+    },
+    {
+      "id": "pt-jubilife",
+      "title": "Capturas e Jubilife",
+      "path": [
+        "r202",
+        "jubilife",
+        "r203",
+        "gate"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+      "steps": [
+        [
+          "pt-capture",
+          "Assista à demonstração de captura na Route 202 e receba cinco Poké Balls. Explore a grama antes de seguir para Jubilife."
+        ],
+        [
+          "pt-parcel",
+          "Entregue o Parcel na Trainers’ School. Encontre os três palhaços e obtenha o Pokétch; pegue a Old Rod no portão oeste."
+        ],
+        [
+          "pt-gate",
+          "Cure o time antes de sair para a Route 203: Barry vai desafiar você. Depois, atravesse Oreburgh Gate e receba HM06."
+        ]
+      ]
+    },
+    {
+      "id": "pt-roark",
+      "title": "A Coal Badge",
+      "path": [
+        "oreburgh",
+        "mine"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_3",
+      "steps": [
+        [
+          "pt-mine",
+          "Encontre Roark no B1F de Oreburgh Mine e fale com ele. Retorne à cidade e cure o time."
+        ],
+        [
+          "pt-gym",
+          "Desafie o ginásio. Roark usa Geodude e Onix no nível 12 e Cranidos no nível 14. Prepare golpes de Água, Grama ou Lutador e itens de cura."
+        ],
+        [
+          "pt-badge",
+          "Após vencer, registre a Coal Badge e TM76. Rock Smash fica liberado fora de batalha. Volte a Jubilife para continuar ao norte."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch04",
+      "title": "Floaroma e a Works Key",
+      "path": [
+        "jubilife",
+        "r204",
+        "ravaged",
+        "floaroma",
+        "meadow"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_3",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch04-s1",
+          "Volte a Jubilife e ajude Dawn ou Lucas na batalha contra os dois Grunts. Siga pela Route 204; Rock Smash abre a passagem em Ravaged Path."
+        ],
+        [
+          "pt-ch04-s2",
+          "Em Floaroma, investigue Valley Windworks. Vença o Grunt da porta; ele se tranca no prédio. Volte ao meadow pelo acesso norte de Floaroma."
+        ],
+        [
+          "pt-ch04-s3",
+          "Derrote os dois Grunts em Floaroma Meadow e receba a Works Key. Ela permite entrar no prédio de Valley Windworks."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch05",
+      "title": "Valley Windworks e Gardenia",
+      "path": [
+        "windworks",
+        "r205",
+        "forest",
+        "eterna"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_4",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch05-s1",
+          "Entre usando a Works Key, atravesse os Grunts e enfrente Mars. Purugly exige cuidado: cure o time antes de avançar. Com a equipe Galactic expulsa, a Route 205 fica livre."
+        ],
+        [
+          "pt-ch05-s2",
+          "Atravesse Eterna Forest com Cheryl. Ela cura o time entre batalhas; nas batalhas duplas selvagens, deixe apenas um adversário em campo antes de tentar capturar."
+        ],
+        [
+          "pt-ch05-s3",
+          "Passe pela ponte da Route 205 até Eterna. Encontre Cynthia para receber Cut. No ginásio, vença os treinadores para girar o relógio até Gardenia."
+        ],
+        [
+          "pt-ch05-s4",
+          "Vença Gardenia para obter a Forest Badge e TM86. A segunda insígnia libera Cut fora de batalha e o acesso ao prédio Galactic."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch06",
+      "title": "Jupiter, bicicleta e Wayward Cave",
+      "path": [
+        "eterna",
+        "chateau",
+        "r206",
+        "wayward",
+        "r207"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_5",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch06-s1",
+          "Use Cut no prédio Galactic de Eterna. As escadas com cartaz conduzem ao caminho principal; explore as outras para itens. Vença Jupiter e liberte o dono da loja de bicicletas."
+        ],
+        [
+          "pt-ch06-s2",
+          "Deixe espaço no time para o ovo de Togepi entregue por Cynthia. Retire a bicicleta na loja e siga pela Cycling Road. Old Chateau é um desvio: à noite, investigue a TV para Rotom."
+        ],
+        [
+          "pt-ch06-s3",
+          "No final da Cycling Road, use Cut para alcançar a grama e Wayward Cave. A entrada visível leva a Mira; a entrada escondida sob a ponte leva a Gible e à área da TM26."
+        ],
+        [
+          "pt-ch06-s4",
+          "Explore as rampas do subsolo com a bicicleta. Depois siga pela Route 207; Dawn ou Lucas entrega o Vs. Seeker e o aplicativo de itens ocultos antes da travessia de Mt. Coronet."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch07",
+      "title": "Hearthome e Fantina",
+      "path": [
+        "coronet",
+        "r208",
+        "hearthome",
+        "r209"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_6",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch07-s1",
+          "Atravesse a entrada sul de Mt. Coronet até a Route 208. Vá para Hearthome e visite o Contest Hall para encontrar Fantina e fazê-la voltar ao ginásio."
+        ],
+        [
+          "pt-ch07-s2",
+          "Converse com Bebe para receber Eevee, deixando espaço no time. Explore Amity Square, o Fan Club e os prédios da cidade para os presentes e itens locais."
+        ],
+        [
+          "pt-ch07-s3",
+          "No ginásio de Platinum, observe o símbolo azul no chão e escolha a porta vermelha correspondente em cada sala escura. Vença Fantina para obter a Relic Badge e TM65."
+        ],
+        [
+          "pt-ch07-s4",
+          "Esta é a terceira insígnia em Platinum e libera Defog fora de batalha. Cure o time antes de seguir para a Route 209, onde Barry desafia você."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch08",
+      "title": "Solaceon, Unown e Defog",
+      "path": [
+        "r209",
+        "tower",
+        "solaceon",
+        "ruins",
+        "r210"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_7",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch08-s1",
+          "Atravesse a Route 209 até Solaceon. Pegue a Good Rod com o pescador da rota e explore a cidade, o Day Care e os serviços locais."
+        ],
+        [
+          "pt-ch08-s2",
+          "Nas Solaceon Ruins, siga as escadas: superior direita, inferior esquerda, superior direita, superior esquerda, superior esquerda, inferior esquerda. A última sala contém HM05 e outros itens."
+        ],
+        [
+          "pt-ch08-s3",
+          "Com Defog, retorne à Lost Tower se quiser explorar os pisos com neblina. Fale com as duas senhoras do último andar para os presentes."
+        ],
+        [
+          "pt-ch08-s4",
+          "Siga ao norte pela Route 210. Os Psyduck ainda bloqueiam o caminho para Celestic; use a saída para a Route 215 e Veilstone."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch09",
+      "title": "Maylene e Fly",
+      "path": [
+        "r215",
+        "veilstone"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_8",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch09-s1",
+          "Atravesse a Route 215, usando as pontes para chegar a Veilstone. Explore a Department Store e os serviços da cidade antes do ginásio."
+        ],
+        [
+          "pt-ch09-s2",
+          "Empurre os sacos de pancada do ginásio para remover os pneus e abrir o caminho. Vença Maylene; a Cobble Badge é a quarta insígnia e libera Fly fora de batalha."
+        ],
+        [
+          "pt-ch09-s3",
+          "Ajude Dawn ou Lucas contra os Grunts que roubaram a Pokédex. Entre no warehouse com Looker e pegue HM02. O restante da base ainda depende dos acontecimentos posteriores."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch10",
+      "title": "Valor Lakefront e Pastoria",
+      "path": [
+        "r214",
+        "maniac",
+        "valorfront",
+        "r213",
+        "pastoria",
+        "marsh"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_9",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch10-s1",
+          "Saia de Veilstone ao sul pela Route 214. Ruin Maniac Cave é um desvio que muda conforme você reúne formas de Unown; consulte os setores separados."
+        ],
+        [
+          "pt-ch10-s2",
+          "Atravesse Valor Lakefront e o hotel rumo à Route 213. A passagem para Sunyshore ainda está bloqueada; siga para Pastoria."
+        ],
+        [
+          "pt-ch10-s3",
+          "Na cidade, visite o Move Reminder para reaprender golpes com Heart Scales. Great Marsh usa encontros diários: consulte o observatório antes de procurar uma espécie."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch11",
+      "title": "Wake e o incidente do Great Marsh",
+      "path": [
+        "pastoria",
+        "r212",
+        "r213",
+        "valorfront"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_10",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch11-s1",
+          "Prepare-se para a batalha com Barry e depois para o ginásio de Pastoria. Use os botões para alterar o nível da água e alcançar Wake."
+        ],
+        [
+          "pt-ch11-s2",
+          "Vença Wake para obter a Fen Badge e TM55. A quinta insígnia libera Surf; a HM será entregue em Celestic mais adiante."
+        ],
+        [
+          "pt-ch11-s3",
+          "Investigue a explosão junto ao Great Marsh. Persiga o Grunt pelas saídas de Pastoria e pela Route 213 até Valor Lakefront, conversando com ele em cada parada."
+        ],
+        [
+          "pt-ch11-s4",
+          "Após enfrentá-lo, converse com Cynthia para receber a SecretPotion. Route 212 é um desvio de exploração entre Pastoria e Hearthome."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch12",
+      "title": "Celestic e Surf",
+      "path": [
+        "r210",
+        "celestic",
+        "fuego",
+        "meadow"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_11",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch12-s1",
+          "Use a SecretPotion nos Psyduck da Route 210. Cynthia entrega o Old Charm; leve-o à avó dela em Celestic. Defog facilita a travessia da área com neblina."
+        ],
+        [
+          "pt-ch12-s2",
+          "Em Celestic, vença o Grunt junto às ruínas e examine o mural. Enfrente Cyrus; depois receba HM03 da avó de Cynthia."
+        ],
+        [
+          "pt-ch12-s3",
+          "Com Surf e a Fen Badge, explore lagos e trechos de água das rotas anteriores. Fuego Ironworks é acessível pelo rio da Route 205; explore os pisos com setas e o meadow pelo acesso de água."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch13",
+      "title": "Canalave e desvios pelo mar",
+      "path": [
+        "r219",
+        "r220",
+        "r221",
+        "palpark",
+        "r218",
+        "canalave"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_12",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch13-s1",
+          "Se quiser explorar antes de continuar, vá ao sul de Sandgem pelas Routes 219, 220 e 221. O acesso ao Pal Park exige a Pokédex Nacional."
+        ],
+        [
+          "pt-ch13-s2",
+          "Para seguir a história, vá a Jubilife e use Surf na Route 218 até Canalave. Prepare-se para a batalha com Barry ao atravessar a ponte."
+        ],
+        [
+          "pt-ch13-s3",
+          "Visite os serviços da cidade e fale com o marinheiro no cais para viajar a Iron Island. Essa viagem permite receber Strength, necessária na próxima etapa."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch14",
+      "title": "Riley e Byron",
+      "path": [
+        "iron",
+        "canalave",
+        "valor"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_13",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch14-s1",
+          "Em Iron Island, receba HM04 de Riley na entrada. Explore os dois lados da mina; no trecho em parceria, elimine os Grunts com Riley."
+        ],
+        [
+          "pt-ch14-s2",
+          "Deixe espaço no time para receber o ovo de Riolu. Explore a saída da mina para itens, incluindo a Shiny Stone, antes de voltar pelo barco."
+        ],
+        [
+          "pt-ch14-s3",
+          "No ginásio de Canalave, use as plataformas para alcançar Byron. A Mine Badge é a sexta insígnia e libera Strength; você também recebe TM91."
+        ],
+        [
+          "pt-ch14-s4",
+          "Vá à biblioteca e participe da conversa com Rowan, Dawn ou Lucas e Barry. Após a explosão, siga até Lake Valor e enfrente Saturn na caverna do lago."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch15",
+      "title": "Os lagos e o caminho nevado",
+      "path": [
+        "verity",
+        "r211",
+        "coronet",
+        "r216",
+        "r217"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_14",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch15-s1",
+          "Vá a Lake Verity e ajude Rowan e Dawn ou Lucas contra a Team Galactic. Enfrente Mars; o próximo destino é Lake Acuity."
+        ],
+        [
+          "pt-ch15-s2",
+          "Atravesse Mt. Coronet pelo lado norte, usando Strength para abrir a passagem e Defog para melhorar a visibilidade do subsolo. Saia para a Route 216."
+        ],
+        [
+          "pt-ch15-s3",
+          "Atravesse as Routes 216 e 217 até Acuity Lakefront. A casa da Route 216 oferece descanso; na Route 217, procure HM08 perto da casa do Hiker."
+        ],
+        [
+          "pt-ch15-s4",
+          "Rock Climb ainda não pode ser usado fora de batalha. Siga para Snowpoint e obtenha a próxima insígnia."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch16",
+      "title": "Candice e a base Galactic",
+      "path": [
+        "acuityfront",
+        "snowpoint",
+        "acuity",
+        "veilstone"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_15",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch16-s1",
+          "Em Snowpoint, deslize pelas pistas do ginásio para romper as bolas de neve e abrir a escada central até Candice. A Icicle Badge, sétima insígnia, libera Rock Climb; receba TM72."
+        ],
+        [
+          "pt-ch16-s2",
+          "Volte a Acuity Lakefront e use Rock Climb para alcançar Lake Acuity. Após encontrar Barry e Jupiter, o objetivo passa a ser o quartel Galactic em Veilstone."
+        ],
+        [
+          "pt-ch16-s3",
+          "Converse com o Grunt diante da base e siga Looker ao warehouse. Explore o subsolo para obter a Galactic Key e abrir as portas do prédio principal."
+        ],
+        [
+          "pt-ch16-s4",
+          "Atravesse os teleportadores, cure o time nas camas e enfrente Cyrus. Receba a Master Ball, vá ao laboratório e vença Saturn para libertar os três guardiões dos lagos."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch17",
+      "title": "A subida de Mt. Coronet",
+      "path": [
+        "r207",
+        "coronet",
+        "spear"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_16",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch17-s1",
+          "Leve Surf, Strength, Rock Climb e Rock Smash. Entre em Mt. Coronet pela Route 207, atravesse a água e suba pelo ponto de Rock Climb."
+        ],
+        [
+          "pt-ch17-s2",
+          "Prossiga pelos pisos superiores e pelos trechos externos nevados. Examine cada entrada: algumas levam a itens ou retornam a áreas anteriores; o destino principal é Spear Pillar."
+        ],
+        [
+          "pt-ch17-s3",
+          "Enfrente os Grunts no caminho e cure o time antes do topo. Consulte cada piso separadamente na ficha de Mt. Coronet para encontros e itens."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch18",
+      "title": "Spear Pillar e Distortion World",
+      "path": [
+        "spear",
+        "distortion",
+        "spring"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_17",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch18-s1",
+          "No topo, enfrente Mars e Jupiter em dupla com Barry. Depois dos acontecimentos em Spear Pillar, acompanhe Cynthia pelo portal para Distortion World."
+        ],
+        [
+          "pt-ch18-s2",
+          "Atravesse as plataformas, use Surf e Strength e acompanhe os guardiões. Empurre as três pedras nos buracos indicados por Uxie, Mesprit e Azelf; volte a Cynthia quando concluir."
+        ],
+        [
+          "pt-ch18-s3",
+          "Enfrente Cyrus e depois Giratina no nível 47. Salve antes de enfrentar Giratina para poder repetir a tentativa de captura. O portal de saída leva a Sendoff Spring."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch19",
+      "title": "Guardiões dos lagos e Sunyshore",
+      "path": [
+        "spring",
+        "sandgem",
+        "verity",
+        "valor",
+        "acuity",
+        "r222",
+        "sunyshore"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_18",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch19-s1",
+          "Volte ao laboratório de Rowan em Sandgem após sair de Distortion World. A passagem de Valor Lakefront para a Route 222 e Sunyshore fica liberada."
+        ],
+        [
+          "pt-ch19-s2",
+          "Antes de avançar, visite as cavernas dos três lagos usando Surf. Uxie e Azelf ficam em suas cavernas; Mesprit foge para percorrer Sinnoh e deve ser acompanhado no Marking Map."
+        ],
+        [
+          "pt-ch19-s3",
+          "Atravesse a Route 222 até Sunyshore. Encontre Volkner no Vista Lighthouse para fazê-lo retornar ao ginásio."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch20",
+      "title": "Volkner e Victory Road",
+      "path": [
+        "sunyshore",
+        "r223",
+        "victory",
+        "league"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_19",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch20-s1",
+          "No ginásio de Sunyshore, gire as plataformas com os botões para criar uma passagem. Vença Volkner para obter a oitava insígnia, Beacon Badge, e TM57."
+        ],
+        [
+          "pt-ch20-s2",
+          "Fale com Jasmine na praia para receber Waterfall. Com a insígnia, siga ao norte pela Route 223 e suba a cachoeira até a entrada de Victory Road."
+        ],
+        [
+          "pt-ch20-s3",
+          "Atravesse a caverna usando os recursos aprendidos ao longo da jornada. Use a bicicleta nos trechos de rampas; os pisos de água exigem Surf e Waterfall. A saída conduz à Pokémon League."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch21",
+      "title": "Elite Four e Cynthia",
+      "path": [
+        "league"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_20",
+      "post": false,
+      "steps": [
+        [
+          "pt-ch21-s1",
+          "Cure o time, organize os golpes e compre itens antes de entrar. Prepare-se também para a batalha com Barry junto à entrada da Liga."
+        ],
+        [
+          "pt-ch21-s2",
+          "Enfrente Aaron, Bertha, Flint e Lucian nessa ordem. Entre as batalhas, recupere HP e PP; depois de atravessar a entrada, uma derrota faz você reiniciar o desafio."
+        ],
+        [
+          "pt-ch21-s3",
+          "Cynthia usa um time variado, liderado em nível por Garchomp. Consulte os times de Platinum abaixo e prepare respostas para cada integrante, sem depender de uma única vantagem de tipo."
+        ],
+        [
+          "pt-ch21-s4",
+          "Após vencer, registre o Hall of Fame. A história principal termina aqui; há novas áreas, missões e encontros no pós-jogo."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch22",
+      "title": "Pokédex Nacional e novos encontros",
+      "path": [
+        "twinleaf",
+        "sandgem",
+        "eterna",
+        "marsh"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_21",
+      "post": true,
+      "steps": [
+        [
+          "pt-ch22-s1",
+          "Revise as 210 entradas regionais: a Pokédex Nacional exige ter visto as espécies, não capturá-las todas. Confira Rotom no Old Chateau à noite, Unown nas Solaceon Ruins, Manaphy no livro do escritório de Backlot e os guardiões dos lagos."
+        ],
+        [
+          "pt-ch22-s2",
+          "Mostre a Pokédex regional a Rowan em Sandgem. Oak entrega a atualização Nacional e libera o Pal Park. Confirme a atualização em Minha jornada."
+        ],
+        [
+          "pt-ch22-s3",
+          "A irmã de Dawn ou Lucas informa o enxame do dia. Poké Radar, enxames e cartuchos GBA alteram slots de encontros: consulte as tabelas condicionais, separadas das comuns."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch23",
+      "title": "Ilhas, templo e lendários",
+      "path": [
+        "garden",
+        "palpark",
+        "eterna",
+        "canalave",
+        "fullmoon",
+        "temple",
+        "spear",
+        "turnback"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_22",
+      "post": true,
+      "steps": [
+        [
+          "pt-ch23-s1",
+          "Com a Pokédex Nacional, converse com Backlot para o Pokémon diário do Trophy Garden. A espécie de hoje e a anterior permanecem no jardim; as chances condicionais não se somam a uma lista diária inteira."
+        ],
+        [
+          "pt-ch23-s2",
+          "Em Canalave, visite a família do marinheiro e viaje a Fullmoon Island. Cresselia foge e deixa a Lunar Wing; leve-a ao filho do marinheiro. Depois acompanhe Cresselia no Marking Map."
+        ],
+        [
+          "pt-ch23-s3",
+          "Visite Oak em Eterna para iniciar os encontros errantes com Articuno, Zapdos e Moltres. Snowpoint Temple oferece Regigigas quando você leva Regirock, Regice e Registeel."
+        ],
+        [
+          "pt-ch23-s4",
+          "Para Dialga e Palkia, reúna as orbes respectivas e converse com a avó de Cynthia antes de retornar a Spear Pillar. Turnback Cave permite reencontrar Giratina se ele não foi capturado."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch24",
+      "title": "Griseous Orb e Route 224",
+      "path": [
+        "turnback",
+        "distortion",
+        "victory",
+        "r224"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_23",
+      "post": true,
+      "steps": [
+        [
+          "pt-ch24-s1",
+          "Em Turnback Cave, encontre os três pilares antes de atingir o limite de salas e chegue à câmara final. O portal leva ao trecho de Distortion World que contém a Griseous Orb."
+        ],
+        [
+          "pt-ch24-s2",
+          "Volte a Victory Road pelo lado da Liga. Com Hall of Fame e Pokédex Nacional, o acesso antes bloqueado ao trecho leste fica livre."
+        ],
+        [
+          "pt-ch24-s3",
+          "Acompanhe Marley pela seção com neblina e pedras de Strength. Enquanto ela estiver com você, o caminho de Surf fica limitado; após sair com ela, retorne para os itens e a Route 224."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch25",
+      "title": "Battle Zone e Survival Area",
+      "path": [
+        "snowpoint",
+        "fight",
+        "frontier",
+        "r225",
+        "survival",
+        "r226",
+        "r227"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_24",
+      "post": true,
+      "steps": [
+        [
+          "pt-ch25-s1",
+          "Pegue o barco em Snowpoint para Fight Area. Enfrente Flint e Volkner em dupla com Barry diante da Battle Frontier; prepare o time antes de aceitar."
+        ],
+        [
+          "pt-ch25-s2",
+          "Receba a Super Rod com o pescador próximo à saída norte. Explore a Frontier ou siga pela Route 225 até Survival Area."
+        ],
+        [
+          "pt-ch25-s3",
+          "Atravesse a Route 226 usando Rock Climb e Surf. A casa na ilha oferece uma troca; siga pela Route 227, usando a bicicleta para transpor as rampas, até Stark Mountain."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch26",
+      "title": "Stark Mountain e o fim da Team Galactic",
+      "path": [
+        "stark",
+        "survival"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_25",
+      "post": true,
+      "steps": [
+        [
+          "pt-ch26-s1",
+          "Entre em Stark Mountain e enfrente Mars e Jupiter. Use Strength e Rock Smash para alcançar a sala principal; Buck acompanha você e cura o time entre batalhas."
+        ],
+        [
+          "pt-ch26-s2",
+          "Procure a passagem para a câmara da Magma Stone, atravessando as escadas e abrindo caminho entre pedras. O encontro com Charon e Looker encerra essa missão Galactic."
+        ],
+        [
+          "pt-ch26-s3",
+          "Volte a Survival Area e converse com Buck e seu avô. Essa conversa permite que Heatran apareça ao retornar à montanha e libera os desafios do Battleground."
+        ],
+        [
+          "pt-ch26-s4",
+          "As revanches dos líderes e da Liga têm times próprios. Não use os níveis da primeira visita como referência para esses novos combates."
+        ]
+      ]
+    },
+    {
+      "id": "pt-ch27",
+      "title": "Heatran e o restante da Battle Zone",
+      "path": [
+        "stark",
+        "r228",
+        "r229",
+        "resort",
+        "r230",
+        "frontier",
+        "survival",
+        "league"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum/Part_26",
+      "post": true,
+      "steps": [
+        [
+          "pt-ch27-s1",
+          "Retorne sozinho à câmara de Stark Mountain para encontrar Heatran no nível 50. Salve antes da batalha e use os caminhos de Rock Climb para revisar itens deixados para trás."
+        ],
+        [
+          "pt-ch27-s2",
+          "Explore a Route 228 sob a tempestade de areia; bicicleta e Rock Smash ajudam a atravessar as rampas e obstáculos. Depois siga pela Route 229 até Resort Area."
+        ],
+        [
+          "pt-ch27-s3",
+          "Visite a Villa e o Ribbon Syndicate em Resort Area, observando os requisitos de fitas. Use Surf pela Route 230 para retornar a Fight Area e explorar a ilha central."
+        ],
+        [
+          "pt-ch27-s4",
+          "Continue com as revanches da Liga e do Battleground, os desafios da Battle Frontier, as trocas e a Pokédex Nacional. Eventos antigos continuam separados das áreas normalmente acessíveis."
+        ]
+      ]
+    }
+  ],
+  "items": {
+    "twinleaf": [
+      {
+        "id": "pt:twinleaf:running-shoes",
+        "name": "Running Shoes",
+        "kind": "item",
+        "method": "gift",
+        "where": "Sua mãe entrega após a primeira batalha com Barry.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_1",
+        "requirements": []
+      }
+    ],
+    "r201": [
+      {
+        "id": "pt:r201:potion-gift",
+        "name": "Potion",
+        "kind": "item",
+        "method": "gift",
+        "where": "Presente de um funcionário do Poké Mart na rota.",
+        "source": "https://www.serebii.net/pokearth/sinnoh/4th/route201.shtml",
+        "requirements": []
+      }
+    ],
+    "r202": [
+      {
+        "id": "pt:r202:pokeballs-gift",
+        "name": "Poké Ball ×5",
+        "kind": "item",
+        "method": "gift",
+        "where": "Dawn ou Lucas entrega após a demonstração de captura.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+        "requirements": []
+      },
+      {
+        "id": "pt:r202:potion-ground",
+        "name": "Potion",
+        "kind": "item",
+        "method": "ground",
+        "where": "Na grama, a oeste do final norte da rota.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+        "requirements": []
+      }
+    ],
+    "jubilife": [
+      {
+        "id": "pt:jubilife:old-rod",
+        "name": "Old Rod",
+        "kind": "item",
+        "method": "gift",
+        "where": "Pescador no portão oeste da cidade.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+        "requirements": []
+      },
+      {
+        "id": "pt:jubilife:quick-claw",
+        "name": "Quick Claw",
+        "kind": "item",
+        "method": "gift",
+        "where": "Converse com a garota no térreo dos condomínios.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+        "requirements": []
+      }
+    ],
+    "r203": [
+      {
+        "id": "pt:r203:pokeball-ground",
+        "name": "Poké Ball",
+        "kind": "item",
+        "method": "ground",
+        "where": "Junto ao desnível no patamar inferior oeste.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+        "requirements": []
+      },
+      {
+        "id": "pt:r203:repel",
+        "name": "Repel",
+        "kind": "item",
+        "method": "ground",
+        "where": "Ao norte do lago.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+        "requirements": []
+      },
+      {
+        "id": "pt:r203:x-defend",
+        "name": "X Defend",
+        "kind": "item",
+        "method": "ground",
+        "where": "Junto ao desnível no patamar superior leste.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+        "requirements": []
+      }
+    ],
+    "gate": [
+      {
+        "id": "pt:gate:hm06",
+        "name": "HM06 · Rock Smash",
+        "kind": "hm",
+        "method": "gift",
+        "where": "Presente de um Hiker no 1F. Uso fora de batalha exige a Coal Badge.",
+        "source": "https://www.serebii.net/pokearth/sinnoh/4th/oreburghgate.shtml",
+        "requirements": [],
+        "code": "HM06",
+        "move": "Rock Smash"
+      }
+    ],
+    "oreburgh": [
+      {
+        "id": "pt:oreburgh:tm76",
+        "name": "TM76 · Stealth Rock",
+        "kind": "tm",
+        "method": "gift",
+        "where": "Recompensa de Roark após vencer o ginásio.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_3",
+        "requirements": [
+          "Coal Badge"
+        ],
+        "code": "TM76",
+        "move": "Stealth Rock"
+      }
+    ]
+  },
+  "itemPrefixes": {
+    "twinleaf_town": "twinleaf",
+    "route_201": "r201",
+    "verity_lakefront": "verity",
+    "sandgem_town": "sandgem",
+    "route_202": "r202",
+    "jubilife_city": "jubilife",
+    "route_203": "r203",
+    "oreburgh_gate": "gate",
+    "oreburgh_city": "oreburgh",
+    "oreburgh_mine": "mine",
+    "floaroma_town": "floaroma",
+    "eternia_city": "eterna",
+    "hearthome_city": "hearthome",
+    "solaceon_town": "solaceon",
+    "veilstone_city": "veilstone",
+    "pastoria_city": "pastoria",
+    "celestic_town": "celestic",
+    "canalave_city": "canalave",
+    "snowpoint_city": "snowpoint",
+    "sunyshore_city": "sunyshore",
+    "fight_area": "fight",
+    "survival_area": "survival",
+    "resort_area": "resort",
+    "route_204": "r204",
+    "route_205": "r205",
+    "route_206": "r206",
+    "route_207": "r207",
+    "route_208": "r208",
+    "route_209": "r209",
+    "route_210": "r210",
+    "route_211": "r211",
+    "route_212": "r212",
+    "route_213": "r213",
+    "route_214": "r214",
+    "route_215": "r215",
+    "route_216": "r216",
+    "route_217": "r217",
+    "route_218": "r218",
+    "route_219": "r219",
+    "route_220": "r220",
+    "route_221": "r221",
+    "route_222": "r222",
+    "route_223": "r223",
+    "route_224": "r224",
+    "route_225": "r225",
+    "route_226": "r226",
+    "route_227": "r227",
+    "route_228": "r228",
+    "route_229": "r229",
+    "route_230": "r230",
+    "ravaged_path": "ravaged",
+    "floaroma_meadow": "meadow",
+    "valley_windworks": "windworks",
+    "eterna_forest": "forest",
+    "old_chateau": "chateau",
+    "fuego_ironworks": "fuego",
+    "wayward_cave": "wayward",
+    "mount_coronet": "coronet",
+    "solaceon_ruins": "ruins",
+    "lost_tower": "tower",
+    "great_marsh": "marsh",
+    "pokemon_mansion": "garden",
+    "ruin_maniac_cave": "maniac",
+    "valor_lakefront": "valorfront",
+    "valor_cavern": "valor",
+    "acuity_lakefront": "acuityfront",
+    "acuity_cavern": "acuity",
+    "iron_island": "iron",
+    "fullmoon_island": "fullmoon",
+    "snowpoint_temple_and_gym": "temple",
+    "spear_pillar": "origin",
+    "spring_path": "spring",
+    "turnback_cave": "turnback",
+    "victory_road": "victory",
+    "pokemon_league": "league",
+    "battle_frontier": "frontier",
+    "stark_mountain": "stark",
+    "newmoon_island": "newmoon",
+    "flower_paradise": "flower",
+    "pal_park_front_gate": "palpark",
+    "eterna_city": "eterna",
+    "lake_verity": "verity",
+    "lake_valor": "valor",
+    "lake_acuity": "acuity",
+    "mt_coronet": "coronet",
+    "snowpoint_temple": "temple",
+    "team_galactic_eterna": "eterna",
+    "galactic_hq": "veilstone",
+    "grand_lake_route_213": "r213",
+    "grand_lake_valor": "valorfront",
+    "maniac_tunnel": "maniac",
+    "amity_square": "hearthome",
+    "trainers_school": "jubilife",
+    "flower_shop": "floaroma",
+    "cycle_shop": "eterna",
+    "cafe": "r210",
+    "veilstone_store": "veilstone",
+    "veilstone_game_corner": "veilstone",
+    "game_corner": "veilstone"
+  },
+  "locationMap": {
+    "twinleaf-town": "twinleaf",
+    "sinnoh-route-201": "r201",
+    "lake-verity": "verity",
+    "sandgem-town": "sandgem",
+    "sinnoh-route-202": "r202",
+    "jubilife-city": "jubilife",
+    "sinnoh-route-203": "r203",
+    "oreburgh-gate": "gate",
+    "oreburgh-city": "oreburgh",
+    "oreburgh-mine": "mine",
+    "floaroma-town": "floaroma",
+    "eterna-city": "eterna",
+    "hearthome-city": "hearthome",
+    "solaceon-town": "solaceon",
+    "veilstone-city": "veilstone",
+    "pastoria-city": "pastoria",
+    "celestic-town": "celestic",
+    "canalave-city": "canalave",
+    "snowpoint-city": "snowpoint",
+    "sunyshore-city": "sunyshore",
+    "fight-area": "fight",
+    "survival-area": "survival",
+    "resort-area": "resort",
+    "sinnoh-route-204": "r204",
+    "sinnoh-route-205": "r205",
+    "sinnoh-route-206": "r206",
+    "sinnoh-route-207": "r207",
+    "sinnoh-route-208": "r208",
+    "sinnoh-route-209": "r209",
+    "sinnoh-route-210": "r210",
+    "sinnoh-route-211": "r211",
+    "sinnoh-route-212": "r212",
+    "sinnoh-route-213": "r213",
+    "sinnoh-route-214": "r214",
+    "sinnoh-route-215": "r215",
+    "sinnoh-route-216": "r216",
+    "sinnoh-route-217": "r217",
+    "sinnoh-route-218": "r218",
+    "sinnoh-route-219": "r219",
+    "sinnoh-sea-route-220": "r220",
+    "sinnoh-route-221": "r221",
+    "sinnoh-route-222": "r222",
+    "sinnoh-sea-route-223": "r223",
+    "sinnoh-route-224": "r224",
+    "sinnoh-route-225": "r225",
+    "sinnoh-sea-route-226": "r226",
+    "sinnoh-route-227": "r227",
+    "sinnoh-route-228": "r228",
+    "sinnoh-route-229": "r229",
+    "sinnoh-sea-route-230": "r230",
+    "ravaged-path": "ravaged",
+    "floaroma-meadow": "meadow",
+    "valley-windworks": "windworks",
+    "eterna-forest": "forest",
+    "old-chateau": "chateau",
+    "fuego-ironworks": "fuego",
+    "wayward-cave": "wayward",
+    "mt-coronet": "coronet",
+    "solaceon-ruins": "ruins",
+    "lost-tower": "tower",
+    "great-marsh": "marsh",
+    "trophy-garden": "garden",
+    "ruin-maniac-cave": "maniac",
+    "valor-lakefront": "valorfront",
+    "lake-valor": "valor",
+    "acuity-lakefront": "acuityfront",
+    "lake-acuity": "acuity",
+    "iron-island": "iron",
+    "fullmoon-island": "fullmoon",
+    "snowpoint-temple": "temple",
+    "spear-pillar": "spear",
+    "distortion-world": "distortion",
+    "sendoff-spring": "spring",
+    "turnback-cave": "turnback",
+    "sinnoh-victory-road": "victory",
+    "sinnoh-pokemon-league": "league",
+    "battle-frontier": "frontier",
+    "stark-mountain": "stark",
+    "newmoon-island": "newmoon",
+    "flower-paradise": "flower",
+    "sinnoh-hall-of-origin-1": "origin",
+    "pal-park": "palpark",
+    "roaming-sinnoh": "roamers",
+    "sinnoh-pokemart": "events"
+  },
+  "extraEncounters": [
+    {
+      "area": "r228",
+      "method": "static",
+      "time": "any",
+      "sections": [
+        "Rock Peak Ruins"
+      ],
+      "conditions": [
+        "event-regigigas"
+      ],
+      "requires": {
+        "national": true,
+        "events": true
+      },
+      "pokemon": [
+        [
+          "Regirock",
+          null,
+          "30"
+        ]
+      ],
+      "percentScope": "fixed",
+      "source": "https://www.serebii.net/platinum/regigigas.shtml"
+    },
+    {
+      "area": "coronet",
+      "method": "static",
+      "time": "any",
+      "sections": [
+        "Iceberg Ruins · saída para Route 216"
+      ],
+      "conditions": [
+        "event-regigigas"
+      ],
+      "requires": {
+        "national": true,
+        "events": true
+      },
+      "pokemon": [
+        [
+          "Regice",
+          null,
+          "30"
+        ]
+      ],
+      "percentScope": "fixed",
+      "source": "https://www.serebii.net/platinum/regigigas.shtml"
+    },
+    {
+      "area": "iron",
+      "method": "static",
+      "time": "any",
+      "sections": [
+        "Iron Ruins"
+      ],
+      "conditions": [
+        "event-regigigas"
+      ],
+      "requires": {
+        "national": true,
+        "events": true
+      },
+      "pokemon": [
+        [
+          "Registeel",
+          null,
+          "30"
+        ]
+      ],
+      "percentScope": "fixed",
+      "source": "https://www.serebii.net/platinum/regigigas.shtml"
+    }
+  ],
+  "extraItems": [
+    {
+      "area": "frontier",
+      "token": "ITEM_TM04",
+      "method": "bp",
+      "where": "Battle Frontier · troca por 48 BP.",
+      "requirements": [
+        "Hall of Fame"
+      ],
+      "source": "https://www.smogon.com/ingame/guides/plat-tms"
+    },
+    {
+      "area": "frontier",
+      "token": "ITEM_TM08",
+      "method": "bp",
+      "where": "Battle Frontier · troca por 48 BP.",
+      "requirements": [
+        "Hall of Fame"
+      ],
+      "source": "https://www.smogon.com/ingame/guides/plat-tms"
+    },
+    {
+      "area": "frontier",
+      "token": "ITEM_TM61",
+      "method": "bp",
+      "where": "Battle Frontier · troca por 32 BP.",
+      "requirements": [
+        "Hall of Fame"
+      ],
+      "source": "https://www.smogon.com/ingame/guides/plat-tms"
+    },
+    {
+      "area": "frontier",
+      "token": "ITEM_TM73",
+      "method": "bp",
+      "where": "Battle Frontier · troca por 32 BP.",
+      "requirements": [
+        "Hall of Fame"
+      ],
+      "source": "https://www.smogon.com/ingame/guides/plat-tms"
+    },
+    {
+      "area": "veilstone",
+      "token": "ITEM_TM64",
+      "method": "gift",
+      "where": "Game Corner · prêmio condicionado aos bônus do minijogo.",
+      "requirements": [],
+      "source": "https://github.com/pret/pokeplatinum/blob/c248fb3f8cc9934ded800e489567c5c0eeee92eb/res/field/scripts/scripts_game_corner.s"
+    }
+  ]
+}

@@ -118,4 +118,6 @@ No celular, a navegação inferior mantém mapa, Pokédex, equipe, modo de jogo 
 
 A base agora identifica cada edição e sua cobertura em um registro compartilhado. Black e Black 2 · Complete Unova v1.12 mantêm suas páginas e seus registros próprios; outros jogos serão adicionados por etapas, com dados e fontes revisados.
 
+O guia abre direto na última jornada. Use **Trocar jogo**, no topo, para consultar as edições disponíveis e a cobertura de cada uma, mantendo os progressos separados.
+
 Para contribuir: [organização dos pacotes, testes e preservação do progresso](docs/game-packages.md). Para acompanhar a expansão: [jogos previstos e próximas fases](docs/expansion-roadmap.md).
