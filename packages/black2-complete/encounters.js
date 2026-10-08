@@ -34,7 +34,8 @@
     if(entry[0]==='Tirtouga / Archen')return progress.fossil?[progress.fossil]:[];
     return entry[0].split(' / ');
   }
-  return root.createEncounterQueries({tables,specials,lockReason,specialLock,rateUncertain,specialNames,
+  const acquisitionLock=(area,entry)=>entry[1]==='Presente'&&['Snivy','Tepig','Oshawott'].includes(entry[0])&&getProgress().starter!==entry[0]?'Confirme o inicial escolhido':'';
+  return root.createEncounterQueries({tables,specials,acquisitionLock,lockReason,specialLock,rateUncertain,specialNames,
     acceptSpecies:name=>regionalSet.has(name)||extraSpecies.includes(name)});
   };
 })(typeof window==='undefined'?globalThis:window);

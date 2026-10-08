@@ -8,3 +8,4 @@ function resume(lastGame,search='',blocked=false){
 test('opening the app continues the selected hack without a catalog screen',()=>{assert.equal(resume('black2').redirect,'black2.html');assert.equal(resume('black').redirect,null);assert.equal(resume(null).redirect,null);});
 test('explicit Black URL overrides last-game preference rather than bouncing back to the hack',()=>{assert.deepEqual(resume('black2','?game=black'),{preference:'black',redirect:null});});
 test('blocked preference storage leaves the existing Black entry usable',()=>{assert.equal(resume('black2','',true).redirect,null);});
+test('app root resumes Platinum; explicit Black still overrides it and unknown editions do not redirect',()=>{assert.equal(resume('platinum').redirect,'platinum.html');assert.deepEqual(resume('platinum','?game=black'),{preference:'black',redirect:null});assert.equal(resume('unknown').redirect,null);});

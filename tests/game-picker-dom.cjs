@@ -15,17 +15,17 @@ function boot(page,native=false,blocked=false){
  vm.runInContext(read('core/game-picker.js'),dom.getInternalVMContext());
  return {dom,w,d,saved,black,hack};
 }
-for(const page of ['index.html','black2.html'])for(const native of [false,true]){
+for(const page of ['index.html','black2.html','platinum.html'])for(const native of [false,true]){
  const {dom,w,d,saved,black,hack}=boot(page,native),trigger=d.querySelector('.game-switch-mobile');
  assert.equal(d.querySelector('#game-picker'),null,'chooser must not be mounted on startup');
  const marker=d.createElement('span');marker.id='view-state-sentinel';d.querySelector('#dex-view').append(marker);
  trigger.focus();trigger.click();const dialog=d.querySelector('#game-picker');
- assert.ok(dialog.open);assert.equal(dialog.querySelectorAll('.game-option').length,2);
+ assert.ok(dialog.open);assert.equal(dialog.querySelectorAll('.game-option').length,3);
  assert.ok(!dialog.textContent.includes('Not ready'));assert.match(dialog.textContent,/ROM hack/);assert.match(dialog.textContent,/Versão oficial/);assert.match(dialog.textContent,/parciais/);
- const close=dialog.querySelector('[data-game-close]'),links=[...dialog.querySelectorAll('a')];
+ const close=dialog.querySelector('[data-game-close]'),links=[...dialog.querySelectorAll('a')],last=dialog.querySelector('.game-offline summary');
  assert.equal(d.activeElement,close);
- close.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true,cancelable:true}));assert.equal(d.activeElement,links[links.length-1]);
- links[links.length-1].dispatchEvent(new w.KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true}));assert.equal(d.activeElement,close);
+ close.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true,cancelable:true}));assert.equal(d.activeElement,last);
+ last.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true}));assert.equal(d.activeElement,close);
  dialog.querySelector('[aria-current=page]').click();assert.equal(d.querySelector('#game-picker'),null);assert.equal(d.activeElement,trigger);assert.equal(marker.isConnected,true);
  for(let i=0;i<3;i++){trigger.click();d.querySelector('#game-picker').dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true}));assert.equal(d.querySelector('#game-picker'),null);assert.equal(trigger.getAttribute('aria-expanded'),'false');}
  trigger.click();const other=[...d.querySelectorAll('.game-option')].find(link=>!link.hasAttribute('aria-current'));
@@ -36,5 +36,5 @@ for(const page of ['index.html','black2.html'])for(const native of [false,true])
  assert.equal(w.localStorage.getItem(black),saved[0]);assert.equal(w.localStorage.getItem(hack),saved[1]);
  dom.window.close();
 }
-const blocked=boot('black2.html',false,true);blocked.d.querySelector('.game-switch-mobile').click();assert.equal(blocked.d.querySelectorAll('.game-option').length,2);blocked.d.querySelector('[data-game-close]').click();blocked.dom.window.close();
+const blocked=boot('black2.html',false,true);blocked.d.querySelector('.game-switch-mobile').click();assert.equal(blocked.d.querySelectorAll('.game-option').length,3);blocked.d.querySelector('[data-game-close]').click();blocked.dom.window.close();
 console.log('Game chooser: on-demand mounting, editions/coverage, focus loop, dismissal, preference and untouched journeys passed');
