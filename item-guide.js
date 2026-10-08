@@ -1,18 +1,14 @@
 /* Compact area inventory. Machine progress is shared between acquisition locations. */
 (function(root){
   'use strict';
-  const norm=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\b(tm|hm)\s*0*(\d+)/g,'$1$2');
   const methodLabels={ground:'No chão',hidden:'Item escondido',gift:'Recebido de um personagem',shop:'À venda',bp:'Compra com Battle Points (BP)',event:'Distribuição antiga',phenomenon:'Poeira ou sombra no cenário'};
   const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function create(tables){
-    const validIds=new Set(Object.values(tables).flat().filter(row=>!row.unavailable).map(row=>row.id));
-    const legacyIds=new Map(Object.values(tables).flatMap(rows=>rows.flatMap(row=>(row.legacyIds||[]).map(id=>[id,row.id]))));
-    const forArea=id=>tables[id]||[];
-    const matches=(row,query)=>norm([row.name,row.code,row.move,...(row.aliases||[])].join(' ')).includes(norm(query).trim());
-    const normalizeCollected=value=>Array.isArray(value)?[...new Set(value.map(id=>legacyIds.get(id)||id).filter(id=>validIds.has(id)))]:[];
-    function counts(area,collected=[]){const rows=forArea(area).filter(r=>!r.unavailable);return {total:rows.length,obtained:rows.filter(r=>collected.includes(r.id)).length,machines:rows.filter(r=>r.kind!=='item').length};}
+    const createQueries=root.createItemQueries||(typeof module!=='undefined'?require('./core/item-queries.js').createItemQueries:null);
+    const queries=typeof tables.forArea==='function'?tables:createQueries(tables);
+    const {validIds,forArea,matches,normalizeCollected,counts}=queries;
     function render(area,collected=[],query='',filter='all',open=false){
-      const rows=forArea(area),count=counts(area,collected),found=rows.filter(r=>matches(r,query));
+      const rows=forArea(area),count=counts(area,collected),found=queries.search(area,query);
       if(!rows.length)return `<details class="area-items"><summary><span><b>Itens, TMs e HMs</b><small>Sem itens cadastrados para este local</small></span><span aria-hidden="true">+</span></summary><p class="items-note">Consulte a fonte do local para conferir lojas e outros serviços.</p></details>`;
       const matchQuery=query.trim()&&found.length;
       const showing=(matchQuery?found:rows).filter(r=>filter==='all'||filter==='machines'&&r.kind!=='item'||filter==='other'&&r.kind==='item');

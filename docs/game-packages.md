@@ -24,7 +24,7 @@ Hipóteses não medidas: consumo real de RAM, desempenho no Positivo, custos de 
 
 `core/game-registry.js` publica `GameRegistry.list()`, `get(editionId)`, `register(editionId, factory)` e `open(editionId)`. Metadados são imutáveis, sem DOM, rede, armazenamento ou carregamento automático. `open` rejeita edição sem adaptador, sem tentar abrir outro jogo.
 
-Cada `packages/<edição>/adapter.js` registra uma fábrica que devolve `areas`, `map`, `encounters`, `items` e `chapters`. Os objetos legados são reutilizados, sem clone dos dados nem reaplicação dos deltas. Essa interface é uma ponte; ainda não é um esquema universal de encontros. Somente o adaptador da edição atual entra no HTML.
+Cada `packages/<edição>/adapter.js` registra uma fábrica que devolve `areas`, `map`, `encounters`, `items`, `chapters` e `queries`. Os objetos legados são reutilizados, sem clone dos dados nem reaplicação dos deltas. Essa interface é uma ponte; ainda não é um esquema universal de encontros. Somente o adaptador e as regras da edição atual entram no HTML.
 
 JavaScript simples resolve este recorte, sem framework, build de frontend ou dependência de produção. Módulos ES poderão entrar ao extrair funcionalidades, com ordem de inicialização e testes; TypeScript só se erros de contrato justificarem custo de compilação e migração.
 
@@ -76,3 +76,27 @@ Comparação com jsdom: corpo renderizado idêntico, removendo scripts, em mapa,
 | Busca simulada (ms) | 35,6 → 29,2 | 59,3 → 64,9 |
 
 Tempos de uma amostra jsdom, sem layout, rede ou hardware do usuário; inicialização inclui espera fixa de 80 ms. Não sustentam alegação de ganho ou regressão de desempenho. Marcadores mantiveram identidade. Não houve medição confiável de memória. O download de Chromium falhou (arquivo recebido inválido); capturas antes/depois, Safari/iPhone real, instalação offline real e atualização com aba aberta continuam pendentes.
+
+## Segunda etapa · consultas por edição
+
+Base: branch do PR #23, commit `1d762588354941281a5598b9de0e5b3089e07720`. Enquanto ele estiver aberto, o PR desta etapa aponta para essa branch; não inclui nem publica novamente a primeira etapa.
+
+| Módulo | Responsabilidade |
+| --- | --- |
+| `core/encounter-queries.js` | Consultar tabelas por área, disponibilidade e sugestões por espécie; mantém a ordem anterior, sem alterar chances, níveis ou registros. |
+| `packages/black/encounters.js` | Regras de Black: acesso, pesca, enxames, estações, eventos, escolhas de inicial/fóssil e taxas contestadas. |
+| `packages/black2-complete/encounters.js` | Regras da hack: Liga, itens/acontecimentos documentados, presentes e trocas; recebe a tradução das condições da bridge. |
+| `core/item-queries.js` | Busca por nome/aliases/TM/HM, contagens, IDs válidos e normalização dos IDs legados, vinculados ao catálogo da edição. |
+| `item-guide.js` | Renderiza o inventário com as consultas recebidas. A assinatura antiga com tabelas continua disponível para compatibilidade. |
+
+O adaptador oferece `queries.items` e `queries.createEncounters({specials, stage, getProgress, regionalSet, extraSpecies})`. O app usa os serviços para consultas de mapa, filtros, busca e fichas; as ferramentas existentes recebem as mesmas regras e função de busca. `getProgress` lê a jornada atual em cada consulta, inclusive depois de importação, troca de aba ou alteração externa. Não captura uma cópia antiga do progresso.
+
+Gerador de Black 2 deixa de reescrever `lockReason`, `specialLock` e `rateUncertain`; essas regras têm fonte própria no pacote da hack. Renderização diferente das tabelas e demais transformações do gerador permanecem. Novos scripts entram no cache pelo gerador existente, sem alterar o protocolo offline.
+
+Não houve mudança de dados, textos visíveis, estilos, URLs, chaves, normalização dos campos da jornada ou seleção de jogos. A migração de IDs de itens preserva exatamente os aliases existentes; nenhum registro local é convertido para novo formato. Ainda existem globais e consultas editoriais internas nas ferramentas, além da ordem narrativa no app; esta etapa não extrai Pokédex, detonado, renderizadores ou todo o motor de ferramentas.
+
+Verificação adicional: 61 testes Node, incluindo diferenças entre edições, atualização de progresso, escolhas de presentes, condições da hack, chances desconhecidas, ordem das sugestões e aliases antigos. Suítes DOM e alternância/reabertura da mesma origem verificam o salvamento e as funções existentes. Comparação estrutural com o PR #23 cobre 64 estados: oito buscas, dois filtros, duas etapas de progresso e duas páginas, incluindo a primeira ficha correspondente quando há resultados. Não é comparação de pixels nem teste em aparelho real.
+
+Medições estruturais desta etapa: nós iniciais 1576 → 1579 em Black e 1865 → 1868 na hack (três scripts novos por página); Pokédex escondida 0 → 0; Sets/escritas de innerHTML permaneceram 71/8 e 343/7. JavaScript sem compressão: 1.085.328 → 1.087.937 bytes e 1.252.629 → 1.255.304 bytes. Não houve medição de RAM ou teste adicional em Safari/navegador real.
+
+As regras extraídas descrevem o comportamento atual; os testes não comprovam que todas as condições equivalem às flags da ROM. Por exemplo, condições textuais da hack continuam orientações explícitas, sem afirmar que o usuário já as cumpriu. Revisar conteúdo será uma etapa separada da refatoração.
