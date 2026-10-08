@@ -20,7 +20,7 @@ test('each legacy page exposes only its own adapter and opening a package never 
   const c=vm.createContext({console});c.window=c;
   // Only data and compatibility scripts: the app/UI is tested by DOM suites.
   for(const [,src]of read(page).matchAll(/<script src="([^"]+)"/g)){
-   if(['app.js','black2-app.js','offline.js'].includes(src))continue;
+   if(['app.js','black2-app.js','offline.js','core/game-picker.js'].includes(src))continue;
    vm.runInContext(read(src),c,{filename:src});
    if(src==='core/game-registry.js')c.GameRegistry=c.window.GameRegistry;
   }

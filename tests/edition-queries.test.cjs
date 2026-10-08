@@ -3,7 +3,7 @@ const root=path.join(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'
 function edition(page,id){
  const c=vm.createContext({console});c.window=c;
  for(const [,src]of read(page).matchAll(/<script src="([^"]+)"/g)){
-  if(['app.js','black2-app.js','offline.js'].includes(src))continue;
+  if(['app.js','black2-app.js','offline.js','core/game-picker.js'].includes(src))continue;
   vm.runInContext(read(src),c,{filename:src});
  }
  return {c,package:c.GameRegistry.open(id)};

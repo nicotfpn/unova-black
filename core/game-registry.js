@@ -11,7 +11,7 @@
   const editions = freeze([
     {
       id: 'pokemon-black', gameId: 'black', regionIds: ['unova'], generation: 5,
-      kind: 'official', title: 'Pokémon Black', entry: 'index.html?game=black',
+      kind: 'official', status: 'usable', title: 'Pokémon Black', entry: 'index.html?game=black',
       adapter: 'packages/black/adapter.js',
       progress: { key: 'unova-black-field-guide-v2', legacyGame: 'black' },
       coverage: {
@@ -24,7 +24,7 @@
     },
     {
       id: 'pokemon-black2-complete-unova-1.12', gameId: 'black-2', regionIds: ['unova'], generation: 5,
-      kind: 'hack', title: 'Pokémon Black 2 · Complete Unova Pokédex Edition v1.12',
+      kind: 'hack', status: 'usable', title: 'Pokémon Black 2 · Complete Unova Pokédex Edition v1.12',
       hack: { id: 'complete-unova', version: '1.12', detailedSourcesVersion: '1.11', baseGameId: 'black-2' },
       entry: 'black2.html', adapter: 'packages/black2-complete/adapter.js',
       progress: { key: 'unova-black2-complete-1.12-v1', legacyGame: 'black2' },
