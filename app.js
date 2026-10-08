@@ -1,9 +1,11 @@
 (async () => {
-  const areas = rawAreas.filter((area, i) => rawAreas.findIndex(other => other[0] === area[0]) === i);
+  const gamePackage = GameRegistry.open('pokemon-black');
+  const { encounters: encounterTables, items: itemTables, chapters: walkthroughChapters, map: gameMap } = gamePackage;
+  const areas = gamePackage.areas.filter((area, i) => gamePackage.areas.findIndex(other => other[0] === area[0]) === i);
   areas.push(['black','Black City','city',1268,570,'post','Pós-Liga','Cidade exclusiva de Pokémon Black; não há Pokémon selvagens comuns. Treinadores e lojas mudam conforme sua atividade.','Vença a Liga e siga pela Rota 15 ou pela Rota 16.','']);
   areas.push(['anv','Anville Town','city',40,156,'story','Nimbasa','Cidade ligada ao Battle Subway; sem encontros selvagens comuns.','Use o trem de Nimbasa City.','']);
   areas.push(['challenger',"Challenger’s Cave",'special',755,274,'post','Pós-Liga','Caverna de treino com encontros em pisos diferentes.','Entrada na Rota 9 após vencer a Liga. Flash ajuda a explorar.','',"challenger'scave"]);
-  const coords = UnovaMap.coordinates;
+  const coords = gameMap.coordinates;
   areas.forEach(area => { if (coords[area[0]]) [area[3],area[4]]=coords[area[0]]; });
   const byId = new Map(areas.map(area => [area[0], area]));
   for (const id of ['r17','r18']) { byId.get(id)[5]='story'; byId.get(id)[6]='Opcional com Surf'; }
@@ -63,9 +65,9 @@
     return {number:'Nat. #'+String(nat).padStart(3,'0'),scope:'Pokédex Nacional'};
   };
   const speciesHTML = name => { const n=dex(name); return `<span class="pokemon-chip"><b class="dex-no${n.scope==='Pokédex Nacional'?' national':''}" title="${n.scope}">${esc(n.number)}</b>${esc(name)}</span>`; };
-  const onMap = UnovaMap.onMap;
+  const onMap = gameMap.onMap;
   const mappedAreas = areas.filter(onMap);
-  const mapAnchor = UnovaMap.anchors;
+  const mapAnchor = gameMap.anchors;
   const paths = [
     ['nu','r1','acc','r2','str','r3','nac','pin','sky','cas','r4','nim','r5','draw','dri','r6','charge','mis','r7','ici','r8','tube','r9','ope','r10','vr','league'],
     ['ope','r11','vb','r12','lac','r13','und','r14','black','r15','marv','r16','nim'],
@@ -96,7 +98,7 @@
   const itemGuide=createItemGuide(itemTables);
   let itemFilter='all';
   let adventure=null, cloudSync=null, teamPlanner=null, playingGuide=null;
-  const storageKey='unova-black-field-guide-v2';
+  const storageKey=gamePackage.edition.progress.key;
   const defaults={badges:0,league:false,surf:false,strength:false,cobalion:false,rod:false,season:'all',trades:false,events:false,starter:'',fossil:'',caught:[],collectedItems:[],tasks:[],team:[],notes:{},teamPlan:{},playArea:'',playNote:'',spoilerFree:false};
   function normalizeProgress(value) {
     const clean={...defaults,caught:[],collectedItems:[],tasks:[],team:[],notes:{},teamPlan:{}};
@@ -256,7 +258,7 @@
       node.addEventListener('click', event => {
         const point = map.createSVGPoint(); point.x=event.clientX; point.y=event.clientY;
         const position = point.matrixTransform(map.getScreenCTM().inverse());
-        select(UnovaMap.nearest(mappedAreas,position.x,position.y)[0]);
+        select(gameMap.nearest(mappedAreas,position.x,position.y)[0]);
       });
       node.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(node.dataset.id); } });
     });

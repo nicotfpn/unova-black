@@ -1,8 +1,10 @@
 /* Generated from app.js; Black 1 UI with Black 2 data and walkthrough. */
 (async () => {
-  const areas = rawAreas.filter((area, i) => rawAreas.findIndex(other => other[0] === area[0]) === i);
+  const gamePackage = GameRegistry.open('pokemon-black2-complete-unova-1.12');
+  const { encounters: encounterTables, items: itemTables, chapters: walkthroughChapters, map: gameMap } = gamePackage;
+  const areas = gamePackage.areas.filter((area, i) => gamePackage.areas.findIndex(other => other[0] === area[0]) === i);
 
-  const coords = Black2Bridge.map.coordinates;
+  const coords = gameMap.coordinates;
   areas.forEach(area => { if (coords[area[0]]) [area[3],area[4]]=coords[area[0]]; });
   const byId = new Map(areas.map(area => [area[0], area]));
   const specialEncounters=Black2Bridge.specials;
@@ -29,9 +31,9 @@
     return {number:'Nat. #'+String(nat).padStart(3,'0'),scope:'Pokédex Nacional'};
   };
   const speciesHTML = name => { const n=dex(name); return `<span class="pokemon-chip"><b class="dex-no${n.scope==='Pokédex Nacional'?' national':''}" title="${n.scope}">${esc(n.number)}</b>${esc(name)}</span>`; };
-  const onMap = Black2Bridge.map.onMap;
+  const onMap = gameMap.onMap;
   const mappedAreas = areas.filter(onMap);
-  const mapAnchor = Black2Bridge.map.anchors;
+  const mapAnchor = gameMap.anchors;
   const paths=Black2Bridge.paths;
   const labelOffsets = {asp:[0,-39],"b2-floccesy-town":[0,-39],"b2-virbank-city":[0,-39],"b2-humilau-city":[-15,-39],"b2-lentimas-town":[0,-39],nu:[-40,-39],acc:[-40,-39],str:[-40,-41],nac:[-37,-40],cas:[18,53],nim:[-20,-43],dri:[-25,-43],mis:[-25,-43],ici:[-25,-43],ope:[-25,-43],league:[30,-17],lac:[-25,-43],und:[26,-25],black:[-18,-43],anv:[0,-38]};
   let current = 'asp', phase = 'all', zoom = 1, visible = areas;
@@ -46,7 +48,7 @@
   const itemGuide=createItemGuide(itemTables);
   let itemFilter='all';
   let adventure=null, cloudSync=null, teamPlanner=null, playingGuide=null;
-  const storageKey='unova-black2-complete-1.12-v1';
+  const storageKey=gamePackage.edition.progress.key;
   const defaults={badges:0,league:false,surf:false,strength:false,cobalion:false,rod:false,season:'all',trades:false,events:false,starter:'',fossil:'',caught:[],collectedItems:[],tasks:[],team:[],notes:{},teamPlan:{},playArea:'',playNote:'',spoilerFree:false};
   function normalizeProgress(value) {
     const clean={...defaults,caught:[],collectedItems:[],tasks:[],team:[],notes:{},teamPlan:{}};
@@ -194,7 +196,7 @@
       node.addEventListener('click', event => {
         const point = map.createSVGPoint(); point.x=event.clientX; point.y=event.clientY;
         const position = point.matrixTransform(map.getScreenCTM().inverse());
-        select(Black2Bridge.map.nearest(mappedAreas.filter(a=>!spoilerLocked(a)),position.x,position.y)[0]);
+        select(gameMap.nearest(mappedAreas.filter(a=>!spoilerLocked(a)),position.x,position.y)[0]);
       });
       node.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(node.dataset.id); } });
     });

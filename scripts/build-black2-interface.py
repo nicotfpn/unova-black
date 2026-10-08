@@ -8,14 +8,13 @@ def block(start,end,new):
  global s
  a=s.index(start);b=s.index(end,a);s=s[:a]+new+'\n'+s[b:]
 block("  areas.push(['black'",'  const coords', '')
-s=s.replace('UnovaMap','Black2Bridge.map')
+s=s.replace("GameRegistry.open('pokemon-black')", "GameRegistry.open('pokemon-black2-complete-unova-1.12')")
 block('  const specialEncounters =','  for (const area of areas)', '  const specialEncounters=Black2Bridge.specials;\n  const areaNotes={};')
 block('  const paths =','  const labelOffsets', '  const paths=Black2Bridge.paths;')
 s=s.replace("let current = 'r1'", "let current = 'asp'")
 s=s.replace('const labelOffsets = {','const labelOffsets = {asp:[0,-39],"b2-floccesy-town":[0,-39],"b2-virbank-city":[0,-39],"b2-humilau-city":[-15,-39],"b2-lentimas-town":[0,-39],')
 block('  const journeyOrder =','  const orderedAreas', '  const journeyOrder=[...new Set(walkthroughChapters.flatMap(c=>c.path))];')
 block('  const acquisition =','  const itemGuide', '  const acquisition=Black2Bridge.acquisition;')
-s=s.replace("const storageKey='unova-black-field-guide-v2'", "const storageKey='unova-black2-complete-1.12-v1'")
 s=s.replace('allSpecies.includes(name)','!!pokemonGuideData.pokemon[name]')
 s=re.sub(r'    clean.teamPlan=normalizeTeamPlan\([^\n]+\n','',s)
 s=s.replace('clean.collectedItems=itemGuide.normalizeCollected(value.collectedItems);','clean.collectedItems=itemGuide.normalizeCollected([...(Array.isArray(value.collectedItems)?value.collectedItems:[]),...(Array.isArray(value.items)?value.items:[])]);\n    clean.steps=Array.isArray(value.steps)?value.steps.filter(id=>black2Chapters.some(c=>c.steps.some(step=>step.id===id))):[];\n    clean.chapter=Number.isInteger(value.chapter)?Math.max(0,Math.min(21,value.chapter)):0;')
@@ -49,7 +48,7 @@ block('  function lockReason(', '  const isAvailable=', '''  function lockReason
 s=s.replace("if(entry[0].includes('Tirtouga'))rank=3;",'').replace("if(entry[0]==='Petilil')rank=2;",'').replace("if(['Volcarona','Musharna'].includes(entry[0]))rank=100;",'').replace("if(['Cobalion','Virizion','Terrakion','Larvesta'].includes(entry[0]))rank=Math.max(rank,5);",'')
 s=s.replace('`${registered}/156 Unova', '`${registered}/301 Unova')
 s=s.replace('href="unova-base.svg"','href="black2-base.svg"')
-s=s.replace('Black2Bridge.map.nearest(mappedAreas,position.x,position.y)', 'Black2Bridge.map.nearest(mappedAreas.filter(a=>!spoilerLocked(a)),position.x,position.y)')
+s=s.replace('gameMap.nearest(mappedAreas,position.x,position.y)', 'gameMap.nearest(mappedAreas.filter(a=>!spoilerLocked(a)),position.x,position.y)')
 s=s.replace("if (['well','charge','mc','tw','vr','chasm'].includes(id))", "if (['well','charge','mc','tw','vr','chasm'].includes(id)||/Cave|Passage|Tunnel|Mountain/.test(byId.get(id)?.[1]||''))")
 s=s.replace("    return [method,'Encontro especial desta área.'];", "    if(method==='Dust Clouds')return ['Nuvem de poeira','Entre na nuvem de poeira que aparece no chão. Ela também pode dar um item.'];\n    if(method==='Bridge Shadows')return ['Sombra na ponte','Passe sobre a sombra no chão da ponte.'];\n    if(method==='Hidden Grotto')return ['Hidden Grotto','Entre na abertura escondida entre as árvores. O conteúdo do esconderijo pode precisar se renovar.'];\n    return [method,'Encontro especial desta área.'];")
 block('  const rateUncertain=', '  function storyLinks', '''  const rateUncertain=()=>false;
@@ -131,5 +130,5 @@ h=h.replace('Você recebe apenas um dos três iniciais. Para encontrar Landorus,
 h=h.replace('  <link rel="stylesheet" href="planner.css">','  <link rel="stylesheet" href="planner.css">\n  <link rel="stylesheet" href="black2-walkthrough.css">')
 h=h.replace('<span class="edition">BLACK 2 · v1.12</span>','<span class="edition">BLACK 2 · v1.12 <a href="index.html?game=black" class="game-return">Black 1 ↗</a></span>')
 start=h.index('  <script src="data.js">');end=h.index('\n</body>',start)
-h=h[:start]+'''  <script src="black2-data.js"></script><script src="black2-chapters.js"></script><script src="black2-extra.js"></script><script src="black2-hack-data.js"></script><script src="black2-hack.js"></script><script src="map-data.js"></script><script src="black2-bridge.js"></script><script src="black2-adventure.js"></script><script src="black2-playing.js"></script><script src="item-guide.js"></script><script src="progress-store.js"></script><script src="offline.js"></script><script src="black2-app.js"></script>'''+h[end:]
+h=h[:start]+'''  <script src="black2-data.js"></script><script src="black2-chapters.js"></script><script src="black2-extra.js"></script><script src="black2-hack-data.js"></script><script src="black2-hack.js"></script><script src="map-data.js"></script><script src="black2-bridge.js"></script><script src="black2-adventure.js"></script><script src="black2-playing.js"></script><script src="item-guide.js"></script><script src="progress-store.js"></script><script src="offline.js"></script><script src="core/game-registry.js"></script><script src="packages/black2-complete/adapter.js"></script><script src="black2-app.js"></script>'''+h[end:]
 (root/'black2.html').write_text(h)

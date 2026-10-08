@@ -29,7 +29,7 @@ De Aspertia ao pós-jogo, 22 capítulos organizam o caminho em passos que você 
 | **“Onde encontro esse Pokémon?”** | Área, subárea, método, estação e condições documentadas |
 | **“E a Liga?”** | Dicas de preparo, encontros especiais e consulta das mudanças da hack |
 
-Quatro abas, controles grandes e uma leitura confortável no celular. O progresso de cada jogo fica separado e é salvo automaticamente no aparelho, sem conta. Uma cópia manual fica disponível para quem quiser transferir seus registros.
+Cinco abas — Mapa, Pokédex, Jogar, Detonado e Ferramentas — organizam a consulta no celular. O progresso de cada jogo fica separado e é salvo automaticamente no aparelho, sem conta. Uma cópia manual fica disponível para quem quiser transferir seus registros.
 
 **Dados sem confirmação aparecem como tal.** A documentação detalhada disponível é v1.11, complementada pelas regras v1.12. Times exatos alterados pela hack e todos os itens comuns ainda não estão integralmente documentados. [Veja a cobertura e as fontes](docs/black2-audit.md).
 
@@ -113,3 +113,9 @@ A aba **Equipe** reúne seu time ideal e os integrantes que você está usando a
 Em **Jogar**, o guia fica à mão: tarefas da etapa, local onde você parou e seu lembrete pessoal. A seção **Batalhas** traz a primeira Liga, confrontos importantes com N e Ghetsis e cuidados próprios para capturar lendários. Os detalhes ficam recolhidos até você abrir.
 
 No celular, a navegação inferior mantém mapa, Pokédex, equipe, modo de jogo e ferramentas separados. Seu progresso continua salvo automaticamente no próprio aparelho, sem exigir conta.
+
+## O próximo caminho
+
+A base agora identifica cada edição e sua cobertura em um registro compartilhado. Black e Black 2 · Complete Unova v1.12 mantêm suas páginas e seus registros próprios; outros jogos serão adicionados por etapas, com dados e fontes revisados.
+
+Para contribuir: [organização dos pacotes, testes e preservação do progresso](docs/game-packages.md). Para acompanhar a expansão: [jogos previstos e próximas fases](docs/expansion-roadmap.md).

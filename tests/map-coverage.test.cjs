@@ -8,7 +8,7 @@ const map=require('../map-data.js');
 const context={UnovaMap:map};vm.createContext(context);
 const read=name=>fs.readFileSync(path.join(root,name),'utf8');
 const setup=read('app.js').split('  const specialEncounters')[0].replace('(async () => {','');
-vm.runInContext(read('data.js')+read('encounters.js')+setup+';this.areas=areas;this.tables=encounterTables;',context);
+vm.runInContext(['data.js','encounters.js','items.js','walkthrough.js','core/game-registry.js','packages/black/adapter.js'].map(read).join('\n')+'\n{'+setup+';globalThis.areas=areas;globalThis.tables=encounterTables;}',context);
 const areas=context.areas,physical=areas.filter(map.onMap);
 test('every physical guide area has a distinct, in-bounds map point',()=>{
  assert.equal(physical.length,60);
