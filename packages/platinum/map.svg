@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1712 1080">
+<rect width="1712" height="1080" fill="#b9dadd"/>
+<path d="M80 160 180 60 920 30 1140 80 1580 80 1680 350 1610 940 1230 1040 480 1010 130 880Z" fill="#d7d4ad" stroke="#8dad9e" stroke-width="12"/>
+<path d="M1050 75 1160 110 1250 40 1310 120 1420 70 1510 170 1630 230 1600 390 1500 350 1450 260 1360 330 1250 240 1190 320 1070 240Z" fill="#b4b8a5"/>
+<path d="m1150 125 35 50 50-90 60 125 60-50 60 80 100-90 60 130" fill="none" stroke="#f3f1e7" stroke-width="20"/>
+<path d="M100 580 130 360 240 300 350 330 380 490 310 590 170 610Z" fill="#98c7cd" stroke="#789fa2" stroke-width="7"/>
+<path d="M880 320 980 390 990 485 920 500 860 420Z" fill="#98c7cd"/>
+<g fill="#99ad8c" opacity=".75"><path d="M360 300h210v230H390Z"/><path d="M590 760h420v180H620Z"/><path d="M1060 490h160v360h-160Z"/></g>
+<g fill="#f3f1e7" stroke="#aaa783" stroke-width="4"><rect x="230" y="780" width="120" height="120" rx="12"/><rect x="670" y="610" width="120" height="120" rx="12"/><rect x="650" y="150" width="160" height="160" rx="12"/><rect x="1300" y="375" width="140" height="140" rx="12"/></g>
+<g font-family="system-ui,sans-serif" fill="#587079"><text x="90" y="80" font-size="30" font-weight="800">SINNOH · SUDOESTE</text><text x="90" y="1000" font-size="24">Esquema de conexões · início até a Coal Badge</text><text x="1050" y="970" font-size="22">Outras rotas ainda não cobertas</text></g>
+</svg>

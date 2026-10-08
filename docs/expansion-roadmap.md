@@ -44,4 +44,8 @@ Fontes oficiais consultadas apenas para atualizar o escopo recente: [Z-A](https:
 
 Cada fase deve terminar em PR próprio e pequeno, mantendo produção utilizável. Para novos dados: conservar insumo/revisão/licença, extrair de forma reproduzível, validar automaticamente, revisar amostras por local e registrar lacunas. Tabelas da hack precisam de origem e operações adicionadas/alteradas/removidas explícitas; times oficiais não substituem rosters desconhecidos da hack.
 
-Próxima tarefa: extrair consultas de encontros e itens para módulos das duas edições sem mudar interface, chaves ou interpretação de progresso; revisar as fontes e propor, para escolha do usuário, o recorte do jogo piloto. Não implementar tela de seleção ou múltiplas jornadas sem conversar antes.
+Consultas por edição e seleção de jogos foram implementadas nos PRs #24 e #25. Próxima expansão: ampliar Sinnoh a partir do recorte de Platinum, com fontes verificadas e cobertura explícita. Múltiplas jornadas por edição ainda dependem de decisão do usuário.
+
+## Piloto escolhido e primeiro recorte
+
+Decisão do usuário: **Pokémon Platinum oficial**. Substitui a candidatura técnica de White/FireRed. Primeiro recorte: dez locais de Twinleaf até Oreburgh, 210 entradas regionais, encontros comuns por horário/método, seleção de itens e roteiro até a Coal Badge. Veja [platinum-audit.md](platinum-audit.md). Seleção de jogo já implementada na etapa anterior; múltiplas jornadas por edição, offline selecionável e o restante de Sinnoh continuam pendentes.

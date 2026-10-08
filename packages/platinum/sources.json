@@ -1,0 +1,16 @@
+{
+  "revision": "2fe95532d27a9bf340575253aff50868319d8182",
+  "encountersUrl": "https://github.com/PokeAPI/pokeapi/tree/2fe95532d27a9bf340575253aff50868319d8182/data/v2/csv",
+  "csv": {
+    "versions": "70083465865a6a69a9aad2be3fc3915078c6ff740f14a090b1367d8ec9cfc3cd",
+    "version_groups": "28da8d89d8eb4966941f81a9e62b3990510ed4d76dd774158246551a8e7707a7",
+    "pokedexes": "aa6570e15092f80750431a59a8712410cc114d74ffffb75b3334df64b33b3d07",
+    "pokemon_dex_numbers": "b8fe3353eec2b0ba4fc37e07e94ffa9f33ce96a7f9856c643a18b3ad518cd393",
+    "pokemon_species_names": "820cde17074cdb1c2b0595c997fb8f998e773bd5da3bb525dec85703c86c5fd9",
+    "pokemon": "16c81c33188b0eac403aa2f759fcbe9e42c611f722d263f5b5a6a5bff9f8ce6b",
+    "encounters": "93ba8853ac871719d230a6406c91f8418754fdc773f2f4b9f476007f743b4955",
+    "encounter_slots": "597dc58df2b0a2c64cedce6d6a2a08feeecbd1cf860bdf926cd27f119417d87a",
+    "encounter_condition_value_map": "e7e566eb07f53aab34065869a245359cc8c0313ca97872de5fd07d1867a46c7a",
+    "encounter_condition_values": "f55fc7c4b4d821631695ff30d74f34b2122859c412d29b98d4d973cb6d2df902"
+  }
+}

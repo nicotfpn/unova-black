@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <script>try{if(new URLSearchParams(location.search).get("game")==="black")localStorage.setItem("unova-last-game","black");else if(localStorage.getItem("unova-last-game")==="black2")location.replace("black2.html");}catch{}</script>
+  <script>try{if(new URLSearchParams(location.search).get("game")==="black")localStorage.setItem("unova-last-game","black");else{const last=localStorage.getItem("unova-last-game");if(last==="black2")location.replace("black2.html");else if(last==="platinum")location.replace("platinum.html");}}catch{}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#182b31">
   <meta name="description" content="Mapa interativo de Unova em Pokémon Black e lista dos 156 Pokémon na ordem da Pokédex original. Encontros, métodos e requisitos por área.">

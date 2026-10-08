@@ -35,7 +35,19 @@
       },
       sources: ['docs/black2-audit.md'],
       audit: { codeRevision: 'c7cea1bc162be9e4e33a00e0c2f76515cc5400cd', inspectedOn: '2026-10-08', contentVerification: 'partial' }
+    },
+    {
+      id: 'pokemon-platinum', gameId: 'platinum', regionIds: ['sinnoh'], generation: 4,
+      kind: 'official', status: 'usable', title: 'Pokémon Platinum', entry: 'platinum.html',
+      adapter: 'packages/platinum/adapter.js',
+      progress: { key: 'sinnoh-platinum-field-guide-v1', legacyGame: 'platinum' },
+      coverage: { map: 'partial', encounters: 'partial', items: 'partial', pokedex: 'available',
+        walkthrough: 'partial', battles: 'partial', offline: 'shared-bundle',
+        notes: ['Piloto: Twinleaf até a Coal Badge; mapa esquemático do sudoeste.', '210 entradas regionais. Encontros comuns por horário; radar, enxames, GBA e resto do jogo ainda fora do recorte.'] },
+      sources: ['docs/platinum-audit.md', 'packages/platinum/sources.json'],
+      audit: { inspectedOn: '2026-10-08', contentVerification: 'partial' }
     }
+
   ]);
   const byId = new Map(editions.map(edition => [edition.id, edition]));
   const adapters = new Map();

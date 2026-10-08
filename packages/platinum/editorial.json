@@ -1,0 +1,367 @@
+{
+  "areas": [
+    {
+      "id": "twinleaf",
+      "name": "Twinleaf Town",
+      "type": "city",
+      "x": 290,
+      "y": 840,
+      "description": "Seu ponto de partida. Visite Barry e siga para a Route 201.",
+      "sections": [
+        {
+          "sourceArea": 177,
+          "name": "Lago da cidade"
+        }
+      ]
+    },
+    {
+      "id": "r201",
+      "name": "Route 201",
+      "type": "route",
+      "x": 460,
+      "y": 670,
+      "description": "Rowan oferece Turtwig, Chimchar ou Piplup. Depois da primeira batalha com Barry, volte para casa.",
+      "sections": [
+        {
+          "sourceArea": 141,
+          "name": "Grama"
+        }
+      ]
+    },
+    {
+      "id": "verity",
+      "name": "Verity Lakefront / Lake Verity",
+      "type": "special",
+      "x": 230,
+      "y": 450,
+      "description": "Acompanhe Barry até o lago antes de visitar o laboratório. As tabelas representam a área antes da intervenção da Team Galactic.",
+      "sections": [
+        {
+          "sourceArea": 135,
+          "name": "Margem e lago · início"
+        }
+      ]
+    },
+    {
+      "id": "sandgem",
+      "name": "Sandgem Town",
+      "type": "city",
+      "x": 730,
+      "y": 670,
+      "description": "Visite Rowan no laboratório para receber a Pokédex. Volte a Twinleaf e leve o Parcel de Barry antes de seguir ao norte.",
+      "sections": []
+    },
+    {
+      "id": "r202",
+      "name": "Route 202",
+      "type": "route",
+      "x": 730,
+      "y": 450,
+      "description": "Dawn ou Lucas demonstra uma captura e entrega cinco Poké Balls. Siga ao norte, enfrentando os treinadores.",
+      "sections": [
+        {
+          "sourceArea": 142,
+          "name": "Grama"
+        }
+      ]
+    },
+    {
+      "id": "jubilife",
+      "name": "Jubilife City",
+      "type": "city",
+      "x": 730,
+      "y": 230,
+      "description": "Entregue o Parcel a Barry na Trainers’ School. Responda aos três palhaços e troque os cupons pelo Pokétch.",
+      "sections": []
+    },
+    {
+      "id": "r203",
+      "name": "Route 203",
+      "type": "route",
+      "x": 1050,
+      "y": 230,
+      "description": "Prepare-se para outra batalha com Barry na saída leste de Jubilife. Atravesse a rota rumo a Oreburgh Gate.",
+      "sections": [
+        {
+          "sourceArea": 143,
+          "name": "Grama e lago"
+        }
+      ]
+    },
+    {
+      "id": "gate",
+      "name": "Oreburgh Gate",
+      "type": "special",
+      "x": 1370,
+      "y": 230,
+      "description": "Receba HM06 de um Hiker e atravesse o piso térreo. O subsolo exige Rock Smash e a Coal Badge; ele será ampliado em outra etapa.",
+      "sections": [
+        {
+          "sourceArea": 55,
+          "name": "1F"
+        }
+      ]
+    },
+    {
+      "id": "oreburgh",
+      "name": "Oreburgh City",
+      "type": "city",
+      "x": 1370,
+      "y": 440,
+      "description": "O líder está trabalhando na mina. Encontre Roark lá e depois vá ao ginásio para disputar a primeira insígnia.",
+      "sections": []
+    },
+    {
+      "id": "mine",
+      "name": "Oreburgh Mine",
+      "type": "special",
+      "x": 1370,
+      "y": 730,
+      "description": "Desça ao B1F e fale com Roark para fazê-lo retornar ao ginásio.",
+      "sections": [
+        {
+          "sourceArea": 6,
+          "name": "1F"
+        },
+        {
+          "sourceArea": 7,
+          "name": "B1F"
+        }
+      ]
+    }
+  ],
+  "paths": [
+    [
+      "twinleaf",
+      "r201"
+    ],
+    [
+      "r201",
+      "verity"
+    ],
+    [
+      "r201",
+      "sandgem"
+    ],
+    [
+      "sandgem",
+      "r202"
+    ],
+    [
+      "r202",
+      "jubilife"
+    ],
+    [
+      "jubilife",
+      "r203"
+    ],
+    [
+      "r203",
+      "gate"
+    ],
+    [
+      "gate",
+      "oreburgh"
+    ],
+    [
+      "oreburgh",
+      "mine"
+    ]
+  ],
+  "chapters": [
+    {
+      "id": "pt-start",
+      "title": "O início em Twinleaf",
+      "path": [
+        "twinleaf",
+        "r201",
+        "verity",
+        "sandgem"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_1",
+      "steps": [
+        [
+          "pt-starter",
+          "Encontre Barry na Route 201, escolha seu inicial com Rowan e faça a primeira batalha."
+        ],
+        [
+          "pt-home",
+          "Volte para casa, receba os Running Shoes e acompanhe Barry até Lake Verity."
+        ],
+        [
+          "pt-dex",
+          "Visite o laboratório em Sandgem, receba a Pokédex e volte a Twinleaf para pegar o Parcel destinado a Barry."
+        ]
+      ]
+    },
+    {
+      "id": "pt-jubilife",
+      "title": "Capturas e Jubilife",
+      "path": [
+        "r202",
+        "jubilife",
+        "r203",
+        "gate"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+      "steps": [
+        [
+          "pt-capture",
+          "Assista à demonstração de captura na Route 202 e receba cinco Poké Balls. Explore a grama antes de seguir para Jubilife."
+        ],
+        [
+          "pt-parcel",
+          "Entregue o Parcel na Trainers’ School. Encontre os três palhaços e obtenha o Pokétch; pegue a Old Rod no portão oeste."
+        ],
+        [
+          "pt-gate",
+          "Cure o time antes de sair para a Route 203: Barry vai desafiar você. Depois, atravesse Oreburgh Gate e receba HM06."
+        ]
+      ]
+    },
+    {
+      "id": "pt-roark",
+      "title": "A Coal Badge",
+      "path": [
+        "oreburgh",
+        "mine"
+      ],
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_3",
+      "steps": [
+        [
+          "pt-mine",
+          "Encontre Roark no B1F de Oreburgh Mine e fale com ele. Retorne à cidade e cure o time."
+        ],
+        [
+          "pt-gym",
+          "Desafie o ginásio. Roark usa Geodude e Onix no nível 12 e Cranidos no nível 14. Prepare golpes de Água, Grama ou Lutador e itens de cura."
+        ],
+        [
+          "pt-badge",
+          "Após vencer, registre a Coal Badge e TM76. Rock Smash fica liberado fora de batalha. Este piloto termina aqui; o caminho ao norte de Jubilife ainda não está coberto."
+        ]
+      ]
+    }
+  ],
+  "items": {
+    "twinleaf": [
+      {
+        "id": "pt:twinleaf:running-shoes",
+        "name": "Running Shoes",
+        "kind": "item",
+        "method": "gift",
+        "where": "Sua mãe entrega após a primeira batalha com Barry.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_1",
+        "requirements": []
+      }
+    ],
+    "r201": [
+      {
+        "id": "pt:r201:potion-gift",
+        "name": "Potion",
+        "kind": "item",
+        "method": "gift",
+        "where": "Presente de um funcionário do Poké Mart na rota.",
+        "source": "https://www.serebii.net/pokearth/sinnoh/4th/route201.shtml",
+        "requirements": []
+      }
+    ],
+    "r202": [
+      {
+        "id": "pt:r202:pokeballs-gift",
+        "name": "Poké Ball ×5",
+        "kind": "item",
+        "method": "gift",
+        "where": "Dawn ou Lucas entrega após a demonstração de captura.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+        "requirements": []
+      },
+      {
+        "id": "pt:r202:potion-ground",
+        "name": "Potion",
+        "kind": "item",
+        "method": "ground",
+        "where": "Na grama, a oeste do final norte da rota.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+        "requirements": []
+      }
+    ],
+    "jubilife": [
+      {
+        "id": "pt:jubilife:old-rod",
+        "name": "Old Rod",
+        "kind": "item",
+        "method": "gift",
+        "where": "Pescador no portão oeste da cidade.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+        "requirements": []
+      },
+      {
+        "id": "pt:jubilife:quick-claw",
+        "name": "Quick Claw",
+        "kind": "item",
+        "method": "gift",
+        "where": "Converse com a garota no térreo dos condomínios.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+        "requirements": []
+      }
+    ],
+    "r203": [
+      {
+        "id": "pt:r203:pokeball-ground",
+        "name": "Poké Ball",
+        "kind": "item",
+        "method": "ground",
+        "where": "Junto ao desnível no patamar inferior oeste.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+        "requirements": []
+      },
+      {
+        "id": "pt:r203:repel",
+        "name": "Repel",
+        "kind": "item",
+        "method": "ground",
+        "where": "Ao norte do lago.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+        "requirements": []
+      },
+      {
+        "id": "pt:r203:x-defend",
+        "name": "X Defend",
+        "kind": "item",
+        "method": "ground",
+        "where": "Junto ao desnível no patamar superior leste.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2",
+        "requirements": []
+      }
+    ],
+    "gate": [
+      {
+        "id": "pt:gate:hm06",
+        "name": "HM06 · Rock Smash",
+        "kind": "hm",
+        "method": "gift",
+        "where": "Presente de um Hiker no 1F. Uso fora de batalha exige a Coal Badge.",
+        "source": "https://www.serebii.net/pokearth/sinnoh/4th/oreburghgate.shtml",
+        "requirements": [],
+        "code": "HM06",
+        "move": "Rock Smash"
+      }
+    ],
+    "oreburgh": [
+      {
+        "id": "pt:oreburgh:tm76",
+        "name": "TM76 · Stealth Rock",
+        "kind": "tm",
+        "method": "gift",
+        "where": "Recompensa de Roark após vencer o ginásio.",
+        "source": "https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_3",
+        "requirements": [
+          "Coal Badge"
+        ],
+        "code": "TM76",
+        "move": "Stealth Rock"
+      }
+    ]
+  }
+}
