@@ -33,7 +33,7 @@ A chave **`sinnoh-platinum-field-guide-v1`** e o esquema v1 são preservados. Os
 
 Pokédex, roteiro e times montam conteúdo ao abrir e removem ao sair. Uma ficha começa com no máximo oito grupos e oito itens; os Pokémon de cada grupo são montados ao expandir. Os 82 marcadores permanecem no DOM durante buscas e filtros. A busca aceita nomes e números de TM/HM com ou sem zero. Nenhuma dependência nova em produção. O catálogo descreve história e pós-jogo; cobertura de encontros/itens continua parcial como auditoria, apesar da abrangência regional.
 
-O cache permanece compartilhado e inclui as três edições. Cache seletivo por edição e múltiplas jornadas continuam pendentes. Este PR não faz merge nem deploy.
+A etapa seguinte separa os downloads offline por edição; ver [offline-editions.md](offline-editions.md). Múltiplas jornadas continuam pendentes. Este PR não faz merge nem deploy.
 
 ## Validação e limites
 

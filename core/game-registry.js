@@ -16,7 +16,7 @@
       progress: { key: 'unova-black-field-guide-v2', legacyGame: 'black' },
       coverage: {
         map: 'available', encounters: 'partial', items: 'partial', pokedex: 'available',
-        walkthrough: 'outline', battles: 'partial', offline: 'shared-bundle',
+        walkthrough: 'outline', battles: 'partial', offline: 'edition-selectable',
         notes: ['Roteiro de etapas, sem detonado detalhado.', 'Eventos antigos e exclusivos têm condições próprias; nenhuma auditoria integral contra a ROM.']
       },
       sources: ['docs/map-audit.md', 'docs/items-audit.md', 'docs/adventure-audit.md'],
@@ -30,7 +30,7 @@
       progress: { key: 'unova-black2-complete-1.12-v1', legacyGame: 'black2' },
       coverage: {
         map: 'available', encounters: 'partial', items: 'partial', pokedex: 'available',
-        walkthrough: 'partial', battles: 'advice-only', offline: 'shared-bundle',
+        walkthrough: 'partial', battles: 'advice-only', offline: 'edition-selectable',
         notes: ['22 capítulos; itens comuns e times da hack sem auditoria integral.', 'Documentação detalhada v1.11 com regras v1.12; valores desconhecidos continuam ausentes.']
       },
       sources: ['docs/black2-audit.md'],
@@ -42,7 +42,7 @@
       adapter: 'packages/platinum/adapter.js',
       progress: { key: 'sinnoh-platinum-field-guide-v1', legacyGame: 'platinum' },
       coverage: { map: 'available', encounters: 'partial', items: 'partial', pokedex: 'available',
-        walkthrough: 'available', battles: 'available', offline: 'shared-bundle',
+        walkthrough: 'available', battles: 'available', offline: 'edition-selectable',
         notes: ['Sinnoh e Battle Zone; história, Liga e pós-jogo.', '210 entradas regionais; encontros por setor e condições. Presentes e eventos têm requisitos próprios.'] },
       sources: ['docs/platinum-audit.md', 'packages/platinum/sources.json'],
       audit: { inspectedOn: '2026-10-08', contentVerification: 'partial' }
