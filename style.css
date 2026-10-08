@@ -64,3 +64,8 @@ main{max-width:1450px;margin:auto;padding:0 20px 38px}
 
 /* Edition downloads live inside the existing chooser. */
 .game-offline{margin-top:16px;border-top:1px solid #d1d7cb;padding-top:12px}.game-offline>summary{cursor:pointer;font-size:14px;font-weight:750;min-height:44px;display:flex;align-items:center}.offline-edition{border-top:1px solid #d1d7cb;padding:12px 0}.offline-edition strong,.offline-edition small{display:block;line-height:1.5}.offline-edition strong{font-size:14px}.offline-edition small{font-size:12px;margin:5px 0}.game-offline button{min-height:44px;padding:8px 12px;background:#edf2e6;border:1px solid #9eb3a8;color:#173c3c;font:700 12px system-ui;cursor:pointer}.game-offline button:disabled{opacity:.6;cursor:wait}.offline-status{min-height:36px}
+
+/* Avoid iPhone focus zoom on ordinary fields and double-tap zoom on controls. */
+button,a,summary{touch-action:manipulation}
+@media(max-width:900px){input:not([type=checkbox]):not([type=radio]),select,textarea,.progress-controls select,.pt-control select,.dex-search input,.search-box input{font-size:16px!important}}
+.journey-help{font-size:13px;color:var(--muted);line-height:1.6}

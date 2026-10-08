@@ -1,4 +1,4 @@
-/* Availability rules extracted unchanged from the existing edition. */
+/* Availability and acquisition rules for Pokémon Black. */
 (function(root){
   'use strict';
   root.createBlackEncounterQueries = function({tables,specials,stage,getProgress,regionalSet,extraSpecies}) {
@@ -47,7 +47,15 @@
     if(entry[0]==='Tirtouga / Archen')return progress.fossil?[progress.fossil]:[];
     return entry[0].split(' / ');
   }
-  return root.createEncounterQueries({tables,specials,lockReason,specialLock,rateUncertain,specialNames,
+  function acquisitionLock(area,entry){
+    const p=getProgress();
+    // "Show events" is a browsing preference, not proof of the required
+    // distributed Pokémon or event item. Keep these in the full catalog.
+    if(/Evento|Distribuição/.test(entry[1]))return 'Evento com requisito próprio';
+    if(entry[0]==='Petilil'&&entry[1]==='Troca interna de Black'&&!p.caught?.includes('Cottonee'))return 'Tenha Cottonee para oferecer';
+    return '';
+  }
+  return root.createEncounterQueries({tables,specials,acquisitionLock,lockReason,specialLock,rateUncertain,specialNames,
     acceptSpecies:name=>regionalSet.has(name)||extraSpecies.includes(name)});
   };
 })(typeof window==='undefined'?globalThis:window);
