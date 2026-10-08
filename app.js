@@ -365,6 +365,7 @@
   }
   function renderDexList() {
     if($('dex-view').hidden)return;
+    $('journey-help').hidden=listOrder==='dex';
     const q = norm($('dex-search').value.trim());
     const container = $('dex-list');
     const entries=listScope==='unova'?unovaDex:[...unovaDex,...extraSpecies.map(name=>[nationalNumbers[name]||dexNumbers[name],name])];
@@ -377,24 +378,23 @@
         return `<article class="dex-entry ${caught().has(name)?'obtained':''}"><span class="number">${esc(dex(name).number)}</span><span class="dex-main"><strong>${esc(name)}</strong><small title="${esc(guide)}">${esc(guide)}</small></span><button type="button" class="dex-track" data-caught="${esc(name)}" aria-pressed="${caught().has(name)}">${caught().has(name)?'✓ Já tenho':'Já obtive'}</button>${place ? `<button type="button" data-place="${esc(place[0])}" aria-label="Ver ${esc(name)} em ${esc(place[1])}">Mapa</button>` : ''}</article>`;
       }).join('')}</div>` : '<p class="dex-empty">Nenhum Pokémon encontrado. Tente outro nome ou número.</p>';
     } else {
-      let count = 0, index = 0;
-      const buckets=new Map();
-      for(const [name,area] of firstPlace){
+      let count=0,index=0;
+      const available=encounterQueries.firstAvailable(orderedAreas),buckets=new Map();
+      for(const [name,{area}] of available){
         if(!isSpeciesVisible(name)||(listScope==='unova'&&!regionalSet.has(name)))continue;
-        const rank=firstRank.get(name)??100,key=`${rank}:${area[0]}`;
-        if(!buckets.has(key))buckets.set(key,{rank,area,names:[]});
-        buckets.get(key).names.push(name);
+        if(!buckets.has(area[0]))buckets.set(area[0],{area,names:[]});
+        buckets.get(area[0]).names.push(name);
       }
-      const groups = [...buckets.values()].sort((a,b)=>a.rank-b.rank||journeyOrder.indexOf(a.area[0])-journeyOrder.indexOf(b.area[0])).map(({rank,area,names:allNames}) => {
-        const names = allNames.filter(name => !q || norm(`${name} ${dex(name).number} ${area[1]}`).includes(q));
-        if (!names.length) return '';
-        count += names.length; index++;
-        return `<section class="journey-group"><div class="journey-place"><span class="step">ETAPA ${String(index).padStart(2,'0')} · ${rank>=200?'EVENTO / TROCA':rank>=100?'PÓS-LIGA':rank===0?'INÍCIO':`A PARTIR DE ${rank} INSÍGNIAS`}</span><h3>${esc(area[1])}</h3><small>Primeira oportunidade indicada no guia</small><button type="button" data-place="${esc(area[0])}">Abrir no mapa ↗</button></div><div class="journey-species">${names.map(name => `<span><b>${esc(dex(name).number)}</b>${esc(name)}<button type="button" data-caught="${esc(name)}" aria-label="${caught().has(name)?'Desmarcar':'Marcar como obtido'} ${esc(name)}" aria-pressed="${caught().has(name)}">${caught().has(name)?'✓':'+'}</button></span>`).join('')}</div></section>`;
+      const groups=[...buckets.values()].map(({area,names:allNames})=>{
+        const names=allNames.filter(name=>!q||norm(`${name} ${dex(name).number} ${area[1]}`).includes(q));
+        if(!names.length)return '';count+=names.length;index++;
+        return `<section class="journey-group"><div class="journey-place"><span class="step">ETAPA ${String(index).padStart(2,'0')}</span><h3>${esc(area[1])}</h3><small>Primeira oportunidade compatível com Meu progresso</small><button type="button" data-place="${esc(area[0])}">Abrir no mapa ↗</button></div><div class="journey-species">${names.map(name=>`<span><b>${esc(dex(name).number)}</b>${esc(name)}<button type="button" data-caught="${esc(name)}" aria-label="${caught().has(name)?'Desmarcar':'Marcar como obtido'} ${esc(name)}" aria-pressed="${caught().has(name)}">${caught().has(name)?'✓':'+'}</button></span>`).join('')}</div></section>`;
       }).filter(Boolean);
-      const withoutPlace=entries.map(([,name])=>name).filter(name=>isSpeciesVisible(name)&&!firstPlace.has(name)&&(!q||norm(`${name} ${dex(name).number} ${acquisition[name]||''}`).includes(q)));
-      if(withoutPlace.length){count+=withoutPlace.length;groups.push(`<section class="journey-group"><div class="journey-place"><span class="step">OBTENÇÃO</span><h3>Evolução ou troca</h3><small>Obtido por evolução, troca ou outra condição</small></div><div class="journey-species">${withoutPlace.map(name=>`<span title="${esc(acquisition[name]||'')}"><b>${esc(dex(name).number)}</b>${esc(name)}<button type="button" data-caught="${esc(name)}" aria-label="${caught().has(name)?'Desmarcar':'Marcar como obtido'} ${esc(name)}" aria-pressed="${caught().has(name)}">${caught().has(name)?'✓':'+'}</button></span>`).join('')}</div></section>`);}
-      $('dex-count').textContent = `${count} Pokémon · ${groups.length} locais`;
-      container.innerHTML = groups.length ? groups.join('') : '<p class="dex-empty">Nenhum Pokémon encontrado nessa ordem de obtenção. Tente outro nome, número ou local.</p>';
+      const obtained=entries.map(([,name])=>name).filter(name=>caught().has(name)&&!available.has(name)&&(!q||norm(`${name} ${dex(name).number} ${acquisition[name]||''}`).includes(q)));
+      if(obtained.length){count+=obtained.length;groups.push(`<section class="journey-group"><div class="journey-place"><span class="step">SEUS REGISTROS</span><h3>Já obtidos</h3><small>Suas marcações continuam aqui mesmo quando o encontro depende de outras condições.</small></div><div class="journey-species">${obtained.map(name=>`<span title="${esc(acquisition[name]||'')}"><b>${esc(dex(name).number)}</b>${esc(name)}<button type="button" data-caught="${esc(name)}" aria-label="Desmarcar ${esc(name)}" aria-pressed="true">✓</button></span>`).join('')}</div></section>`);}
+      $('dex-count').textContent=`${count} Pokémon · encontros compatíveis e seus registros`;
+      container.innerHTML=groups.length?groups.join(''):'<p class="dex-empty">Nenhum encontro compatível com a busca e Meu progresso. Atualize suas insígnias, estação e recursos, ou consulte a Ordem da Pokédex.</p>';
+
     }
     container.querySelectorAll('[data-place]').forEach(button => button.onclick = () => { switchView('map'); select(button.dataset.place); });
     container.querySelectorAll('[data-caught]').forEach(button => button.onclick = () => toggleCaught(button.dataset.caught));
@@ -424,7 +424,7 @@
     progress.starter=$('starter-select').value;progress.fossil=$('fossil-select').value;
     progress.league=$('league-toggle').checked;progress.surf=$('surf-toggle').checked;progress.strength=$('strength-toggle').checked;progress.cobalion=$('cobalion-toggle').checked;progress.rod=$('rod-toggle').checked;
     progress.trades=$('trade-toggle').checked;progress.events=$('event-toggle').checked;
-    save();renderProgress();applyFilters();renderDetail();
+    save();renderProgress();renderDexList();applyFilters();renderDetail();
   });
   $('export-progress').onclick=()=>{const blob=new Blob([JSON.stringify(progress,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='unova-black-progresso.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
   $('import-progress').onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{const incoming=JSON.parse(await file.text());if(!Array.isArray(incoming.caught)||!Number.isInteger(incoming.badges)||incoming.badges<0||incoming.badges>8)throw Error('Formato inválido');progress=normalizeProgress(incoming);save();renderProgress();renderDexList();applyFilters();renderDetail();}catch{alert('Não foi possível restaurar o progresso. Selecione um arquivo JSON baixado pelo guia.')}e.target.value='';};

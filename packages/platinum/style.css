@@ -1,9 +1,14 @@
-/* Pilot layout shares the field guide's palette and components. */
+/* Platinum layout shares the field guide's palette and components. */
 .pt-note{display:block;margin:20px 0;font-weight:750}.pt-note textarea{display:block;width:100%;max-width:700px;border:1px solid var(--line);padding:12px;font:inherit;color:var(--ink);background:#fffaf0}
 .pt-step{display:flex;align-items:flex-start;gap:9px;margin:12px 0;font-size:14px}.pt-step input{margin-top:5px;flex-shrink:0;width:18px;height:18px;accent-color:var(--red)}
 .pt-area{width:100%;text-align:left;padding:14px;border:1px solid var(--line);background:var(--paper);color:var(--ink);min-height:60px}.pt-area strong,.pt-area small{display:block}.pt-area[aria-pressed=true]{border:2px solid var(--red);background:#fffaf0}
-body[data-edition=pokemon-platinum] .map-viewport svg{width:100%;height:auto;display:block}body[data-edition=pokemon-platinum] .map-viewport.overview svg{min-width:0}body[data-edition=pokemon-platinum] .map-viewport .label{font-size:24px}
+body[data-edition=pokemon-platinum] .map-viewport svg{width:100%;height:auto;display:block}body[data-edition=pokemon-platinum] .map-viewport.overview svg{min-width:0}body[data-edition=pokemon-platinum] .map-viewport .label{font-size:18px}
 .pt-dex-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:13px;border:1px solid var(--line);background:var(--paper)}.pt-dex-row strong{flex:1;min-width:130px}.pt-dex-row button{min-height:40px;border:1px solid var(--line);background:#fffaf0;color:var(--ink)}.pt-dex-row button[aria-pressed=true]{background:#d7ead9}.pt-dex-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.pt-source{font-size:12px;margin:8px 0}
 .pt-item{display:flex;gap:8px;margin:12px 0;font-size:14px}.pt-item input{width:18px;height:18px;flex-shrink:0;margin-top:5px}.pt-item small{display:block;color:var(--muted)}
 body[data-edition=pokemon-platinum] .story-chapter-body{padding:14px}body[data-edition=pokemon-platinum] .story-chapter-body .nearby{margin-top:10px}
 @media(max-width:700px){.pt-dex-grid{grid-template-columns:1fr}body[data-edition=pokemon-platinum] .map-heading{flex-wrap:wrap;gap:10px}}
+
+body[data-edition=pokemon-platinum] .map-viewport svg{aspect-ratio:1712/1500}.pt-control{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:750;margin:10px 0}.pt-control select{max-width:100%;min-width:0;padding:7px;color:var(--ink);border:1px solid var(--line);background:#fffaf0;font:inherit}.pt-advanced{padding:8px 15px}.pt-advanced summary,.pt-battles summary{cursor:pointer;font-weight:750}.pt-battles{border:2px solid var(--deep);background:var(--paper);padding:15px;margin:16px 0}.pt-battles small{display:block;flex-basis:100%;font-size:12px}.pt-battles select{max-width:100%}.detail-section>button,#pt-more-tables,#pt-more-items{min-height:40px;margin:8px 0;padding:7px 10px;background:#eef4ee;color:var(--ink);border:1px solid var(--line);font-size:13px;font-weight:750}
+
+body[data-edition=pokemon-platinum] .map-viewport.overview .node .touch{r:20}
+body[data-edition=pokemon-platinum] .map-viewport .node .route-label{font-size:14px}

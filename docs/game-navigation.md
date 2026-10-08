@@ -4,7 +4,7 @@ Escolha aprovada pelo usuário: abrir diretamente a última jornada, com **Troca
 
 `core/game-picker.js` consulta somente os metadados do registro. Monta a janela ao abrir e remove seu DOM ao fechar. Não carrega dados de outro jogo. Cada página carrega seu próprio adaptador, como antes.
 
-O catálogo mostra apenas edições com `status: 'usable'`, indicação de oficial ou ROM hack e cobertura dos recursos. Hoje são Black, Black 2 · Complete Unova v1.12 e o piloto de Platinum (Twinleaf até a Coal Badge). O status permite oferecer conteúdo parcial utilizável; não é um selo de conteúdo completo. Entradas planejadas não geram links nem páginas vazias.
+O catálogo mostra apenas edições com `status: 'usable'`, indicação de oficial ou ROM hack e cobertura dos recursos. Hoje são Black, Black 2 · Complete Unova v1.12 e Platinum (Sinnoh e Battle Zone, história e pós-jogo). O status permite oferecer conteúdo parcial utilizável; não é um selo de conteúdo completo. Entradas planejadas não geram links nem páginas vazias.
 
 Escolher a edição atual fecha a janela e mantém a aba e a ficha abertas. Escolher a outra edição segue a URL existente. O seletor usa links normais, preservando abertura em outra aba com teclas modificadoras. O botão de fechar, Escape e o clique no fundo fecham a janela; o foco retorna ao botão que a abriu. Tab e Shift+Tab permanecem nos controles da janela.
 
@@ -32,4 +32,4 @@ O teste DOM exige jsdom como ferramenta de desenvolvimento, sem dependência de 
 
 Este PR depende do #24 enquanto ele estiver aberto. Nenhum merge ou deploy foi realizado. Seleção do piloto, jornadas múltiplas, carregamento das funcionalidades sob demanda e cache seletivo permanecem etapas próprias.
 
-O piloto usa `platinum.html` e `sinnoh-platinum-field-guide-v1`. A entrada principal retoma Platinum quando escolhido; a URL explícita de Black continua prevalecendo. Ver detalhes e limites em [platinum-audit.md](platinum-audit.md).
+Platinum usa `platinum.html` e `sinnoh-platinum-field-guide-v1`. A entrada principal retoma Platinum quando escolhido; a URL explícita de Black continua prevalecendo. Ver detalhes e limites em [platinum-audit.md](platinum-audit.md).

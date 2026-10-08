@@ -1,6 +1,6 @@
 # Expansão por etapas
 
-Esta execução termina no registro e nos adaptadores. Tela de jogos, múltiplas jornadas, navegação, detalhes do detonado e escolha do piloto exigem participação do usuário antes de implementar.
+Registro, consultas por edição, seleção de jogos e expansão de Platinum já foram implementados em PRs empilhados. O usuário aprovou a retomada da última jornada e escolheu Platinum. Novos títulos e múltiplas jornadas ainda exigem decisões próprias.
 
 ## Inventário de escopo · 08/10/2026
 
@@ -44,8 +44,8 @@ Fontes oficiais consultadas apenas para atualizar o escopo recente: [Z-A](https:
 
 Cada fase deve terminar em PR próprio e pequeno, mantendo produção utilizável. Para novos dados: conservar insumo/revisão/licença, extrair de forma reproduzível, validar automaticamente, revisar amostras por local e registrar lacunas. Tabelas da hack precisam de origem e operações adicionadas/alteradas/removidas explícitas; times oficiais não substituem rosters desconhecidos da hack.
 
-Consultas por edição e seleção de jogos foram implementadas nos PRs #24 e #25. Próxima expansão: ampliar Sinnoh a partir do recorte de Platinum, com fontes verificadas e cobertura explícita. Múltiplas jornadas por edição ainda dependem de decisão do usuário.
+Consultas por edição e seleção de jogos foram implementadas nos PRs #24 e #25. Platinum agora cobre Sinnoh e Battle Zone, com fontes fixadas e limites de auditoria explícitos. Múltiplas jornadas por edição ainda dependem de decisão do usuário.
 
 ## Piloto escolhido e primeiro recorte
 
-Decisão do usuário: **Pokémon Platinum oficial**. Substitui a candidatura técnica de White/FireRed. Primeiro recorte: dez locais de Twinleaf até Oreburgh, 210 entradas regionais, encontros comuns por horário/método, seleção de itens e roteiro até a Coal Badge. Veja [platinum-audit.md](platinum-audit.md). Seleção de jogo já implementada na etapa anterior; múltiplas jornadas por edição, offline selecionável e o restante de Sinnoh continuam pendentes.
+Decisão do usuário: **Pokémon Platinum oficial**. Substitui a candidatura técnica de White/FireRed. Primeiro recorte: dez locais de Twinleaf até Oreburgh, 210 entradas regionais, encontros comuns por horário/método, seleção de itens e roteiro até a Coal Badge. Veja [platinum-audit.md](platinum-audit.md). A expansão seguinte substitui esse limite por 84 locais, 27 capítulos até o pós-jogo, encontros de 163 setores de origem, todos os TMs/HMs e times principais. Seleção de jogo já implementada; múltiplas jornadas por edição continua pendente. Offline selecionável está implementado na etapa seguinte; ver [offline-editions.md](offline-editions.md).
