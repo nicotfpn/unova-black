@@ -28,11 +28,13 @@ function createAdventureGuide(ctx){
  function ancestors(name){let list=[],n=monName.get(norm(name)),seen=new Set();while(n&&!seen.has(n)){seen.add(n);list.unshift(n);n=data.pokemon[n]?.parent;}return list;}
  const routeIndex=new Map();
  const record=(name,row)=>{const key=norm(name);if(!routeIndex.has(key))routeIndex.set(key,[]);routeIndex.get(key).push(row);};
- for(const a of areas){
+ let routesReady=false;
+ function ensureRoutes(){if(routesReady)return;routesReady=true;for(const a of areas){
   for(const t of encounters[a[0]]||[])for(const [n,rate,level] of t.pokemon)record(n,{area:a,table:t,rate,level});
   for(const e of specials[a[0]]||[])for(const n of e[0].split(' / '))record(n,{area:a,special:e});
  }
- function routes(name){return (routeIndex.get(norm(name))||[]).filter(r=>allowed(r.area[0])).map(r=>({...r,lock:r.special?ctx.specialLock(r.area,r.special,name):ctx.lockReason(r.area,r.table)})).sort((a,b)=>Number(!!a.lock)-Number(!!b.lock));}
+ }
+ function routes(name){ensureRoutes();return (routeIndex.get(norm(name))||[]).filter(r=>allowed(r.area[0])).map(r=>({...r,lock:r.special?ctx.specialLock(r.area,r.special,name):ctx.lockReason(r.area,r.table)})).sort((a,b)=>Number(!!a.lock)-Number(!!b.lock));}
  function evolutionHTML(name){
   const rules=evolution(name);if(!rules.length)return '<p>Esta espécie não tem uma evolução cadastrada em Black 2.</p>';
   return rules.map(e=>`<article class="guide-row"><strong>${esc(e.fromSpecies)} → ${esc(e.toSpecies)}</strong><p>${esc(e.condition)}</p>${e.item?`<button type="button" data-guide-item="${esc(e.item)}">Onde conseguir ${esc(e.item)}?</button>`:''}</article>`).join('');
@@ -56,11 +58,11 @@ function createAdventureGuide(ctx){
   const picks=g.picks.filter(n=>areas.some(a=>allowed(a[0])&&ctx.availableNames(a).includes(n))||get().caught.includes(n));
   return `<article class="guide-row"><h4>${esc(g.leader)} · ${esc(g.type)}</h4><p>Os times completos alterados pela hack ainda precisam de confirmação. Confira o modo de dificuldade antes de se preparar.</p><p>${esc(g.advice)}</p><small>Opções compatíveis com seu progresso: ${esc(picks.join(', ')||'informe suas insígnias e seu inicial em Minha jornada')}.</small><p>Confira também níveis, golpes e habilidades da sua equipe. A espécie sozinha não garante vantagem.</p>${link(g.area,'Abrir cidade do ginásio')}</article>`;
  }
- let host=null;
- function dashboard(){if(!host)return;
+ let host=null,selectSignature='';
+ function dashboard(){if(!host||host.hidden)return;
   const p=get(),index=chapterIndex(),c=chapters[index],tasks=editorial.tasks[index];
   host.querySelector('#guide-now').innerHTML=`<span class="guide-eyebrow">${esc(c.when)}</span><h3>${esc(c.title)}</h3><p>${esc(p.spoilerFree?'Siga os locais desta etapa e marque as tarefas concluídas. Os detalhes futuros ficam escondidos.':c.text)}</p><small>Etapa escolhida no detonado. Marcar uma tarefa não altera suas insígnias automaticamente.</small><div class="guide-tasks">${tasks.map(t=>`<div><label><input type="checkbox" data-guide-task="${t.id}" ${p.tasks.includes(t.id)?'checked':''}>${esc(p.spoilerFree&&ctx.spoilerLocked(areaById.get(t.area))?'Continuar a história nesta etapa':t.text)}</label>${allowed(t.area)?link(t.area,'Ver local'):''}</div>`).join('')}</div>${p.starter?'':'<p class="guide-choice">Escolha do inicial: você recebe apenas um dos três. A hack também adiciona as formas intermediárias em encontros selvagens.</p>'}${false?'<p class="guide-choice">Antes de escolher um fóssil: Cover Fossil → Tirtouga; Plume Fossil → Archen. Você escolhe um por partida.</p>':''}`;
-  const ret=returns();if(host.querySelector('#guide-returns').closest('.guide-tool').open)host.querySelector('#guide-returns').innerHTML=ret.length?limited(ret,r=>`<article class="guide-row">${link(r.area[0])}${r.names.length?`<p>${esc(r.methods.join(', '))}: ${esc(r.names.join(', '))}</p>`:''}${r.items.length?`<p>Itens para conferir: ${esc(r.items.map(i=>i.name).join(', '))}.</p>`:''}<small>Disponíveis conforme os recursos que você marcou. Confira o setor na ficha.</small></article>`):'<p>Marque Surf, Strength, Cobalion ou Super Rod em Minha jornada. Aqui aparecem encontros liberados por esses recursos que você ainda não marcou como obtidos.</p>';
+  if(host.querySelector('#guide-returns').closest('.guide-tool').open){const ret=returns();host.querySelector('#guide-returns').innerHTML=ret.length?limited(ret,r=>`<article class="guide-row">${link(r.area[0])}${r.names.length?`<p>${esc(r.methods.join(', '))}: ${esc(r.names.join(', '))}</p>`:''}${r.items.length?`<p>Itens para conferir: ${esc(r.items.map(i=>i.name).join(', '))}.</p>`:''}<small>Disponíveis conforme os recursos que você marcou. Confira o setor na ficha.</small></article>`):'<p>Marque Surf, Strength, Cobalion ou Super Rod em Minha jornada. Aqui aparecem encontros liberados por esses recursos que você ainda não marcou como obtidos.</p>';}
   if(host.querySelector('#guide-pending').closest('.guide-tool').open)host.querySelector('#guide-pending').innerHTML=limited(areas.filter(a=>allowed(a[0])).map(a=>({area:a,...remaining(a[0])})).filter(r=>r.pokemon.length||r.items.length),r=>`<article class="guide-row">${link(r.area[0])}${summaryHTML(r.area[0])}</article>`);
   if(host.querySelector('#guide-gyms').closest('.guide-tool').open)host.querySelector('#guide-gyms').innerHTML=editorial.gyms.filter((g,i)=>!p.spoilerFree||i<=p.badges).map(gymHTML).join('');
   if(host.querySelector('#guide-team-list').closest('.guide-tool').open)host.querySelector('#guide-team-list').innerHTML=p.team.length?p.team.map(n=>{const m=mon(n),r=routes(n),base=ancestors(n).find(s=>routes(s).length);return `<article class="guide-row"><div class="guide-row-head"><strong>${esc(n)}</strong><button type="button" data-remove-team="${esc(n)}" aria-label="Tirar ${esc(n)} da equipe">Tirar</button></div><small>${esc(m?.types.map(t=>typePT[t]||t).join(' / ')||'')}</small>${r.length?routeHTML(r[0]):`<p>${esc(ctx.acquisition[n]||'Comece por uma espécie anterior e evolua.')}</p>${base?limited(routes(base).slice(0,1),routeHTML):''}`}${evolutionHTML(n)}</article>`}).join(''):'<p>Escolha até seis Pokémon. O planejamento não marca capturas automaticamente.</p>';
@@ -70,10 +72,11 @@ function createAdventureGuide(ctx){
     const ac=ctx.acquisition[n]||'',rs=routes(n);let kind=/evento|Distribuição/i.test(ac)||rs.some(r=>r.special&&/Evento|Distribuição/.test(r.special[1]))?'Encontro especial':/White|outro jogador/.test(ac)?'Troca com personagem':rs.some(r=>!r.special||!/Troca/.test(r.special[1]))?'Captura / presente':evolution(n).some(e=>e.toSpecies===n)?'Evolução':rs.some(r=>r.special)?'Troca com personagem':'Evolução';return kind===group;
    });return `<details class="guide-category"><summary>${group} · ${names.length} pendentes</summary>${limited(names,n=>`<article class="guide-row"><strong>${esc(n)}</strong><p>${esc(ctx.acquisition[n]|| (group==='Evolução'?evolution(n).filter(e=>e.toSpecies===n).map(e=>e.condition).join(' / '):'Consulte os métodos e requisitos na busca de Pokémon.'))}</p>${routes(n)[0]?link(routes(n)[0].area[0]):''}<button type="button" data-guide-mon="${esc(n)}">Como obter?</button></article>`)}</details>`;
   }).join('');
-  const species=allSpecies.filter(ctx.isSpeciesVisible);for(const id of ['team-choice','evolution-choice','diagnostic-choice']){
+  const ds=host.querySelector('#diagnostic-area');
+  const species=allSpecies.filter(ctx.isSpeciesVisible),signature=species.join('|')+';'+areas.filter(a=>allowed(a[0])).map(a=>a[0]).join('|');if(signature!==selectSignature){selectSignature=signature;for(const id of ['team-choice','evolution-choice','diagnostic-choice']){
    const sel=host.querySelector('#'+id),old=sel.value;sel.innerHTML='<option value="">Escolha um Pokémon</option>'+species.map(n=>`<option>${esc(n)}</option>`).join('');if(species.includes(old))sel.value=old;
   }
-  const ds=host.querySelector('#diagnostic-area'),old=ds.value;ds.innerHTML='<option value="">Todos os locais</option>'+areas.filter(a=>allowed(a[0])).map(a=>`<option value="${a[0]}">${esc(a[1])}</option>`).join('');if(allowed(old))ds.value=old;
+  const old=ds.value;ds.innerHTML='<option value="">Todos os locais</option>'+areas.filter(a=>allowed(a[0])).map(a=>`<option value="${a[0]}">${esc(a[1])}</option>`).join('');if(allowed(old))ds.value=old;}
   const servicesQ=host.querySelector('#service-query').value;if(host.querySelector('#services-output').closest('.guide-tool').open)renderServices(servicesQ);if(host.querySelector('#agenda-output').closest('.guide-tool').open)renderAgenda();
   const output=host.querySelector('#diagnostic-output');if(host.querySelector('#diagnostic-choice').value)output.innerHTML=diagnose(host.querySelector('#diagnostic-choice').value,ds.value);
   if(host.querySelector('#evolution-choice').value)host.querySelector('#evolution-output').innerHTML=evolutionHTML(host.querySelector('#evolution-choice').value);
@@ -88,7 +91,8 @@ function createAdventureGuide(ctx){
  function renderItems(q){host.querySelector('#item-output').innerHTML=q.trim()?limited(itemSearch(q),r=>`<article class="guide-row"><strong>${esc(r.row.name)}</strong><p>${esc(r.row.where)}</p><small>${r.row.unavailable?'Indisponível':get().collectedItems.includes(r.row.id)?'Já marcado como obtido':'Ainda não marcado'}${r.row.price?' · '+esc(r.row.price):''}</small>${r.row.requirements?.length?`<p>Requisitos: ${esc(r.row.requirements.join(' · '))}</p>`:''}${link(r.area[0])}</article>`):'<p>Busque um item, uma pedra de evolução, um golpe de TM ou um código.</p>';}
  function renderMoves(q){
   if(!q.trim()){host.querySelector('#move-output').innerHTML='<p>Digite o nome de um golpe, como Thunderbolt ou False Swipe.</p>';return;}
-  const rows=allSpecies.filter(ctx.isSpeciesVisible).flatMap(n=>(mon(n)?.moves||[]).filter(([m])=>norm(m).includes(norm(q))).map(([move,method,level])=>({name:n,move,method,level})));
+  const query=norm(q);
+  const rows=allSpecies.filter(ctx.isSpeciesVisible).flatMap(n=>(mon(n)?.moves||[]).filter(([m])=>norm(m).includes(query)).map(([move,method,level])=>({name:n,move,method,level})));
   host.querySelector('#move-output').innerHTML='<p>Dados de Black 2 / Complete Unova v1.12. Golpes por reprodução exigem planejar os pais; golpes de tutor dependem do tutor e de seus requisitos.</p>'+limited(rows,r=>`<article class="guide-row"><strong>${esc(r.name)} · ${esc(r.move)}</strong><p>${esc(data.methods[r.method])}${r.method===1?' · Nv. '+r.level:''}</p>${r.method===4?itemSearch(r.move).slice(0,2).map(x=>link(x.area[0],x.row.code+' — '+x.area[1])).join(''):r.method===3?'<p>Consulte os tutores em Serviços úteis.</p>':''}<button type="button" data-guide-mon="${esc(r.name)}">Como obter ${esc(r.name)}?</button></article>`);
  }
  function renderArea(id){

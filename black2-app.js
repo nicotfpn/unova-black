@@ -76,7 +76,8 @@
   });
   progress=(await progressStore.load())||progress;
   const save=()=>{const saved=progressStore.save(progress);adventure?.refresh();cloudSync?.schedule();return saved;};
-  const caught=()=>new Set(progress.caught);
+  let caughtSource, caughtCache;
+  const caught=()=>{if(caughtSource!==progress.caught){caughtSource=progress.caught;caughtCache=new Set(caughtSource);}return caughtCache;};
   const stage=Black2Bridge.stage;
   function spoilerLocked(area){
     if(!progress.spoilerFree)return false;
@@ -159,15 +160,23 @@
     $('progress-summary').textContent=`${registered}/301 Unova · ${progress.caught.length}/${unovaDex.length+extraSpecies.length} no guia`;
   }
   let listOrder = 'dex', listScope = 'unova';
+  const speciesSearchIndex=new Map();
+  for(const name of allSpecies)for(const key of [norm(name),norm(dex(name).number)])if(!speciesSearchIndex.has(key))speciesSearchIndex.set(key,name);
+  const areaSearchIndex=new Map(areas.map(area=>[area[0],norm([area[1],area[6],area[9],(area[9]||'').split(',').filter(Boolean).map(name=>dex(name).number).join(' ')].join(' '))]));
   function matches(area) {
     const q = norm(search.value.trim());
-    const exact=allSpecies.find(name=>norm(name)===q||norm(dex(name).number)===q);
+    const exact=speciesSearchIndex.get(q);
     const p = phase === 'all' || (phase === 'available' ? exact ? availableNames(area).includes(exact) : isAvailable(area) : phase === 'legend' ? area[11] === 'legend' || area[5] === 'legend' : area[5] === phase);
-    const nums = (area[9] || '').split(',').filter(Boolean).map(name => dex(name).number).join(' ');
-    const hay = norm([area[1],area[6],area[9],nums].join(' '));
+    const hay = areaSearchIndex.get(area[0]);
     return !spoilerLocked(area) && p && (!q || hay.includes(q) || itemGuide.forArea(area[0]).some(row=>itemGuide.matches(row,q)));
   }
+  let mapTopology='',mapNodes=new Map();
   function drawMap() {
+    const shown=mappedAreas.filter(a=>!spoilerLocked(a)),topology=shown.map(a=>a[0]).join('|');
+    if(mapTopology===topology&&mapNodes.size){
+      for(const d of shown){const node=mapNodes.get(d[0]),cls=`node ${category(d)}${d[0]===current?' active':''}${visible.includes(d)?'':' dimmed'}${(d[9]?!isAvailable(d):!!lockReason(d))?' locked':''}`;if(node.getAttribute('class')!==cls)node.setAttribute('class',cls);}
+      return;
+    }
     let s = `<image href="black2-base.svg" x="0" y="0" width="1712" height="1080"/>`;
     for (const d of mappedAreas.filter(a=>!spoilerLocked(a))) {
       const [id,name,kind,x,y] = d;
@@ -180,6 +189,7 @@
       s += `<g class="node ${cls}${active}${dim}${locked}" data-id="${esc(id)}" tabindex="0" role="button" aria-label="Abrir ${esc(name)}"><title>${esc(name)}</title>${marker}${labelMarkup}<circle class="touch" cx="${x}" cy="${y}" r="37"/></g>`;
     }
     map.innerHTML = s;
+    mapTopology=topology;mapNodes=new Map([...map.querySelectorAll('.node')].map(node=>[node.dataset.id,node]));
     map.querySelectorAll('.node').forEach(node => {
       node.addEventListener('click', event => {
         const point = map.createSVGPoint(); point.x=event.clientX; point.y=event.clientY;
@@ -337,6 +347,7 @@
     progress.caught=[...set];save();renderProgress();renderDexList();renderDetail();
   }
   function renderDexList() {
+    if($('dex-view').hidden)return;
     const q = norm($('dex-search').value.trim());
     const container = $('dex-list');
     const entries=listScope==='unova'?unovaDex:[...unovaDex,...extraSpecies.map(name=>[nationalNumbers[name]||dexNumbers[name],name])];
@@ -375,6 +386,7 @@
     const showMap = view === 'map';
     $('map-view').hidden = !showMap; $('dex-view').hidden = view!=='dex'; $('tools-view').hidden=view!=='tools';$('team-view').hidden=view!=='team';$('play-view').hidden=view!=='play';if(view==='tools')adventure?.refresh();if(view==='team')teamPlanner?.refresh();if(view==='play')renderWalkthrough();$('now-view').hidden=view!=='now';if(view==='now')playingGuide?.refresh();if(view==='tools')renderTools();
     document.querySelectorAll('.view-tab').forEach(button => { const active = button.dataset.view === view; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
+    if(view==='dex')renderDexList();else $('dex-list').replaceChildren();if(view!=='play')$('play-view').replaceChildren();
     closeSheet(); window.scrollTo({top:0,behavior:'instant'});
     if (showMap) requestAnimationFrame(() => centerOn(current,false));
   }
@@ -411,13 +423,15 @@
   map.addEventListener('click',e=>{if(!viewport.classList.contains('overview')||e.target.closest('.node'))return;const rect=map.getBoundingClientRect(),x=(e.clientX-rect.left)/rect.width,y=(e.clientY-rect.top)/rect.height;setZoom(1);viewport.scrollTo({left:x*map.getBoundingClientRect().width-viewport.clientWidth/2,top:y*map.getBoundingClientRect().height-viewport.clientHeight/2,behavior:'instant'});updateMinimap()});
   $('mini-map').onclick=e=>{const rect=$('mini-map').getBoundingClientRect(), x=(e.clientX-rect.left)/rect.width,y=(e.clientY-rect.top)/rect.height;viewport.scrollTo({left:x*map.getBoundingClientRect().width-viewport.clientWidth/2,top:y*map.getBoundingClientRect().height-viewport.clientHeight/2,behavior:'smooth'});};
   $('mini-map').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('fit-map').click()}};
-  viewport.addEventListener('scroll',updateMinimap,{passive:true});
+  let minimapFrame=0;
+  viewport.addEventListener('scroll',()=>{if(!minimapFrame)minimapFrame=requestAnimationFrame(()=>{minimapFrame=0;updateMinimap();});},{passive:true});
   $('recenter').onclick=()=>centerOn('asp');
   window.addEventListener('resize',()=>{if(!mobile())closeSheet()});
   progressReady=true;
   let readingChapter=progress.chapter||0;
   function openChapter(i){readingChapter=i;switchView('play');renderWalkthrough();}
   function renderWalkthrough(){
+    if($('play-view').hidden)return;
     const c=black2Chapters[readingChapter],complete=c.steps.filter(step=>(progress.steps||[]).includes(step.id)).length;
     $('play-view').innerHTML=`<div class="plan-intro"><span class="section-index">DETONADO / BLACK 2</span><h1>${esc(c.title)}</h1><p>${esc(c.goal)}</p></div><div class="walkthrough-controls"><label>Capítulo<select id="walkthrough-chapter">${black2Chapters.map((chapter,i)=>`<option value="${i}" ${i===readingChapter?'selected':''}>${String(i+1).padStart(2,'0')} · ${esc(chapter.title)}</option>`).join('')}</select></label><button type="button" id="walkthrough-current">Estou nesta etapa</button></div><p id="walkthrough-count" class="save-status">${complete}/${c.steps.length} passos concluídos</p><div class="walkthrough-reader">${c.steps.map((step,i)=>`<section class="walkthrough-step"><label><input type="checkbox" data-step="${esc(step.id)}" ${(progress.steps||[]).includes(step.id)?'checked':''}><span><small>PASSO ${i+1}</small><b>${esc(step.title)}</b></span></label><p>${esc(step.text)}</p></section>`).join('')}</div>${[['prep','Antes de continuar'],['optional','Exploração opcional'],['lost','Me perdi. Para onde vou?']].map(([key,title])=>`<details class="story-chapter walkthrough-extra"><summary><b>${title}</b></summary><div class="story-chapter-body"><p>${esc(c[key])}</p></div></details>`).join('')}<details class="story-chapter walkthrough-extra"><summary><b>Áreas deste capítulo</b></summary><div class="story-chapter-body">${storyLinks(walkthroughChapters[readingChapter].path,'Locais do capítulo')}</div></details><label class="walkthrough-note">Lembrete para a próxima sessão<textarea id="walkthrough-note" placeholder="Onde parei, o que quero capturar…">${esc(progress.playNote)}</textarea></label><div class="walkthrough-footer">${readingChapter>0?`<button type="button" data-next-chapter="${readingChapter-1}">← Anterior</button>`:'<span></span>'}${readingChapter<21?`<button type="button" data-next-chapter="${readingChapter+1}">Próximo →</button>`:''}</div><p class="source-note">Texto próprio · <a href="${esc(c.source)}" target="_blank" rel="noopener">Referência do percurso</a> · Consulte os ajustes da hack em Ferramentas.</p>`;
     $('walkthrough-chapter').onchange=e=>openChapter(+e.target.value);
