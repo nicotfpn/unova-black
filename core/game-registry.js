@@ -41,9 +41,9 @@
       kind: 'official', status: 'usable', title: 'Pokémon Platinum', entry: 'platinum.html',
       adapter: 'packages/platinum/adapter.js',
       progress: { key: 'sinnoh-platinum-field-guide-v1', legacyGame: 'platinum' },
-      coverage: { map: 'partial', encounters: 'partial', items: 'partial', pokedex: 'available',
-        walkthrough: 'partial', battles: 'partial', offline: 'shared-bundle',
-        notes: ['Piloto: Twinleaf até a Coal Badge; mapa esquemático do sudoeste.', '210 entradas regionais. Encontros comuns por horário; radar, enxames, GBA e resto do jogo ainda fora do recorte.'] },
+      coverage: { map: 'available', encounters: 'partial', items: 'partial', pokedex: 'available',
+        walkthrough: 'available', battles: 'available', offline: 'shared-bundle',
+        notes: ['Sinnoh e Battle Zone; história, Liga e pós-jogo.', '210 entradas regionais; encontros por setor e condições. Presentes e eventos têm requisitos próprios.'] },
       sources: ['docs/platinum-audit.md', 'packages/platinum/sources.json'],
       audit: { inspectedOn: '2026-10-08', contentVerification: 'partial' }
     }

@@ -1,41 +1,42 @@
-# Pokémon Platinum · piloto oficial de Sinnoh
+# Pokémon Platinum · Sinnoh e Battle Zone
 
-Escolhido pelo usuário como primeiro jogo novo. Depende da arquitetura e do seletor dos PRs #23–#25. Conteúdo parcial utilizável: **Twinleaf até a Coal Badge**, com dez pontos selecionáveis e um mapa original esquemático de conexões do sudoeste. Não representa uma planta exata, o mapa inteiro nem interiores.
+Platinum foi escolhido pelo usuário como primeiro jogo novo. Esta expansão sucede o recorte do PR #26 e cobre o mapa regional e o roteiro da história até o pós-jogo. São **84 locais**, dos quais **82 pontos físicos** no mapa; errantes e transferências/eventos têm fichas próprias na lista. O mapa SVG é original, posicionado a partir da grade regional de Platinum, com pequenos deslocamentos de entradas próximas para separar os alvos de toque. Pisos e estados ficam no seletor de setores, sem inventar plantas de interiores.
 
 ## Conteúdo e procedência
 
-- PokeAPI: revisão `2fe95532d27a9bf340575253aff50868319d8182`, versão **14**, grupo **9** (geração IV), Pokédex **6** (`extended-sinnoh`). **210** entradas, na ordem regional de Platinum. Nenhum dado de tipos, movimentos ou evoluções de gerações futuras é carregado.
-- **33 tabelas comuns**: horário e método separados; grama, cavernas, Old Rod, Good Rod, Super Rod e Surf. Os slots ativos são agrupados por espécie, somando chances e mantendo níveis mínimos/máximos. A geração rejeita slots ativos duplicados e totais incompatíveis nestas tabelas comuns. Não impõe essa regra a encontros especiais de outras edições.
-- **70 linhas condicionais excluídas**: radar, enxames e inserção GBA não são misturados aos encontros comuns. Não são exibidos como ausência da espécie no jogo inteiro.
-- **11 ocorrências de itens**, com IDs próprios, método, localização, condição e referência por ocorrência. Lojas, itens ocultos e o inventário completo ainda não estão cobertos. TMs são consumíveis na geração IV; HMs são reutilizáveis.
-- **Três capítulos, nove etapas** com redação própria: início, Jubilife e primeira insígnia. Referências factuais: [Bulbapedia partes 1](https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_1), [2](https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_2) e [3](https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough/Section_3), [Serebii Route 201](https://www.serebii.net/pokearth/sinnoh/4th/route201.shtml) e [Oreburgh Gate](https://www.serebii.net/pokearth/sinnoh/4th/oreburghgate.shtml). Não são reproduzidos o texto do detonado nem imagens dessas fontes.
-- Uso de Surf: requer **Fen Badge**, quinta em Platinum, além do recurso informado; não herda a Relic Badge de Diamond/Pearl ou regras de Black. Referências: [Surf](https://bulbapedia.bulbagarden.net/wiki/Surf_(move)) e [sequência das insígnias](https://bulbapedia.bulbagarden.net/wiki/Badge_sequence).
+- PokeAPI, revisão `2fe95532d27a9bf340575253aff50868319d8182`: versão 14, grupo 9, geração IV. Pokédex regional extended-sinnoh com **210** entradas; lista Nacional da geração IV com **493**. Os CSVs têm SHA-256 fixados em `sources.json` e verificados pelo gerador.
+- As **163 áreas de origem** dos encontros de Platinum estão associadas a setores do guia. **612 tabelas comuns** separam método e horário, validam slots únicos e total de 100%. **915 tabelas condicionais**, mais três encontros editoriais dos Regis, permanecem separadas. Não se somam radar, enxame, GBA, espécies diárias ou grupos de Honey às chances comuns.
+- Presentes, ovos, trocas e encontros fixos usam chance nula, apresentada como fixo/presente. O nível de trocas depende do Pokémon oferecido. Feebas não recebe o falso 100% da ramificação da fonte: seus quadrados especiais e a chance não confirmada são explícitos. Requisitos de eventos, missões, grupos de Honey e seleções diárias permanecem visíveis; a interface não afirma tê-los deduzido automaticamente.
+- pret/pokeplatinum, revisão `c248fb3f8cc9934ded800e489567c5c0eeee92eb`: **182 células do mapa**, itens de eventos ativos, itens ocultos, presentes concretos, inventários selecionados e **40 times** de líderes, Galactic, Liga e revanches. `world.json` conserva hashes e referências dos insumos usados. Não são distribuídos textos do jogo, arte ou código executável da fonte.
+- **732 registros de itens**, incluindo todos os **92 TMs e 8 HMs**, itens no chão, ocultos, presentes e compras. TMs são consumidas; HMs são reutilizáveis. Não é uma declaração de inventário exaustivo: presentes com seleção dinâmica, condições de scripts e todos os estoques de lojas não são extraídos automaticamente. Presentes têm aviso de condição local. Os preços do Game Corner vêm do script primário; TM74 custa 15.000 moedas. Quatro TMs por BP e TM64 têm referências suplementares no editorial.
+- **27 capítulos e 93 etapas**, com redação própria, do início à Liga, exploração de Sinnoh e Battle Zone. Referências factuais por capítulo: [Bulbapedia, partes 1–26](https://bulbapedia.bulbagarden.net/wiki/Appendix:Platinum_walkthrough). Os capítulos não reproduzem o texto do detonado nem suas imagens. Os eventos antigos permanecem distinguíveis, incluindo Azure Flute não distribuída oficialmente para Platinum.
+- Times mostram níveis, itens e somente os golpes explicitamente definidos na fonte, sem deduzir golpes automáticos ausentes. Não há dados de tipos ou movimentos de gerações posteriores nem adaptação automática de times da hack.
 
-A área Verity combina a margem e o lago antes da intervenção da Team Galactic; o estado posterior está fora do recorte. Oreburgh Gate inclui apenas 1F; a entrada no subsolo é explicada, mas suas tabelas/itens ainda não são publicados. Rotas 204, 207 e 218 e ramificações próximas ainda não estão no mapa. O presente dos iniciais na Route 201 é explicado sem chance aleatória; a escolha não registra automaticamente captura. A Pokédex permite marcação manual, e ausência de encontro no recorte não significa exclusividade ou impossibilidade de obter a espécie.
+## Geração reproduzível
 
-## Estrutura e geração
-
-`packages/platinum/editorial.json` contém locais, conexões, itens e capítulos. `sources.json` fixa a revisão dos CSVs PokeAPI e SHA-256 de cada insumo; o gerador verifica os hashes. `data.js` é saída gerada, sem chamadas à API em produção. Os dez hashes foram também conferidos contra os arquivos baixados da revisão fixa.
+`editorial.json` contém locais, setores, conexões, capítulos e complementos referenciados. O extrator exige o checkout pret na revisão fixada. A saída `data.js` é local e não consulta APIs durante uso do guia.
 
 ```sh
-python scripts/build-platinum-data.py --download
-# Ou use uma pasta com os CSVs da revisão fixa:
-python scripts/build-platinum-data.py /path/to/csv
+python scripts/build-platinum-world.py /path/to/pokeplatinum
+python scripts/build-platinum-data.py /path/to/pinned-pokeapi-csv
+# Alternativa para os CSVs: python scripts/build-platinum-data.py --download
+python scripts/build-platinum-map.py
 python scripts/build-black2-interface.py
 python scripts/build-service-worker.py
 ```
 
-A interface pequena do piloto usa o CSS do guia, o registro, as consultas compartilhadas e `progress-store.js`. Evita carregar os catálogos e as regras de Unova numa página de Sinnoh. A Pokédex e o roteiro montam o conteúdo ao abrir e removem ao sair. Marcadores são criados uma vez, sem reconstrução por busca/filtro. Não há dependências novas em produção.
+O checkout pret deve conter `res/field`, `res/items`, `res/trainers`, `res/town_map`, `include/data` e `src/scrcmd_game_corner_prize.c`. A reextração e geração foram conferidas contra os insumos fixados. O teste de geradores reproduz o SVG e o service worker a partir dos arquivos versionados.
 
-## Progresso e navegação
+## Progresso e carregamento
 
-Chave **`sinnoh-platinum-field-guide-v1`**, esquema v1: capturas regionais, itens, passos, insígnias, horário, inicial, recursos e nota. Usa localStorage e recuperação IndexedDB existentes. Cópias exportadas incluem identidade da edição; a importação rejeita outra edição ou esquema, sem alterar o progresso atual. IDs desconhecidos são filtrados.
+A chave **`sinnoh-platinum-field-guide-v1`** e o esquema v1 são preservados. Os onze IDs de itens, locais, etapas, capturas e notas do piloto continuam válidos; IDs brutos substituídos têm aliases. Capturas nacionais coexistem com o contador regional de 210. Black e a hack mantêm suas chaves, clientes e dados próprios. Cópias estrangeiras são rejeitadas sem substituir o save atual.
 
-A retomada usa `unova-last-game=platinum`; as URLs, preferências legadas e chaves de Black/hack são preservadas. O seletor mostra Sinnoh, cobertura parcial e o limite do piloto. O cache continua **compartilhado**, com os arquivos do piloto incluídos pelo gerador. Offline seletivo por edição ainda não foi implementado.
+Pokédex, roteiro e times montam conteúdo ao abrir e removem ao sair. Uma ficha começa com no máximo oito grupos e oito itens; os Pokémon de cada grupo são montados ao expandir. Os 82 marcadores permanecem no DOM durante buscas e filtros. A busca aceita nomes e números de TM/HM com ou sem zero. Nenhuma dependência nova em produção. O catálogo descreve história e pós-jogo; cobertura de encontros/itens continua parcial como auditoria, apesar da abrangência regional.
+
+O cache permanece compartilhado e inclui as três edições. Cache seletivo por edição e múltiplas jornadas continuam pendentes. Este PR não faz merge nem deploy.
 
 ## Validação e limites
 
-- 69 testes Node aprovados. Verificam edição/região/geração, 210 entradas únicas, escopo dos encontros, probabilidades e condições por horário, rods/Surf, IDs de itens e retomada.
-- Teste DOM de Platinum verifica busca de TM, captura, item, etapa, nota, reabertura, jornada isolada, seletor, teclado na ficha móvel, rejeição de backup estrangeiro e armazenamento indisponível. Pokédex/roteiro ocultos ficam sem linhas montadas; inicialização tem menos de 800 elementos no ambiente DOM.
-- Suítes legadas verificam Black e a hack, migrações, alternância e geração reproduzível. Dados e clientes dessas duas edições permanecem independentes.
-- DOM e cache simulados não equivalem a medir RAM, toque/zoom real, pixels ou Safari/iPhone. Revisão visual e offline real continuam pendentes antes de publicar. Este PR não faz merge nem deploy.
+Passaram **72 testes Node e seis suítes DOM**. Os testes verificam cobertura dos setores, chances comuns, condicionais, todos os TMs/HMs, preservação dos onze IDs, caminhos do roteiro, times e separação dos pontos físicos. O teste DOM cobre consultas, capturas regionais/nacionais, itens, etapas, notas, save antigo, telas sob demanda, seletor, ficha móvel por teclado e rejeição de backup estrangeiro. A inicialização tem 883 elementos no ambiente DOM e não monta as listas da Pokédex ou do roteiro.
+
+As suítes legadas continuam cobrindo Black/hack, persistência, alternância e cache simulado. DOM não mede RAM nem valida pixels, toque/zoom ou offline real em Safari/iPhone. Essas verificações em dispositivos reais permanecem pendentes; não há promessa de desempenho medido em um Positivo de 4 GB.
