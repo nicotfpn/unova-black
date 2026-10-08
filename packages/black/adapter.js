@@ -4,5 +4,9 @@ GameRegistry.register('pokemon-black', () => ({
   map: UnovaMap,
   encounters: encounterTables,
   items: itemTables,
-  chapters: walkthroughChapters
+  chapters: walkthroughChapters,
+  queries: {
+    items: createItemQueries(itemTables),
+    createEncounters: options => createBlackEncounterQueries({ ...options, tables: encounterTables })
+  }
 }));

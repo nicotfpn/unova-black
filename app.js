@@ -95,7 +95,8 @@
     Rufflet:'Só aparece selvagem em White. Receba por troca com outro jogador',Braviary:'Evolua Rufflet no Nv. 54 (a primeira evolução vem de White)',Zweilous:'Evolua Deino no Nv. 50',Hydreigon:'Evolua Zweilous no Nv. 64',
     Volcarona:'Encontro fixo Nv. 70 no Relic Castle após a Pokédex Nacional',Thundurus:'Lendário errante de White: troque com outro jogador',Zekrom:'Lendário da história de White: troque com outro jogador'
   };
-  const itemGuide=createItemGuide(itemTables);
+  const itemQueries=gamePackage.queries.items;
+  const itemGuide=createItemGuide(itemQueries);
   let itemFilter='all';
   let adventure=null, cloudSync=null, teamPlanner=null, playingGuide=null;
   const storageKey=gamePackage.edition.progress.key;
@@ -104,7 +105,7 @@
     const clean={...defaults,caught:[],collectedItems:[],tasks:[],team:[],notes:{},teamPlan:{}};
     if(!value||typeof value!=='object')return clean;
     clean.caught=Array.isArray(value.caught)?[...new Set(value.caught.filter(name=>allSpecies.includes(name)))]:[];
-    clean.collectedItems=itemGuide.normalizeCollected(value.collectedItems);
+    clean.collectedItems=itemQueries.normalizeCollected(value.collectedItems);
     if(Number.isInteger(value.badges)&&value.badges>=0&&value.badges<=8)clean.badges=value.badges;
     for(const key of ['league','surf','strength','cobalion','rod','trades','events'])clean[key]=value[key]===true;
     if(['all','Spring','Summer','Autumn','Winter'].includes(value.season))clean.season=value.season;
@@ -145,12 +146,14 @@
     const parent=pokemonGuideData.pokemon[name]?.parent;
     return parent?isSpeciesVisible(parent):progress.league;
   }
+  const encounterQueries=gamePackage.queries.createEncounters({specials:specialEncounters,stage,getProgress:()=>progress,regionalSet,extraSpecies});
+  const {lockReason,specialLock,isAvailable,availableNames,rateUncertain}=encounterQueries;
   const firstRank=new Map();
   function recordFirst(name,area,rank) {
     if(!firstRank.has(name)||rank<firstRank.get(name)){firstRank.set(name,rank);firstPlace.set(name,area);}
   }
   for(const area of orderedAreas){
-    for(const table of encounterTables[area[0]]||[]){
+    for(const table of encounterQueries.forArea(area[0])){
       const req=table.requires||{};
       let rank=req.league||area[5]==='post'||/Fishing|Swarms/.test(table.method)?100:Math.max(stage[area[0]]??0,req.badges??0);
       if(req.surf||/Surfing/.test(table.method)||['r17','r18','p2','mc'].includes(area[0]))rank=Math.max(rank,5);
@@ -166,53 +169,6 @@
       if(['Cobalion','Virizion','Terrakion','Larvesta'].includes(entry[0]))rank=Math.max(rank,5);
       for(const name of entry[0].split(' / '))recordFirst(name,area,rank);
     }
-  }
-  function lockReason(area, table={}) {
-    const method=table.method||'',seasons=table.seasons||[],req=table.requires||{};
-    if ((area[5]==='post'||['chasm','challenger','ab','marv','black','r11','r12','r13','r14','r15','lac','und','vb'].includes(area[0])||req.league)&&!progress.league) return 'Conclua a história principal para acessar o local';
-    const badges=req.badges??stage[area[0]]??0;
-    if (badges>progress.badges) return `Avance até ${badges} insígnias para acessar o local (estimativa)`;
-    if (method==='Swarms') return progress.league?'Confira se o enxame de hoje está neste local':'Os enxames só ficam disponíveis depois da Liga';
-    if ((req.surf||['r17','r18','p2','mc'].includes(area[0])||/Surfing/.test(method))&&!progress.surf) return 'Você precisa de Surf';
-    if (req.strength&&!progress.strength) return 'Você precisa de Strength para mover as pedras';
-    if (req.cobalion&&!progress.cobalion) return 'Encontre Cobalion para liberar este setor';
-    if (/Fishing/.test(method)&&(!progress.rod||!progress.league)) return 'Você precisa da Super Rod, recebida após vencer Ghetsis';
-    if (seasons.length&&progress.season==='all') return 'Informe a estação do jogo em Meu progresso';
-    if (seasons.length&&!seasons.includes(progress.season)) return 'Este encontro não está disponível na estação selecionada';
-    return '';
-  }
-  function specialLock(area,entry,species=''){
-    const base=lockReason(area);if(base)return base;
-    const [name,method]=entry;
-    const monkey={Snivy:'Panpour',Tepig:'Pansage',Oshawott:'Pansear'};
-    if(species&&name==='Snivy / Tepig / Oshawott'&&progress.starter&&species!==progress.starter)return 'Você escolheu outro inicial; este precisa ser recebido por troca';
-    if(species&&name==='Pansage / Pansear / Panpour'&&progress.starter&&species!==monkey[progress.starter])return 'O Pokémon recebido depende do inicial que você escolheu';
-    if(species&&name==='Tirtouga / Archen'&&progress.fossil&&species!==progress.fossil)return 'Você escolheu o outro fóssil; esta espécie precisa ser recebida por troca';
-    if (/Evento|Distribuição/.test(method)&&!progress.events)return 'Exige um Pokémon ou item de um evento antigo';
-    if (name==='Petilil'&&progress.badges<2)return 'Capture Cottonee em Pinwheel Forest após 2 insígnias';
-    if (/Troca/.test(method)&&method!=='Troca interna de Black'&&!progress.trades)return 'Ative “Mostrar Pokémon obtidos por troca” em Meu progresso';
-    if (name.includes('Tirtouga')&&progress.badges<3)return 'Escolha um fóssil no Relic Castle após 3 insígnias';
-    if (name==='Musharna')return progress.league?'Vá ao porão do Dreamyard em uma sexta-feira':'Porão do Dreamyard após a Liga';
-    if (name==='Volcarona'&&!progress.league)return 'Após a Pokédex Nacional';
-    if (name==='Darmanitan')return 'Use uma RageCandyBar na estátua';
-    if (name==='Landorus'&&!progress.trades)return 'Receba Thundurus de White por troca';
-    if (name==='Landorus')return 'Tenha Tornadus e Thundurus na equipe';
-    if (['Virizion','Terrakion'].includes(name)&&!progress.cobalion)return 'Encontre Cobalion primeiro';
-    if (name==='Cobalion'&&!progress.strength)return 'Você precisa de Strength para mover as pedras';
-    if (['Larvesta','Cobalion'].includes(name)&&!progress.surf)return 'Você precisa de Surf';
-    return '';
-  }
-  const isAvailable=area => (encounterTables[area[0]]||[]).some(t=>!lockReason(area,t)) || (specialEncounters[area[0]]||[]).some(entry=>!specialLock(area,entry));
-  function availableNames(area) {
-    const wild=(encounterTables[area[0]]||[]).filter(t=>!lockReason(area,t)).flatMap(t=>t.pokemon.map(row=>row[0]));
-    const monkey={Snivy:'Panpour',Tepig:'Pansage',Oshawott:'Pansear'};
-    const special=(specialEncounters[area[0]]||[]).filter(entry=>!specialLock(area,entry)).flatMap(entry=>{
-      if(entry[0]==='Snivy / Tepig / Oshawott')return progress.starter?[progress.starter]:[];
-      if(entry[0]==='Pansage / Pansear / Panpour')return monkey[progress.starter]?[monkey[progress.starter]]:[];
-      if(entry[0]==='Tirtouga / Archen')return progress.fossil?[progress.fossil]:[];
-      return entry[0].split(' / ');
-    });
-    return [...new Set([...wild,...special])].filter(name=>regionalSet.has(name)||extraSpecies.includes(name));
   }
   function renderProgress() {
     $('badge-count').value=String(progress.badges);
@@ -232,7 +188,7 @@
     const exact=speciesSearchIndex.get(q);
     const p = phase === 'all' || (phase === 'available' ? exact ? availableNames(area).includes(exact) : isAvailable(area) : phase === 'legend' ? area[11] === 'legend' || area[5] === 'legend' : area[5] === phase);
     const hay = areaSearchIndex.get(area[0]);
-    return !spoilerLocked(area) && p && (!q || hay.includes(q) || itemGuide.forArea(area[0]).some(row=>itemGuide.matches(row,q)));
+    return !spoilerLocked(area) && p && (!q || hay.includes(q) || itemQueries.forArea(area[0]).some(row=>itemQueries.matches(row,q)));
   }
   let mapTopology='',mapNodes=new Map();
   function drawMap() {
@@ -304,7 +260,6 @@
     return [method,'Encontro especial desta área.'];
   }
   const levelText = value => {const [from,to]=String(value).split(' - ');return from===to?from:`${from}–${to}`;};
-  const rateUncertain=(id,method)=>((id==='r11'||id==='ab')&&method==='Standard Fishing')||(id==='chasm'&&method==='Fishing Spots');
   function encounterHTML(table,id,index) {
     const [title,help]=methodInfo(table.method,id);
     const where=[...table.sections.map(sectionLabel),...table.seasons.map(s=>seasonsPT[s]||s)].join(' · ');
@@ -330,7 +285,7 @@
     const itemsWereOpen=detail.querySelector('.area-items')?.open||false;
     const moreItemsWereOpen=detail.querySelector('.item-more')?.open||false;
     const d = byId.get(current); if (!d) return;
-    const tables=encounterTables[current]||[], specials=(specialEncounters[current]||[]).filter(e=>e[0].split(' / ').some(isSpeciesVisible));
+    const tables=encounterQueries.forArea(current), specials=(encounterQueries.specialsForArea(current)).filter(e=>e[0].split(' / ').some(isSpeciesVisible));
     const wildCount=new Set(tables.flatMap(t=>t.pokemon.map(mon=>mon[0]))).size;
     const checklist=availableNames(d);
     const place = d[5] === 'post' ? 'Pós-Liga' : d[5] === 'legend' ? 'Evento / lendário' : d[6];
@@ -353,7 +308,7 @@
   function bindItemControls(){
     detail.querySelectorAll('[data-item-id]').forEach(button=>button.onclick=()=>{
       const id=button.dataset.itemId;
-      if(!itemGuide.validIds.has(id))return;
+      if(!itemQueries.validIds.has(id))return;
       const collected=new Set(progress.collectedItems);
       collected.has(id)?collected.delete(id):collected.add(id);
       progress.collectedItems=[...collected];save();
@@ -392,14 +347,12 @@
   function renderResults() {
     const q=search.value.trim(); $('results-title').textContent = q ? 'Resultados da busca' : phase === 'all' ? 'Todas as áreas' : phase === 'available' ? 'Pokémon que posso capturar' : phase === 'story' ? 'Durante a história' : phase === 'post' ? 'Após a Liga' : 'Lendários e eventos';
     $('result-count').textContent = `${visible.length} ${visible.length === 1 ? 'local' : 'locais'}`;
-    list.innerHTML=visible.length ? visible.map(d => {const names=(phase==='available'?availableNames(d):(d[9]||'').split(',').filter(Boolean)).filter(isSpeciesVisible);return `<button class="result-item${d[0]===current?' active':''}" type="button" data-id="${esc(d[0])}"><span class="result-dot ${category(d)}"></span><span class="result-copy"><strong>${esc(d[1])}</strong><small>${esc(names.length ? names.slice(0,4).map(name => `${dex(name).number} ${name}`).join(' · ') : (progress.spoilerFree?'Consulte a ficha deste local.':d[7]))}</small>${itemGuide.forArea(d[0]).length?`<small class="result-items">${esc(q&&itemGuide.forArea(d[0]).some(row=>itemGuide.matches(row,q))?itemGuide.forArea(d[0]).filter(row=>itemGuide.matches(row,q)).slice(0,3).map(row=>row.name).join(' · '):itemGuide.counts(d[0],progress.collectedItems).obtained+'/'+itemGuide.counts(d[0]).total+' itens obtidos')}</small>`:''}</span></button>`;}).join('') : '<div class="no-results">Nenhum local encontrado. Tente outro nome ou filtro.</div>';
+    list.innerHTML=visible.length ? visible.map(d => {const names=(phase==='available'?availableNames(d):(d[9]||'').split(',').filter(Boolean)).filter(isSpeciesVisible);return `<button class="result-item${d[0]===current?' active':''}" type="button" data-id="${esc(d[0])}"><span class="result-dot ${category(d)}"></span><span class="result-copy"><strong>${esc(d[1])}</strong><small>${esc(names.length ? names.slice(0,4).map(name => `${dex(name).number} ${name}`).join(' · ') : (progress.spoilerFree?'Consulte a ficha deste local.':d[7]))}</small>${itemQueries.forArea(d[0]).length?`<small class="result-items">${esc(q&&itemQueries.forArea(d[0]).some(row=>itemQueries.matches(row,q))?itemQueries.forArea(d[0]).filter(row=>itemQueries.matches(row,q)).slice(0,3).map(row=>row.name).join(' · '):itemQueries.counts(d[0],progress.collectedItems).obtained+'/'+itemQueries.counts(d[0]).total+' itens obtidos')}</small>`:''}</span></button>`;}).join('') : '<div class="no-results">Nenhum local encontrado. Tente outro nome ou filtro.</div>';
     list.querySelectorAll('[data-id]').forEach(button => button.onclick = () => select(button.dataset.id));
     const species=allSpecies.find(name=>norm(name)===norm(q)||norm(dex(name).number)===norm(q));
     const finder=$('pokemon-finder');finder.hidden=!species;
     if(species){
-      const options=orderedAreas.flatMap(area=>(encounterTables[area[0]]||[]).flatMap(table=>table.pokemon.filter(row=>row[0]===species).map(([name,rate,level])=>({area,table,rate,level,lock:lockReason(area,table)}))));
-      const specialOptions=orderedAreas.flatMap(area=>(specialEncounters[area[0]]||[]).filter(entry=>entry[0].split(' / ').includes(species)).map(entry=>({area,entry,lock:specialLock(area,entry,species)})));
-      options.sort((a,b)=>Number(!!a.lock)-Number(!!b.lock)||Number(rateUncertain(a.area[0],a.table.method))-Number(rateUncertain(b.area[0],b.table.method))||b.rate-a.rate);
+      const {options,specialOptions}=encounterQueries.forSpecies(orderedAreas,species);
       finder.innerHTML=`<div class="finder-title"><span class="section-index">COMO ENCONTRAR</span><strong>${esc(dex(species).number)} ${esc(species)}</strong></div>${options.length||specialOptions.length?`<div class="finder-options">${[...options.slice(0,4).map(item=>`<button type="button" data-find="${esc(item.area[0])}"><b>${esc(item.area[1])}</b><span>${esc(methodInfo(item.table.method,item.area[0])[0])} · ${rateUncertain(item.area[0],item.table.method)?'chance a confirmar':item.rate+'%'} · Nv. ${esc(levelText(item.level))}</span><small>${item.lock?'Falta: '+esc(item.lock):'Disponível conforme seu progresso'}</small></button>`),...specialOptions.slice(0,2).map(item=>`<button type="button" data-find="${esc(item.area[0])}"><b>${esc(item.area[1])}</b><span>${esc(item.entry[1])}</span><small>${item.lock?'Condição: '+esc(item.lock):'Ver detalhes do encontro'}</small></button>`)].join('')}</div>`:`<p>${esc(acquisition[species]||'Consulte a lista de Pokémon para saber como obter esta espécie.')}</p>`}`;
       finder.querySelectorAll('[data-find]').forEach(button=>button.onclick=()=>select(button.dataset.find));
     }
@@ -493,7 +446,7 @@
   window.addEventListener('resize',()=>{if(!mobile())closeSheet()});
   progressReady=true;
   adventure=createAdventureGuide({areas,encounters:encounterTables,specials:specialEncounters,stage,editorial:adventureData,data:pokemonGuideData,chapters:walkthroughChapters,allSpecies,items:itemTables,acquisition,
-    getProgress:()=>progress,availableNames,lockReason,specialLock,methodInfo,sectionLabel,seasonLabel:s=>seasonsPT[s]||s,itemMatches:itemGuide.matches,spoilerLocked,isSpeciesVisible,
+    getProgress:()=>progress,availableNames,lockReason,specialLock,methodInfo,sectionLabel,seasonLabel:s=>seasonsPT[s]||s,itemMatches:itemQueries.matches,spoilerLocked,isSpeciesVisible,
     openArea:id=>{search.value='';phase='all';switchView('map');applyFilters();select(id);},
     update:patch=>{progress=normalizeProgress({...progress,...patch});save();renderProgress();renderDexList();renderStoryOutline();},
     refresh:()=>{if(spoilerLocked(byId.get(current)))current='r1';renderStoryOutline();applyFilters();renderDetail();renderDexList();}

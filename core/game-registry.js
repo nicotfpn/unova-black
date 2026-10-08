@@ -53,7 +53,7 @@
     const edition = get(id), factory = adapters.get(id);
     if (!factory) throw new Error('Pacote não carregado: ' + id);
     const data = factory();
-    if (!Array.isArray(data.areas) || !data.map || !data.encounters || !data.items || !Array.isArray(data.chapters)) {
+    if (!Array.isArray(data.areas) || !data.map || !data.encounters || !data.items || !Array.isArray(data.chapters) || typeof data.queries?.items?.forArea !== 'function' || typeof data.queries?.createEncounters !== 'function') {
       throw new Error('Pacote incompatível: ' + id);
     }
     // Legacy data remains mutable for the existing UI and hack pipeline.

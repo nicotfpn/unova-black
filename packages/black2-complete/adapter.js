@@ -4,5 +4,9 @@ GameRegistry.register('pokemon-black2-complete-unova-1.12', () => ({
   map: Black2Bridge.map,
   encounters: encounterTables,
   items: itemTables,
-  chapters: walkthroughChapters
+  chapters: walkthroughChapters,
+  queries: {
+    items: createItemQueries(itemTables),
+    createEncounters: options => createBlack2CompleteEncounterQueries({ ...options, tables: encounterTables, conditionLabel: Black2Bridge.conditionLabel })
+  }
 }));

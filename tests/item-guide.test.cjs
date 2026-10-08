@@ -32,7 +32,7 @@ test('search accepts padded and plain machine numbers and item names',()=>{
  assert.ok(guide.matches(rows.find(r=>r.name==='Fire Stone'),'fire stone'));
 });
 test('normalization preserves old Pokémon progress and only accepts known item ids',()=>{
- const d={};vm.createContext(d);vm.runInContext(read('pokemon-guide-data.js')+';this.data=pokemonGuideData;',d);const c={normalizeTeamPlan:require('../team-plan.js').normalizeTeamPlan,pokemonGuideData:d.data,itemTables:tables,byId:new Map(),itemGuide:guide,allSpecies:['Patrat','Litwick']};vm.createContext(c);
+ const d={};vm.createContext(d);vm.runInContext(read('pokemon-guide-data.js')+';this.data=pokemonGuideData;',d);const c={normalizeTeamPlan:require('../team-plan.js').normalizeTeamPlan,pokemonGuideData:d.data,itemTables:tables,byId:new Map(),itemQueries:guide,allSpecies:['Patrat','Litwick']};vm.createContext(c);
  const app=read('app.js'),chunk=app.slice(app.indexOf('  const defaults='),app.indexOf('  let progress=normalizeProgress'));
  vm.runInContext(chunk+';this.normalize=normalizeProgress;',c);
  const old=c.normalize({caught:['Patrat'],badges:5});assert.deepEqual([...old.caught],['Patrat']);assert.deepEqual([...old.collectedItems],[]);
